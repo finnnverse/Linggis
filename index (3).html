@@ -1,0 +1,2135 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Inggris Dari Nol</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap">
+<style>
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<style>
+/* Layout: app shell. Kolom baca 720px, tab bar di bawah (HP) / di header (desktop).
+   Bahasa Inggris selalu serif + stabilo kuning; antarmuka Indonesia sans. */
+:root{
+  --bg:#F5F6FB; --surface:#FFFFFF; --sunk:#ECEEF6; --ink:#141A38; --muted:#5A6285; --line:#DADEEC;
+  --accent:#2D43DB; --accent-ink:#FFFFFF; --accent-soft:#E3E7FC;
+  --mark:#FFDF3D; --mark-ink:#141A38; --mark-band:#FFE566;
+  --hero:#141A38; --hero-ink:#F5F6FB; --hero-muted:#A9B0D6; --hero-line:#2C3566;
+  --good:#1C7C4E; --good-soft:#DFF3E7; --bad:#B93A2B; --bad-soft:#FBE5E1; --warn:#8F5E00; --warn-soft:#FFF1CC;
+  --f-ui:"Plus Jakarta Sans","Segoe UI",system-ui,sans-serif;
+  --f-en:"Newsreader","Iowan Old Style",Georgia,serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:16px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0B0F24; --surface:#141936; --sunk:#1B2147; --ink:#ECEEFB; --muted:#9BA3C9; --line:#293061;
+  --accent:#8E9DFF; --accent-ink:#0B0F24; --accent-soft:#222A5C;
+  --mark:#FFD94A; --mark-ink:#141A38; --mark-band:rgba(255,217,74,.34);
+  --hero:#1B2147; --hero-ink:#ECEEFB; --hero-muted:#9BA3C9; --hero-line:#333C78;
+  --good:#6FD09A; --good-soft:#15382A; --bad:#F3907E; --bad-soft:#3D1F1B; --warn:#EDBE5E; --warn-soft:#3B2E12;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0B0F24; --surface:#141936; --sunk:#1B2147; --ink:#ECEEFB; --muted:#9BA3C9; --line:#293061;
+  --accent:#8E9DFF; --accent-ink:#0B0F24; --accent-soft:#222A5C;
+  --mark:#FFD94A; --mark-ink:#141A38; --mark-band:rgba(255,217,74,.34);
+  --hero:#1B2147; --hero-ink:#ECEEFB; --hero-muted:#9BA3C9; --hero-line:#333C78;
+  --good:#6FD09A; --good-soft:#15382A; --bad:#F3907E; --bad-soft:#3D1F1B; --warn:#EDBE5E; --warn-soft:#3B2E12;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-ui);font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+h1,h2,h3{margin:0;line-height:1.15;text-wrap:balance;letter-spacing:-.02em;font-weight:800}
+p{margin:0}
+button,input,textarea{font:inherit;color:inherit}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:8px}
+.ic{width:1.15em;height:1.15em;flex:none;vertical-align:-.2em}
+.en{font-family:var(--f-en);letter-spacing:-.005em}
+.hl{background:linear-gradient(transparent 56%,var(--mark-band) 56%);padding:0 .1em;border-radius:2px}
+.wrap{max-width:752px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.eyebrow{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.lede{color:var(--muted);max-width:62ch}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.row.c{justify-content:center}
+
+/* ---------- header & nav ---------- */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:14px;padding-block:10px;max-width:980px}
+.brand{font-weight:800;font-size:18px;letter-spacing:-.03em;color:var(--ink);text-decoration:none;white-space:nowrap}
+.brand span{background:var(--mark);color:var(--mark-ink);padding:1px 7px;border-radius:6px;margin-left:2px;display:inline-block;transform:rotate(-2deg)}
+.streak{margin-left:auto;display:inline-flex;align-items:center;gap:5px;font-weight:800;font-size:14px;padding:5px 11px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-variant-numeric:tabular-nums;white-space:nowrap}
+.streak .ic{color:var(--warn)}
+.streak.on{background:var(--mark);color:var(--mark-ink);border-color:var(--mark)}
+.streak.on .ic{color:var(--mark-ink)}
+nav.tabs{display:flex;gap:2px}
+nav.tabs a{display:flex;align-items:center;gap:7px;text-decoration:none;color:var(--muted);font-weight:700;font-size:14.5px;padding:8px 12px;border-radius:10px;white-space:nowrap}
+nav.tabs a:hover{color:var(--ink)}
+nav.tabs a[aria-current="page"]{color:var(--ink);background:var(--surface);box-shadow:inset 0 -3px 0 var(--mark)}
+@media (min-width:821px){nav.tabs{margin-left:18px}}
+@media (max-width:820px){
+  nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:7;background:var(--surface);border-top:1px solid var(--line);
+    padding:6px max(8px,env(safe-area-inset-left,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-right,0px));justify-content:space-around;gap:0}
+  nav.tabs a{flex:1;flex-direction:column;gap:2px;font-size:11.5px;padding:6px 2px;min-width:0}
+  nav.tabs a .ic{width:22px;height:22px}
+  nav.tabs a[aria-current="page"]{background:transparent;box-shadow:none;color:var(--ink)}
+  nav.tabs a[aria-current="page"] b{background:linear-gradient(transparent 50%,var(--mark-band) 50%)}
+  main{padding-bottom:104px!important}
+}
+nav.tabs a b{font-weight:700;padding:0 3px}
+
+main{padding-block:22px 64px;display:flex;flex-direction:column;gap:26px}
+main>*{min-width:0}
+.enter{animation:rise .32s ease-out}
+@keyframes rise{from{transform:translateY(8px);opacity:.4}to{transform:none;opacity:1}}
+.h-page{font-size:clamp(30px,6.4vw,44px)}
+.h-sec{font-size:20px;margin-bottom:12px}
+.pagehead{display:flex;flex-direction:column;gap:8px}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line);background:var(--surface);padding:11px 18px;border-radius:12px;font-weight:700;cursor:pointer;font-size:15.5px;text-decoration:none;color:var(--ink);line-height:1.2;transition:transform .12s,border-color .12s}
+.btn:hover{border-color:var(--accent)}
+.btn:active{transform:scale(.97)}
+.btn.pri{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.mark{background:var(--mark);color:var(--mark-ink);border-color:var(--mark)}
+.btn.ghost{border-color:transparent;background:transparent;color:var(--muted)}
+.btn.sm{padding:7px 12px;font-size:14px;border-radius:10px}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.spk{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:5px 11px;font-size:13.5px;font-weight:700;cursor:pointer;line-height:1.2}
+.spk:hover{border-color:var(--accent);color:var(--accent)}
+.spk.bare{border:0;background:transparent;padding:4px;color:var(--muted)}
+.back{display:inline-flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;font-weight:700;font-size:14px}
+
+/* ---------- hero (Hari Ini) ---------- */
+.hero{background:var(--hero);color:var(--hero-ink);border-radius:22px;padding:24px 22px 20px;display:flex;flex-direction:column;gap:14px;position:relative;overflow:hidden}
+.hero .eyebrow{color:var(--hero-muted)}
+.hero-top{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+.lvl-chip{font-family:var(--f-mono);font-size:12px;padding:3px 9px;border-radius:999px;border:1px solid var(--hero-line);color:var(--hero-ink)}
+.hero h1{font-size:clamp(30px,7.4vw,46px);max-width:16ch}
+.hero h1 mark{background:none;color:var(--mark)}
+.hero p{color:var(--hero-muted);max-width:46ch}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;border-top:1px solid var(--hero-line);padding-top:14px;margin-top:4px}
+.week div{display:flex;flex-direction:column;align-items:center;gap:5px;font-family:var(--f-mono);font-size:11px;color:var(--hero-muted)}
+.week i{width:100%;max-width:44px;height:8px;border-radius:99px;background:var(--hero-line)}
+.week .on i{background:var(--mark)}
+.week .today{color:var(--hero-ink);font-weight:500}
+.week .today i{outline:2px solid var(--hero-ink);outline-offset:2px}
+
+/* ---------- plan ---------- */
+.plan{list-style:none;margin:0;padding:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.plan li+li{border-top:1px solid var(--line)}
+.plan a,.plan button{display:flex;align-items:center;gap:14px;width:100%;padding:13px 16px;background:none;border:0;text-align:left;text-decoration:none;color:inherit;cursor:pointer}
+.plan a:hover,.plan button:hover{background:var(--sunk)}
+.plan .num{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-mono);font-size:13px;border:1.5px solid var(--line);flex:none;color:var(--muted)}
+.plan .tx{flex:1;min-width:0;display:flex;flex-direction:column}
+.plan .tx b{font-size:16px;line-height:1.3}
+.plan .tx em{font-style:normal;font-size:14px;color:var(--muted);line-height:1.35}
+.plan .go{color:var(--muted)}
+.plan .s-ok .num{background:var(--good);border-color:var(--good);color:var(--surface)}
+.plan .s-ok .tx b{color:var(--muted);text-decoration:line-through;text-decoration-thickness:1px}
+.plan .s-now .num{background:var(--mark);border-color:var(--mark);color:var(--mark-ink);font-weight:500}
+.plan .s-lock{opacity:.55}
+
+/* ---------- panel / task ---------- */
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:16px}
+.panel.em{border:2px solid var(--ink)}
+.panel.warn{border:2px solid var(--warn)}
+.panel h2{font-size:24px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-family:var(--f-en);font-size:16px;padding:2px 10px;border-radius:8px;background:var(--sunk)}
+.note{font-size:14.5px;padding:10px 14px;border-radius:12px;background:var(--warn-soft)}
+.note.good{background:var(--good-soft)} .note.bad{background:var(--bad-soft)} .note.info{background:var(--accent-soft)}
+
+.wlist{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.wlist>div{display:grid;grid-template-columns:auto minmax(0,1.1fr) minmax(0,1fr);gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.wlist .w{font-family:var(--f-en);font-size:19px;font-weight:600;line-height:1.25}
+.wlist .w small{display:block;font-family:var(--f-mono);font-weight:400;color:var(--muted);font-size:12px}
+.wlist .m{color:var(--muted);font-size:15px;line-height:1.35}
+.boxes{display:inline-flex;gap:3px;margin-top:4px}
+.boxes i{width:8px;height:8px;border-radius:2px;background:var(--line)}
+.boxes i.on{background:var(--accent)}
+
+/* ---------- flashcard ---------- */
+.flip{perspective:1400px;cursor:pointer;border-radius:22px}
+.flip-in{display:grid;transition:transform .55s cubic-bezier(.3,.7,.2,1);transform-style:preserve-3d}
+.face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;min-height:300px;border-radius:22px;border:1px solid var(--line);background:var(--surface);padding:44px 20px 24px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;position:relative;box-shadow:0 10px 30px -18px rgba(20,26,56,.35)}
+.face.backf{transform:rotateY(180deg);background:var(--surface)}
+.flip.on .flip-in{transform:rotateY(180deg)}
+.flip:not(.on) .backf,.flip.on .front{pointer-events:none}
+.face .tag{position:absolute;top:14px;left:16px}
+.face .word{font-size:clamp(40px,11vw,62px);font-weight:600;line-height:1.02;word-break:break-word}
+.face .word.sm{font-size:clamp(26px,7vw,34px)}
+.face .say{font-family:var(--f-mono);font-size:14px;color:var(--muted)}
+.face .mean{font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1.2}
+.face .ex{font-size:20px;line-height:1.4;max-width:30ch}
+.face .exa{color:var(--muted);font-size:15px;max-width:36ch}
+.face .hint{font-size:13px;color:var(--muted);margin-top:8px}
+.cardnav{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.grade{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.grade .btn{padding:13px 6px}
+.g-bad{background:var(--bad-soft);border-color:var(--bad-soft)} .g-mid{background:var(--warn-soft);border-color:var(--warn-soft)} .g-ok{background:var(--good-soft);border-color:var(--good-soft)}
+
+/* ---------- quiz ---------- */
+.bar-p{height:6px;border-radius:99px;background:var(--sunk);overflow:hidden}
+.bar-p span{display:block;height:100%;background:var(--accent);transition:width .3s}
+.qhead{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.count{font-family:var(--f-mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.q-prompt{font-size:22px;font-weight:800;line-height:1.3;letter-spacing:-.015em}
+.q-prompt q{font-family:var(--f-en);font-weight:600;quotes:none;background:linear-gradient(transparent 56%,var(--mark-band) 56%);padding:0 .12em}
+.opts{display:grid;gap:8px}
+.opt{text-align:left;border:1.5px solid var(--line);background:var(--surface);border-radius:12px;padding:12px 14px;cursor:pointer;font-size:16.5px;line-height:1.4}
+.opt:hover:not([disabled]){border-color:var(--accent)}
+.opt.right{background:var(--good-soft);border-color:var(--good);font-weight:700}
+.opt.wrong{background:var(--bad-soft);border-color:var(--bad)}
+.opt[disabled]{cursor:default}
+.fb{font-size:15px;padding:12px 14px;border-radius:12px;line-height:1.5}
+.fb.ok{background:var(--good-soft)} .fb.no{background:var(--bad-soft)}
+.fb .en{font-size:18px}
+.result{text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center;padding-block:8px}
+.result .big{font-size:64px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1;letter-spacing:-.04em;animation:pop .45s cubic-bezier(.2,1.4,.4,1)}
+.result .big.good{color:var(--good)} .result .big.bad{color:var(--bad)}
+@keyframes pop{from{transform:scale(.6)}to{transform:none}}
+
+/* ---------- kata hari ini & stats ---------- */
+.wod{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;padding:20px;border-radius:var(--r);background:var(--surface);border:1px solid var(--line)}
+.wod .word{font-size:clamp(34px,9vw,48px);font-weight:600;line-height:1.05}
+.wod .mean{font-weight:800;font-size:18px}
+.wod .ex{font-size:19px;line-height:1.4}
+.wod .exa{color:var(--muted);font-size:15px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.stat{background:var(--surface);padding:14px;min-width:0;display:flex;flex-direction:column;gap:6px}
+.stat b{font-size:24px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1;letter-spacing:-.03em}
+.stat b small{font-size:13px;color:var(--muted);font-weight:500;letter-spacing:0}
+.stat span{font-size:13px;color:var(--muted)}
+.meter{height:5px;border-radius:99px;background:var(--sunk);overflow:hidden}
+.meter span{display:block;height:100%;background:var(--accent)}
+@media (max-width:560px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+/* ---------- lists (materi) ---------- */
+.seg{display:inline-flex;background:var(--sunk);border-radius:12px;padding:4px;gap:2px;max-width:100%;overflow-x:auto}
+.seg a,.seg button{border:0;background:transparent;padding:8px 14px;border-radius:9px;font-weight:700;font-size:14.5px;color:var(--muted);text-decoration:none;cursor:pointer;white-space:nowrap}
+.seg .on{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(20,26,56,.12)}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:600px){.grid2{grid-template-columns:1fr}}
+.item{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:14px;text-decoration:none;color:inherit;transition:transform .12s,border-color .12s}
+.item:hover{border-color:var(--accent);transform:translateY(-2px)}
+.item .n{font-family:var(--f-mono);font-size:12.5px;color:var(--muted);width:28px;height:28px;border-radius:8px;background:var(--sunk);display:grid;place-items:center;flex:none}
+.item.done .n{background:var(--good);color:var(--surface)}
+.item .t{min-width:0;display:flex;flex-direction:column;gap:2px}
+.item b{font-size:16px;line-height:1.3}
+.item .d{font-size:13.5px;color:var(--muted);line-height:1.4}
+.lvl{font-family:var(--f-mono);font-size:10.5px;padding:1px 6px;border-radius:5px;border:1px solid var(--line);color:var(--muted);letter-spacing:.04em;align-self:flex-start;margin-top:4px}
+
+/* ---------- prose (grammar) ---------- */
+.prose{display:flex;flex-direction:column;gap:14px;max-width:66ch;font-size:17px}
+.prose h3{font-size:19px;margin-top:8px}
+.formula{font-family:var(--f-mono);font-size:14.5px;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--mark);padding:14px 16px;border-radius:0 12px 12px 0;line-height:1.85;overflow-x:auto}
+.formula b{color:var(--accent);font-weight:500}
+.tblwrap{overflow-x:auto}
+.mini{width:100%;border-collapse:collapse;font-size:15px;font-variant-numeric:tabular-nums}
+.mini th,.mini td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+.mini th{font-family:var(--f-mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:500}
+.tip{font-size:15px;background:var(--warn-soft);padding:12px 14px;border-radius:12px}
+.exlist{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.exlist>div{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line)}
+.exlist p.en{font-size:19px;line-height:1.35;font-weight:500}
+.exlist p.id{font-size:14.5px;color:var(--muted)}
+
+/* ---------- audio toolbar, dialog, story ---------- */
+.toolbar{display:flex;gap:10px 16px;flex-wrap:wrap;align-items:center;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.tog{display:inline-flex;gap:7px;align-items:center;font-size:14.5px;cursor:pointer;font-weight:500}
+.tog input{width:18px;height:18px;accent-color:var(--accent)}
+.rate{display:inline-flex;align-items:center;gap:6px}
+.rate button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 11px;cursor:pointer;font-size:13.5px;font-weight:700}
+.rate button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.dialog{display:flex;flex-direction:column;gap:14px}
+.line{display:flex;flex-direction:column;gap:4px;max-width:90%}
+.line.a{align-self:flex-start} .line.b{align-self:flex-end;align-items:flex-end}
+.line .who{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.bubble{display:flex;gap:8px;align-items:flex-start;padding:12px 14px;border-radius:16px;border:1px solid var(--line);background:var(--surface);min-width:0}
+.bubble>div{min-width:0}
+.line.a .bubble{border-top-left-radius:4px}
+.line.b .bubble{background:var(--accent-soft);border-color:transparent;border-top-right-radius:4px}
+.bubble .en{font-size:19px;line-height:1.4}
+.bubble .tr{font-size:14.5px;color:var(--muted);margin-top:3px}
+.reveal{border:2px dashed var(--accent);background:transparent;border-radius:12px;padding:10px 12px;text-align:left;cursor:pointer;font-weight:700;font-size:14.5px;line-height:1.45}
+.reveal span{display:block;font-weight:400;color:var(--muted)}
+.playing .bubble{outline:2.5px solid var(--mark)}
+.story{display:flex;flex-direction:column;gap:16px;max-width:64ch}
+.story .en{font-size:21px;line-height:1.75}
+.story .tr{font-size:15.5px;color:var(--muted);border-left:3px solid var(--line);padding-left:14px}
+.sent{cursor:pointer;border-radius:3px;transition:background .2s}
+.sent:hover{background:var(--sunk)}
+.sent.playing{background:var(--mark-band)}
+.hidden-text{padding:18px;border-radius:14px;background:var(--sunk);font-size:15.5px}
+
+/* ---------- latihan ---------- */
+.modes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:600px){.modes{grid-template-columns:1fr}}
+.mode{display:flex;flex-direction:column;gap:6px;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:18px;cursor:pointer;transition:transform .12s,border-color .12s}
+.mode:hover{border-color:var(--accent);transform:translateY(-2px)}
+.mode .ico{width:40px;height:40px;border-radius:12px;background:var(--mark);color:var(--mark-ink);display:grid;place-items:center;font-size:18px}
+.mode b{font-size:18px;letter-spacing:-.01em}
+.mode span{font-size:14px;color:var(--muted);line-height:1.45}
+.mode small{font-family:var(--f-mono);font-size:11.5px;color:var(--muted);margin-top:4px}
+.field{width:100%;padding:13px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-family:var(--f-en);font-size:20px}
+.field:focus{outline:none;border-color:var(--accent)}
+.big-id{font-size:24px;font-weight:800;letter-spacing:-.02em;line-height:1.3}
+.big-en{font-family:var(--f-en);font-size:28px;line-height:1.3;font-weight:500}
+.slots{min-height:58px;display:flex;flex-wrap:wrap;gap:8px;padding:10px;border-radius:14px;border:2px dashed var(--line);align-content:flex-start}
+.bank{display:flex;flex-wrap:wrap;gap:8px;min-height:44px}
+.tok{font-family:var(--f-en);font-size:19px;padding:6px 13px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;line-height:1.3}
+.tok:hover{border-color:var(--accent)}
+.slots .tok{background:var(--accent-soft);border-color:transparent}
+.micbtn{width:76px;height:76px;border-radius:50%;border:0;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;cursor:pointer;font-size:30px;align-self:center}
+.micbtn.live{background:var(--bad);animation:pulse 1.1s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(185,58,43,.45)}100%{box-shadow:0 0 0 18px rgba(185,58,43,0)}}
+
+/* ---------- peta ---------- */
+.path{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.stage{position:relative;padding:0 0 26px 48px}
+.stage::before{content:"";position:absolute;left:16px;top:36px;bottom:0;width:2px;background:var(--line)}
+.stage:last-child::before{display:none}
+.stage .dot{position:absolute;left:0;top:0;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-mono);font-size:14px;background:var(--surface);border:2px solid var(--line)}
+.stage.done .dot{background:var(--good);border-color:var(--good);color:var(--surface)}
+.stage.cur .dot{background:var(--mark);border-color:var(--mark);color:var(--mark-ink);font-weight:500}
+.stage h3{font-size:21px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.stage h3 .lvl{margin:0;align-self:center}
+.stage>p{color:var(--muted);margin:4px 0 12px;font-size:15px}
+.todo{display:flex;flex-direction:column;gap:7px}
+.todo>div{display:flex;gap:10px;align-items:center;font-size:15.5px;line-height:1.35}
+.todo .box{width:20px;height:20px;border-radius:6px;border:2px solid var(--line);display:grid;place-items:center;font-size:12px;flex:none}
+.todo .ok .box{background:var(--good);border-color:var(--good);color:var(--surface)}
+.todo a{color:inherit}
+.todo .meter{flex:1;max-width:140px}
+.search{width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface)}
+textarea.code{width:100%;min-height:76px;font-family:var(--f-mono);font-size:12px;border-radius:12px;border:1px solid var(--line);background:var(--surface);padding:10px}
+.settings{display:flex;flex-direction:column;gap:12px}
+details.box{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:14px 16px}
+details.box summary{cursor:pointer;font-weight:700}
+details.box[open] summary{margin-bottom:12px}
+
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+#task,#prac,#cq,#rev{scroll-margin-top:76px}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap bar">
+    <a class="brand" href="#hari-ini">inggris <span>dari nol</span></a>
+    <nav class="tabs" aria-label="Menu utama">
+      <a href="#hari-ini" data-v="hari-ini" data-ic="home"><b>Hari Ini</b></a>
+      <a href="#kartu" data-v="kartu" data-ic="cards"><b>Kata</b></a>
+      <a href="#grammar" data-v="materi" data-ic="book"><b>Materi</b></a>
+      <a href="#latihan" data-v="latihan" data-ic="bolt"><b>Latihan</b></a>
+      <a href="#peta" data-v="peta" data-ic="map"><b>Peta</b></a>
+    </nav>
+    <span class="streak" id="streak" title="Hari berturut-turut"></span>
+  </div>
+</header>
+<main class="wrap" id="view"></main>
+<script>
+const RAW = `
+#Salam & Sopan Santun
+hello|halo|he-lou|Hello, how are you?|Halo, apa kabar?
+good morning|selamat pagi|gud mor-ning|Good morning, Sir.|Selamat pagi, Pak.
+thank you|terima kasih|thengk yu|Thank you for your help.|Terima kasih atas bantuanmu.
+please|tolong / silakan|pliz|Please sit down.|Silakan duduk.
+sorry|maaf|so-ri|Sorry, I am late.|Maaf, saya terlambat.
+yes|ya|yes|Yes, I understand.|Ya, saya mengerti.
+no|tidak|nou|No, thank you.|Tidak, terima kasih.
+goodbye|selamat tinggal|gud-bai|Goodbye, see you tomorrow.|Sampai jumpa, ketemu besok.
+name|nama|neim|My name is Budi.|Nama saya Budi.
+friend|teman|frend|He is my friend.|Dia temanku.
+#Kata Tanya
+what|apa|wot|What is this?|Apa ini?
+who|siapa|hu|Who is she?|Siapa dia?
+where|di mana|wer|Where is the toilet?|Di mana toiletnya?
+when|kapan|wen|When do you open?|Kapan kamu buka?
+why|kenapa|wai|Why are you sad?|Kenapa kamu sedih?
+how|bagaimana|hau|How do you say this?|Bagaimana cara mengucapkan ini?
+how much|berapa (harga)|hau mach|How much is this?|Ini harganya berapa?
+which|yang mana|wich|Which one do you want?|Kamu mau yang mana?
+this|ini|dis|This is my bag.|Ini tas saya.
+that|itu|det|That is your phone.|Itu HP kamu.
+#Kata Kerja Inti
+go|pergi|gou|I go to work every day.|Saya pergi kerja setiap hari.
+come|datang|kam|Come here, please.|Tolong ke sini.
+eat|makan|it|We eat rice.|Kami makan nasi.
+drink|minum|dringk|She drinks water.|Dia minum air.
+sleep|tidur|slip|I sleep at ten.|Saya tidur jam sepuluh.
+work|bekerja|werk|They work in a shop.|Mereka bekerja di toko.
+want|mau / ingin|wont|I want coffee.|Saya mau kopi.
+need|butuh|nid|I need help.|Saya butuh bantuan.
+have|punya|hev|I have two brothers.|Saya punya dua saudara laki-laki.
+like|suka|laik|I like music.|Saya suka musik.
+know|tahu|nou|I know the answer.|Saya tahu jawabannya.
+see|melihat|si|I see a cat.|Saya melihat kucing.
+say|berkata|sei|What did you say?|Kamu bilang apa?
+make|membuat|meik|She makes a cake.|Dia membuat kue.
+give|memberi|giv|Give me the bag.|Berikan tasnya padaku.
+take|mengambil|teik|Take this money.|Ambil uang ini.
+read|membaca|rid|I read a book.|Saya membaca buku.
+write|menulis|rait|Write your name here.|Tulis namamu di sini.
+speak|berbicara|spik|I speak English a little.|Saya bisa sedikit bicara bahasa Inggris.
+listen|mendengarkan|li-sen|Listen to me.|Dengarkan aku.
+learn|belajar|lern|I learn English every day.|Saya belajar bahasa Inggris setiap hari.
+help|membantu|help|Can you help me?|Bisakah kamu membantuku?
+wait|menunggu|weit|Please wait a moment.|Tolong tunggu sebentar.
+ask|bertanya|esk|Can I ask something?|Boleh saya tanya sesuatu?
+answer|menjawab|en-ser|Answer the question.|Jawab pertanyaannya.
+understand|mengerti|an-der-stend|Do you understand?|Apakah kamu mengerti?
+think|berpikir|thingk|I think so.|Saya rasa begitu.
+walk|berjalan kaki|wok|I walk to the market.|Saya jalan kaki ke pasar.
+cook|memasak|kuk|My mother cooks rice.|Ibuku memasak nasi.
+call|menelepon / memanggil|kol|Call me tonight.|Telepon aku nanti malam.
+find|menemukan|faind|I can't find my key.|Aku tidak bisa menemukan kunciku.
+use|memakai|yuz|Use this pen.|Pakai pulpen ini.
+try|mencoba|trai|Try again.|Coba lagi.
+start|mulai|start|Let's start now.|Ayo mulai sekarang.
+finish|selesai|fi-nish|I finish work at five.|Saya selesai kerja jam lima.
+open|membuka|ou-pen|We open at seven.|Kami buka jam tujuh.
+close|menutup|klouz|Close the door, please.|Tolong tutup pintunya.
+live|tinggal|liv|I live in Bandung.|Saya tinggal di Bandung.
+#Angka
+one|satu|wan|I have one sister.|Saya punya satu saudara perempuan.
+two|dua|tu|Two coffees, please.|Dua kopi, ya.
+three|tiga|thri|It costs three thousand.|Harganya tiga ribu.
+four|empat|for|We have four rooms.|Kami punya empat kamar.
+five|lima|faiv|Wait five minutes.|Tunggu lima menit.
+six|enam|siks|I wake up at six.|Saya bangun jam enam.
+seven|tujuh|se-ven|The shop opens at seven.|Tokonya buka jam tujuh.
+eight|delapan|eit|She works eight hours.|Dia bekerja delapan jam.
+nine|sembilan|nain|Nine people came.|Sembilan orang datang.
+ten|sepuluh|ten|Ten eggs, please.|Sepuluh telur, ya.
+hundred|seratus|han-dred|One hundred people.|Seratus orang.
+thousand|ribu|thau-zend|Five thousand rupiah.|Lima ribu rupiah.
+#Waktu
+time|waktu / jam|taim|What time is it?|Jam berapa sekarang?
+day|hari|dei|Have a nice day.|Semoga harimu menyenangkan.
+week|minggu (7 hari)|wik|I work six days a week.|Saya bekerja enam hari seminggu.
+month|bulan|manth|Next month I will move.|Bulan depan saya pindah.
+year|tahun|yir|This year is good.|Tahun ini bagus.
+today|hari ini|tu-dei|Today is Monday.|Hari ini hari Senin.
+tomorrow|besok|tu-mo-rou|See you tomorrow.|Sampai ketemu besok.
+yesterday|kemarin|yes-ter-dei|I was busy yesterday.|Kemarin saya sibuk.
+now|sekarang|nau|I am busy now.|Saya sedang sibuk sekarang.
+morning|pagi|mor-ning|I drink tea in the morning.|Saya minum teh di pagi hari.
+night|malam|nait|Good night.|Selamat malam (mau tidur).
+always|selalu|ol-weiz|She is always happy.|Dia selalu senang.
+sometimes|kadang-kadang|sam-taimz|I sometimes cook.|Saya kadang-kadang memasak.
+never|tidak pernah|ne-ver|I never smoke.|Saya tidak pernah merokok.
+#Orang & Keluarga
+family|keluarga|fe-mi-li|I love my family.|Aku sayang keluargaku.
+mother|ibu|ma-der|My mother is a teacher.|Ibuku seorang guru.
+father|ayah|fa-der|My father works in Jakarta.|Ayahku bekerja di Jakarta.
+brother|saudara laki-laki|bra-der|My brother is tall.|Kakak/adik laki-lakiku tinggi.
+sister|saudara perempuan|sis-ter|My sister is ten years old.|Adik perempuanku umur sepuluh tahun.
+child|anak|chaild|The child is sleeping.|Anak itu sedang tidur.
+man|laki-laki / pria|men|That man is my boss.|Pria itu bosku.
+woman|perempuan / wanita|wu-men|The woman buys milk.|Wanita itu membeli susu.
+people|orang-orang|pi-pel|Many people come here.|Banyak orang datang ke sini.
+customer|pelanggan|kas-to-mer|The customer is happy.|Pelanggannya senang.
+boss|bos / atasan|bos|My boss is kind.|Bosku baik.
+#Tempat
+house|rumah|haus|My house is small.|Rumahku kecil.
+shop|toko|shop|The shop is open.|Tokonya buka.
+market|pasar|mar-ket|I go to the market.|Saya pergi ke pasar.
+school|sekolah|skul|The school is near.|Sekolahnya dekat.
+office|kantor|o-fis|He is at the office.|Dia ada di kantor.
+street|jalan|strit|This street is busy.|Jalan ini ramai.
+city|kota|si-ti|Bandung is a cool city.|Bandung kota yang sejuk.
+room|kamar / ruangan|rum|This room is clean.|Ruangan ini bersih.
+door|pintu|dor|Open the door.|Buka pintunya.
+here|di sini|hir|Sit here.|Duduk di sini.
+there|di sana|der|The bank is there.|Banknya di sana.
+#Makanan & Minuman
+water|air|wo-ter|Can I have some water?|Boleh minta air?
+rice|nasi / beras|rais|I eat rice every day.|Saya makan nasi setiap hari.
+bread|roti|bred|This bread is fresh.|Roti ini masih segar.
+egg|telur|eg|Two eggs, please.|Dua telur, ya.
+milk|susu|milk|The milk is cold.|Susunya dingin.
+coffee|kopi|ko-fi|I like black coffee.|Saya suka kopi hitam.
+tea|teh|ti|Do you want tea?|Kamu mau teh?
+sugar|gula|shu-ger|No sugar, please.|Tanpa gula, ya.
+salt|garam|solt|Add a little salt.|Tambahkan sedikit garam.
+chicken|ayam|chi-ken|I like fried chicken.|Saya suka ayam goreng.
+fish|ikan|fish|Fish is healthy.|Ikan itu sehat.
+fruit|buah|frut|Eat more fruit.|Makan lebih banyak buah.
+vegetable|sayur|vej-te-bel|Vegetables are cheap here.|Sayur di sini murah.
+food|makanan|fud|The food is delicious.|Makanannya enak.
+#Belanja & Jualan
+money|uang|ma-ni|I don't have money.|Saya tidak punya uang.
+price|harga|prais|The price is good.|Harganya bagus.
+cheap|murah|chip|This shirt is cheap.|Baju ini murah.
+expensive|mahal|eks-pen-sif|That phone is expensive.|HP itu mahal.
+change|uang kembalian|cheinj|Here is your change.|Ini kembaliannya.
+receipt|struk / nota|ri-sit|Do you need a receipt?|Perlu struknya?
+discount|diskon|dis-kaun|There is a discount today.|Hari ini ada diskon.
+cash|uang tunai|kesh|Cash or card?|Tunai atau kartu?
+pay|membayar|pei|You can pay here.|Kamu bisa bayar di sini.
+buy|membeli|bai|I want to buy bread.|Saya mau beli roti.
+sell|menjual|sel|We sell snacks.|Kami jual camilan.
+item|barang|ai-tem|This item is new.|Barang ini baru.
+stock|stok|stok|It is out of stock.|Stoknya habis.
+shelf|rak|shelf|Put it on the shelf.|Taruh di rak.
+bag|tas / kantong|beg|Do you need a bag?|Perlu kantong?
+total|jumlah total|tou-tel|The total is fifty thousand.|Totalnya lima puluh ribu.
+#Kata Sifat
+big|besar|big|It is a big house.|Itu rumah yang besar.
+small|kecil|smol|I want the small one.|Saya mau yang kecil.
+good|baik / bagus|gud|That is a good idea.|Itu ide yang bagus.
+bad|buruk|bed|The weather is bad.|Cuacanya buruk.
+new|baru|nyu|I have a new phone.|Saya punya HP baru.
+old|tua / lama|ould|This is an old house.|Ini rumah tua.
+hot|panas|hot|The coffee is hot.|Kopinya panas.
+cold|dingin|kould|It is cold tonight.|Malam ini dingin.
+happy|senang|he-pi|I am happy today.|Saya senang hari ini.
+sad|sedih|sed|Why are you sad?|Kenapa kamu sedih?
+tired|capek|tai-erd|I am very tired.|Saya capek sekali.
+hungry|lapar|hang-gri|Are you hungry?|Kamu lapar?
+busy|sibuk|bi-zi|The shop is busy.|Tokonya ramai.
+easy|mudah|i-zi|English is easy.|Bahasa Inggris itu mudah.
+difficult|sulit|di-fi-kelt|This test is difficult.|Tes ini sulit.
+fast|cepat|fest|He drives fast.|Dia menyetir cepat.
+slow|lambat|slou|The internet is slow.|Internetnya lambat.
+clean|bersih|klin|Keep the shop clean.|Jaga toko tetap bersih.
+dirty|kotor|der-ti|The floor is dirty.|Lantainya kotor.
+beautiful|cantik / indah|byu-ti-ful|What a beautiful day.|Hari yang indah sekali.
+ready|siap|re-di|Are you ready?|Kamu siap?
+right|benar|rait|You are right.|Kamu benar.
+#Kata Penghubung & Kecil
+and|dan|end|Bread and milk.|Roti dan susu.
+but|tetapi|bat|It is cheap but good.|Murah tapi bagus.
+or|atau|or|Tea or coffee?|Teh atau kopi?
+because|karena|bi-koz|I am tired because I work.|Saya capek karena bekerja.
+with|dengan|wid|I go with my friend.|Saya pergi dengan temanku.
+very|sangat|ve-ri|It is very hot.|Sangat panas.
+again|lagi|e-gen|Say it again, please.|Tolong ulangi lagi.
+also|juga|ol-sou|I also like tea.|Saya juga suka teh.
+only|hanya|oun-li|Only one, please.|Satu saja, ya.
+maybe|mungkin|mei-bi|Maybe tomorrow.|Mungkin besok.
+#Ungkapan Sehari-hari
+excuse me|permisi|eks-kyuz mi|Excuse me, where is the bank?|Permisi, banknya di mana?
+you're welcome|sama-sama|yur wel-kam|"Thank you." "You're welcome."|"Terima kasih." "Sama-sama."
+no problem|tidak masalah|nou pro-blem|No problem, I can wait.|Tidak masalah, saya bisa tunggu.
+of course|tentu saja|of kors|Of course you can.|Tentu saja boleh.
+see you|sampai jumpa|si yu|See you next week.|Sampai jumpa minggu depan.
+nice to meet you|senang berkenalan|nais tu mit yu|Hi, nice to meet you.|Hai, senang berkenalan.
+how are you|apa kabar|hau ar yu|How are you today?|Apa kabar hari ini?
+I'm fine|saya baik|aim fain|I'm fine, thanks.|Saya baik, makasih.
+I don't know|saya tidak tahu|ai dont nou|Sorry, I don't know.|Maaf, saya tidak tahu.
+just a moment|tunggu sebentar|jast e mou-ment|Just a moment, please.|Tunggu sebentar, ya.
+never mind|tidak apa-apa / lupakan|ne-ver maind|Never mind, it's okay.|Tidak apa-apa, santai saja.
+take care|hati-hati / jaga diri|teik ker|Take care on the road.|Hati-hati di jalan.
+good luck|semoga berhasil|gud lak|Good luck with your test.|Semoga sukses tesnya.
+don't worry|jangan khawatir|dont wa-ri|Don't worry, I will help.|Jangan khawatir, saya bantu.
+be careful|hati-hati|bi ker-ful|Be careful, the floor is wet.|Hati-hati, lantainya basah.
+hurry up|cepat / buruan|ha-ri ap|Hurry up, the bus is here.|Buruan, busnya sudah datang.
+congratulations|selamat (atas keberhasilan)|kon-gra-chu-lei-shens|Congratulations on your new job!|Selamat atas pekerjaan barumu!
+I agree|saya setuju|ai e-gri|I agree with you.|Saya setuju denganmu.
+what's wrong|ada apa / kenapa|wots rong|What's wrong? You look sad.|Ada apa? Kamu kelihatan sedih.
+let me see|coba saya lihat|let mi si|Let me see the receipt.|Coba saya lihat struknya.
+#Hari & Waktu Lanjutan
+Monday|Senin|man-dei|I start work on Monday.|Saya mulai kerja hari Senin.
+Tuesday|Selasa|tyuz-dei|The shop is closed on Tuesday.|Tokonya tutup hari Selasa.
+Wednesday|Rabu|wenz-dei|See you on Wednesday.|Sampai jumpa hari Rabu.
+Thursday|Kamis|therz-dei|Thursday is a busy day.|Kamis hari yang sibuk.
+Friday|Jumat|frai-dei|I go to the mosque on Friday.|Saya ke masjid hari Jumat.
+Saturday|Sabtu|se-ter-dei|We go out on Saturday.|Kami jalan-jalan hari Sabtu.
+Sunday|Minggu|san-dei|Sunday is my day off.|Minggu hari liburku.
+weekend|akhir pekan|wik-end|What do you do on the weekend?|Kamu ngapain di akhir pekan?
+afternoon|siang / sore|af-ter-nun|Good afternoon, Madam.|Selamat siang, Bu.
+evening|petang / malam|iv-ning|I study in the evening.|Saya belajar di malam hari.
+hour|jam (durasi)|a-wer|I work eight hours a day.|Saya kerja delapan jam sehari.
+minute|menit|mi-nit|Wait ten minutes.|Tunggu sepuluh menit.
+early|awal / pagi-pagi|er-li|I wake up early.|Saya bangun pagi-pagi.
+late|terlambat / larut|leit|Don't be late.|Jangan terlambat.
+soon|segera|sun|The bus will come soon.|Busnya segera datang.
+later|nanti|lei-ter|I will call you later.|Nanti saya telepon.
+often|sering|o-fen|I often eat here.|Saya sering makan di sini.
+usually|biasanya|yu-zhu-a-li|I usually walk to work.|Saya biasanya jalan kaki ke tempat kerja.
+already|sudah|ol-re-di|I have already eaten.|Saya sudah makan.
+still|masih|stil|Are you still at work?|Kamu masih di tempat kerja?
+#Angka Lanjutan
+eleven|sebelas|i-le-ven|Eleven people are here.|Ada sebelas orang di sini.
+twelve|dua belas|twelv|Twelve eggs in a box.|Dua belas telur dalam satu kotak.
+fifteen|lima belas|fif-tin|It takes fifteen minutes.|Butuh lima belas menit.
+twenty|dua puluh|twen-ti|Twenty thousand rupiah.|Dua puluh ribu rupiah.
+thirty|tiga puluh|ther-ti|I am thirty years old.|Umur saya tiga puluh tahun.
+fifty|lima puluh|fif-ti|Fifty percent off.|Diskon lima puluh persen.
+million|juta|mil-yen|It costs two million.|Harganya dua juta.
+first|pertama|ferst|This is my first day.|Ini hari pertamaku.
+second|kedua / detik|se-kend|Take the second street.|Ambil jalan yang kedua.
+third|ketiga|therd|It is on the third floor.|Itu di lantai tiga.
+half|setengah|haf|Half a kilo of sugar.|Setengah kilo gula.
+number|nomor / angka|nam-ber|What is your phone number?|Nomor HP kamu berapa?
+#Kata Kerja Lanjutan
+bring|membawa|bring|Bring your ID card.|Bawa KTP-mu.
+send|mengirim|send|Send me a message.|Kirimi aku pesan.
+carry|mengangkat / membawa|ke-ri|Can you carry this box?|Bisa angkat kotak ini?
+put|menaruh|put|Put the milk in the fridge.|Taruh susunya di kulkas.
+get|mendapat / mengambil|get|Where can I get a bag?|Di mana saya bisa dapat kantong?
+keep|menyimpan / menjaga|kip|Keep the receipt.|Simpan struknya.
+leave|pergi / meninggalkan|liv|I leave home at seven.|Saya berangkat dari rumah jam tujuh.
+arrive|tiba|e-raiv|The truck arrives at nine.|Truknya tiba jam sembilan.
+stay|tinggal / menginap|stei|Stay here for a moment.|Tetap di sini sebentar.
+sit|duduk|sit|Please sit down.|Silakan duduk.
+stand|berdiri|stend|Stand in line, please.|Tolong berdiri antre.
+look|melihat / tampak|luk|Look at this price.|Lihat harga ini.
+watch|menonton|woch|I watch TV at night.|Saya nonton TV malam hari.
+hear|mendengar|hir|I can't hear you.|Saya tidak bisa dengar kamu.
+feel|merasa|fil|I feel sick.|Saya merasa sakit.
+forget|lupa|for-get|Don't forget your change.|Jangan lupa kembaliannya.
+remember|ingat|ri-mem-ber|I remember your name.|Saya ingat namamu.
+believe|percaya|bi-liv|I believe you.|Saya percaya kamu.
+hope|berharap|houp|I hope you like it.|Saya harap kamu suka.
+love|mencintai / sangat suka|lav|I love this song.|Saya suka sekali lagu ini.
+hate|benci|heit|I hate waiting.|Saya benci menunggu.
+enjoy|menikmati|in-joi|Enjoy your meal.|Selamat menikmati makanannya.
+play|bermain|plei|Children play in the park.|Anak-anak bermain di taman.
+travel|bepergian|tre-vel|I want to travel to Bali.|Saya ingin jalan-jalan ke Bali.
+drive|menyetir|draiv|Can you drive a car?|Kamu bisa nyetir mobil?
+ride|mengendarai (motor/sepeda)|raid|I ride a motorbike to work.|Saya naik motor ke tempat kerja.
+swim|berenang|swim|I can't swim.|Saya tidak bisa berenang.
+wash|mencuci|wosh|Wash your hands.|Cuci tanganmu.
+fix|memperbaiki|fiks|Can you fix this?|Bisa perbaiki ini?
+break|memecahkan / rusak|breik|Don't break the glass.|Jangan pecahkan gelasnya.
+lose|kehilangan / kalah|luz|I always lose my keys.|Saya selalu kehilangan kunci.
+win|menang|win|Our team will win.|Tim kita akan menang.
+check|memeriksa|chek|Please check the date.|Tolong cek tanggalnya.
+count|menghitung|kaunt|Count the money again.|Hitung lagi uangnya.
+choose|memilih|chuz|Choose one, please.|Silakan pilih satu.
+decide|memutuskan|di-said|I can't decide.|Saya tidak bisa memutuskan.
+show|menunjukkan|shou|Show me the way.|Tunjukkan jalannya.
+tell|memberi tahu|tel|Tell me the truth.|Katakan yang sebenarnya.
+talk|mengobrol|tok|Can we talk?|Bisa kita bicara?
+meet|bertemu|mit|Let's meet at noon.|Ayo ketemu siang ini.
+visit|mengunjungi|vi-zit|I visit my parents every month.|Saya mengunjungi orang tua tiap bulan.
+invite|mengundang|in-vait|I invite you to my party.|Saya mengundangmu ke pestaku.
+borrow|meminjam|bo-rou|Can I borrow your pen?|Boleh pinjam pulpenmu?
+lend|meminjamkan|lend|I can lend you some money.|Saya bisa meminjamkan sedikit uang.
+return|mengembalikan / kembali|ri-tern|I want to return this item.|Saya mau mengembalikan barang ini.
+order|memesan|or-der|I want to order food.|Saya mau pesan makanan.
+deliver|mengantar|di-li-ver|We deliver to your house.|Kami antar ke rumahmu.
+cost|berharga / menghabiskan biaya|kost|How much does it cost?|Berapa harganya?
+spend|menghabiskan (uang/waktu)|spend|I spend a lot on food.|Saya banyak keluar uang untuk makan.
+save|menabung / menyimpan|seiv|I save money every month.|Saya menabung setiap bulan.
+earn|menghasilkan (uang)|ern|How much do you earn?|Berapa penghasilanmu?
+#Bentuk Lampau Penting
+went|pergi (lampau dari go)|went|I went home early.|Saya pulang lebih awal.
+ate|makan (lampau dari eat)|eit|We ate noodles last night.|Semalam kami makan mi.
+bought|membeli (lampau dari buy)|bot|She bought a new bag.|Dia membeli tas baru.
+saw|melihat (lampau dari see)|so|I saw your brother.|Saya melihat saudaramu.
+had|punya (lampau dari have)|hed|I had a good day.|Hari saya menyenangkan.
+made|membuat (lampau dari make)|meid|He made a mistake.|Dia membuat kesalahan.
+came|datang (lampau dari come)|keim|The customer came back.|Pelanggan itu datang lagi.
+took|mengambil (lampau dari take)|tuk|I took a taxi.|Saya naik taksi.
+gave|memberi (lampau dari give)|geiv|She gave me a gift.|Dia memberiku hadiah.
+said|berkata (lampau dari say)|sed|He said yes.|Dia bilang iya.
+got|mendapat (lampau dari get)|got|I got a message.|Saya dapat pesan.
+knew|tahu (lampau dari know)|nyu|I knew the answer.|Saya tahu jawabannya.
+thought|berpikir (lampau dari think)|thot|I thought you were busy.|Saya kira kamu sibuk.
+told|memberi tahu (lampau dari tell)|tould|She told me the price.|Dia memberitahuku harganya.
+found|menemukan (lampau dari find)|faund|I found my wallet.|Saya menemukan dompetku.
+brought|membawa (lampau dari bring)|brot|He brought some food.|Dia membawa makanan.
+sent|mengirim (lampau dari send)|sent|I sent the photo.|Saya sudah kirim fotonya.
+left|pergi / berangkat (lampau dari leave)|left|The bus left at six.|Busnya berangkat jam enam.
+felt|merasa (lampau dari feel)|felt|I felt tired.|Saya merasa capek.
+paid|membayar (lampau dari pay)|peid|I paid in cash.|Saya bayar tunai.
+sold|menjual (lampau dari sell)|sould|We sold fifty bottles.|Kami menjual lima puluh botol.
+wrote|menulis (lampau dari write)|rout|I wrote a letter.|Saya menulis surat.
+spoke|berbicara (lampau dari speak)|spouk|I spoke English today!|Hari ini saya bicara bahasa Inggris!
+slept|tidur (lampau dari sleep)|slept|I slept well.|Saya tidur nyenyak.
+drank|minum (lampau dari drink)|drengk|She drank some tea.|Dia minum teh.
+ran|berlari (lampau dari run)|ren|The cat ran away.|Kucingnya kabur.
+began|mulai (lampau dari begin)|bi-gen|The rain began at noon.|Hujannya mulai siang tadi.
+forgot|lupa (lampau dari forget)|for-got|I forgot my password.|Saya lupa kata sandiku.
+met|bertemu (lampau dari meet)|met|We met at school.|Kami bertemu di sekolah.
+lost|kehilangan (lampau dari lose)|lost|I lost my phone.|HP saya hilang.
+#Rumah & Benda
+table|meja|tei-bel|Put it on the table.|Taruh di atas meja.
+chair|kursi|cher|Take a chair.|Ambil kursi.
+bed|kasur / tempat tidur|bed|My bed is very soft.|Kasurku empuk sekali.
+kitchen|dapur|ki-chen|She is in the kitchen.|Dia ada di dapur.
+bathroom|kamar mandi|bath-rum|Where is the bathroom?|Kamar mandinya di mana?
+window|jendela|win-dou|Open the window, please.|Tolong buka jendelanya.
+key|kunci|ki|I have the shop key.|Saya pegang kunci toko.
+phone|telepon / HP|foun|My phone is dead.|HP saya mati.
+computer|komputer|kom-pyu-ter|The computer is slow.|Komputernya lambat.
+book|buku|buk|I am reading a book.|Saya sedang membaca buku.
+pen|pulpen|pen|Do you have a pen?|Kamu punya pulpen?
+paper|kertas|pei-per|I need some paper.|Saya butuh kertas.
+box|kotak / kardus|boks|Put the bottles in the box.|Masukkan botol ke kardus.
+bottle|botol|bo-tel|A bottle of water, please.|Satu botol air, ya.
+glass|gelas / kaca|glas|A glass of milk.|Segelas susu.
+plate|piring|pleit|Wash the plates.|Cuci piringnya.
+spoon|sendok|spun|I need a spoon.|Saya butuh sendok.
+clothes|pakaian|klouthz|I wash my clothes on Sunday.|Saya cuci baju hari Minggu.
+shirt|kemeja / baju|shert|This shirt is too big.|Baju ini kebesaran.
+shoes|sepatu|shuz|Take off your shoes.|Lepas sepatumu.
+light|lampu / cahaya|lait|Turn on the light.|Nyalakan lampunya.
+fridge|kulkas|frij|The drinks are in the fridge.|Minumannya di kulkas.
+#Tubuh & Kesehatan
+head|kepala|hed|My head hurts.|Kepalaku sakit.
+hand|tangan|hend|Raise your hand.|Angkat tanganmu.
+eye|mata|ai|Close your eyes.|Tutup matamu.
+ear|telinga|ir|My ear hurts.|Telingaku sakit.
+mouth|mulut|mauth|Open your mouth.|Buka mulutmu.
+tooth|gigi|tuth|I have a bad tooth.|Gigiku sakit.
+stomach|perut|sta-mek|My stomach hurts.|Perutku sakit.
+leg|kaki (tungkai)|leg|My leg is tired.|Kakiku pegal.
+back|punggung|bek|My back hurts from carrying boxes.|Punggungku sakit karena angkat kardus.
+sick|sakit|sik|I am sick today.|Saya sakit hari ini.
+pain|rasa sakit|pein|I have pain here.|Sakitnya di sini.
+fever|demam|fi-ver|The child has a fever.|Anak itu demam.
+cough|batuk|kof|I have a bad cough.|Batukku parah.
+medicine|obat|med-sin|Take this medicine twice a day.|Minum obat ini dua kali sehari.
+doctor|dokter|dok-ter|You should see a doctor.|Sebaiknya kamu ke dokter.
+hospital|rumah sakit|hos-pi-tel|She is in the hospital.|Dia di rumah sakit.
+healthy|sehat|hel-thi|Eat healthy food.|Makan makanan sehat.
+rest|istirahat|rest|You need to rest.|Kamu perlu istirahat.
+#Perasaan & Sifat Orang
+angry|marah|eng-gri|Why is he angry?|Kenapa dia marah?
+afraid|takut|e-freid|I am afraid of dogs.|Saya takut anjing.
+bored|bosan|bord|I am bored at home.|Saya bosan di rumah.
+excited|semangat / antusias|ik-sai-ted|I am excited about the trip.|Saya semangat soal perjalanannya.
+worried|khawatir|wa-rid|My mother is worried.|Ibuku khawatir.
+nervous|gugup|ner-ves|I feel nervous before the interview.|Saya gugup sebelum wawancara.
+proud|bangga|praud|I am proud of you.|Saya bangga padamu.
+lonely|kesepian|loun-li|He feels lonely.|Dia merasa kesepian.
+kind|baik hati|kaind|She is very kind.|Dia baik sekali.
+friendly|ramah|frend-li|The staff are friendly.|Pegawainya ramah.
+lazy|malas|lei-zi|Don't be lazy.|Jangan malas.
+smart|pintar|smart|Your son is smart.|Anakmu pintar.
+honest|jujur|o-nest|He is an honest man.|Dia pria yang jujur.
+patient|sabar|pei-shent|Please be patient.|Mohon bersabar.
+polite|sopan|po-lait|Always be polite to customers.|Selalu sopan pada pelanggan.
+funny|lucu|fa-ni|That video is funny.|Video itu lucu.
+quiet|tenang / pendiam|kwai-et|The shop is quiet today.|Tokonya sepi hari ini.
+strong|kuat|strong|He is strong.|Dia kuat.
+#Kata Sifat Lanjutan
+long|panjang / lama|long|It is a long story.|Ceritanya panjang.
+short|pendek / singkat|short|The line is short.|Antreannya pendek.
+tall|tinggi (orang/gedung)|tol|My brother is tall.|Saudaraku tinggi.
+heavy|berat|he-vi|This box is heavy.|Kardus ini berat.
+near|dekat|nir|The shop is near my house.|Tokonya dekat rumahku.
+far|jauh|far|Is it far from here?|Apakah jauh dari sini?
+full|penuh / kenyang|ful|The shelf is full.|Raknya penuh.
+empty|kosong|emp-ti|The bottle is empty.|Botolnya kosong.
+wet|basah|wet|The floor is wet.|Lantainya basah.
+dry|kering|drai|My clothes are dry now.|Bajuku sudah kering.
+soft|lembut / empuk|soft|This bread is soft.|Roti ini lembut.
+hard|keras / sulit|hard|Work hard.|Bekerja keras.
+sweet|manis|swit|This tea is too sweet.|Teh ini terlalu manis.
+spicy|pedas|spai-si|I like spicy food.|Saya suka makanan pedas.
+delicious|enak / lezat|di-li-shes|This soup is delicious.|Sup ini enak.
+fresh|segar|fresh|The fish is fresh.|Ikannya segar.
+important|penting|im-por-tent|This is important.|Ini penting.
+free|gratis / bebas|fri|The bag is free.|Kantongnya gratis.
+different|berbeda|di-fe-rent|This one is different.|Yang ini berbeda.
+same|sama|seim|We have the same phone.|HP kita sama.
+wrong|salah|rong|This price is wrong.|Harga ini salah.
+safe|aman|seif|Keep your money safe.|Simpan uangmu dengan aman.
+dangerous|berbahaya|dein-je-res|That road is dangerous.|Jalan itu berbahaya.
+popular|populer / laris|po-pyu-ler|This snack is very popular.|Camilan ini laris sekali.
+#Kerja & Toko
+job|pekerjaan|job|I like my job.|Saya suka pekerjaanku.
+salary|gaji|se-le-ri|I get my salary every month.|Saya terima gaji tiap bulan.
+shift|giliran kerja|shift|I work the night shift.|Saya kerja shift malam.
+cashier|kasir|ke-shir|Please pay at the cashier.|Silakan bayar di kasir.
+staff|pegawai|staf|Our staff will help you.|Pegawai kami akan membantu Anda.
+manager|manajer|me-ne-jer|I want to talk to the manager.|Saya mau bicara dengan manajer.
+schedule|jadwal|ske-jul|Check the schedule.|Cek jadwalnya.
+meeting|rapat|mi-ting|We have a meeting at ten.|Kita rapat jam sepuluh.
+report|laporan|ri-port|Send the sales report.|Kirim laporan penjualan.
+delivery|pengiriman|di-li-ve-ri|The delivery is late.|Pengirimannya terlambat.
+supplier|pemasok|se-plai-er|Call the supplier.|Telepon pemasoknya.
+brand|merek|brend|Which brand do you want?|Mau merek yang mana?
+product|produk|pro-dakt|This is a new product.|Ini produk baru.
+quality|kualitas|kwo-li-ti|The quality is good.|Kualitasnya bagus.
+promo|promo|prou-mou|Buy two, get one free promo.|Promo beli dua gratis satu.
+member|anggota / member|mem-ber|Are you a member?|Anda member?
+card|kartu|kard|Can I pay by card?|Bisa bayar pakai kartu?
+exchange|menukar|iks-cheinj|Can I exchange this?|Bisa saya tukar ini?
+refund|pengembalian uang|ri-fand|We can't give a refund.|Kami tidak bisa mengembalikan uang.
+warranty|garansi|wo-ren-ti|It has a one-year warranty.|Ada garansi satu tahun.
+counter|meja kasir / konter|kaun-ter|Wait at the counter.|Tunggu di konter.
+queue|antrean|kyu|There is a long queue.|Antreannya panjang.
+basket|keranjang|bas-ket|Take a basket.|Ambil keranjang.
+aisle|lorong (antar rak)|ail|Soap is in aisle three.|Sabun ada di lorong tiga.
+size|ukuran|saiz|What size do you need?|Butuh ukuran berapa?
+weight|berat (timbangan)|weit|Check the weight.|Cek beratnya.
+expired|kedaluwarsa|eks-pai-erd|This milk is expired.|Susu ini sudah kedaluwarsa.
+label|label / keterangan harga|lei-bel|The price is on the label.|Harganya ada di label.
+#Makanan Lanjutan
+meat|daging|mit|I don't eat meat.|Saya tidak makan daging.
+beef|daging sapi|bif|Beef is expensive.|Daging sapi mahal.
+noodle|mi|nu-del|Instant noodles are cheap.|Mi instan murah.
+soup|sup|sup|Hot soup is good when it rains.|Sup panas enak saat hujan.
+snack|camilan|snek|Do you sell snacks?|Kamu jual camilan?
+cake|kue|keik|This cake is sweet.|Kue ini manis.
+oil|minyak|oil|Cooking oil is on shelf two.|Minyak goreng di rak dua.
+onion|bawang merah/bombay|a-nyen|Cut the onion.|Potong bawangnya.
+garlic|bawang putih|gar-lik|Add some garlic.|Tambahkan bawang putih.
+chili|cabai|chi-li|No chili, please.|Tanpa cabai, ya.
+potato|kentang|po-tei-tou|I like potato chips.|Saya suka keripik kentang.
+juice|jus|jus|Orange juice, please.|Jus jeruk, ya.
+ice|es|ais|No ice, please.|Tanpa es, ya.
+breakfast|sarapan|brek-fest|Did you have breakfast?|Sudah sarapan?
+lunch|makan siang|lanch|Let's have lunch.|Ayo makan siang.
+dinner|makan malam|di-ner|Dinner is ready.|Makan malam sudah siap.
+#Cuaca & Alam
+weather|cuaca|we-der|The weather is nice today.|Cuaca hari ini cerah.
+rain|hujan|rein|It is going to rain.|Sepertinya akan hujan.
+sun|matahari|san|The sun is very hot.|Mataharinya panas sekali.
+wind|angin|wind|The wind is strong.|Anginnya kencang.
+sky|langit|skai|The sky is blue.|Langitnya biru.
+tree|pohon|tri|There is a big tree.|Ada pohon besar.
+flower|bunga|flau-er|These flowers are beautiful.|Bunga-bunga ini indah.
+river|sungai|ri-ver|Don't swim in the river.|Jangan berenang di sungai.
+sea|laut|si|I love the sea.|Saya suka laut.
+mountain|gunung|maun-ten|We climbed a mountain.|Kami mendaki gunung.
+animal|hewan|e-ni-mel|I like animals.|Saya suka hewan.
+dog|anjing|dog|The dog is friendly.|Anjingnya ramah.
+cat|kucing|ket|My cat is sleeping.|Kucingku sedang tidur.
+bird|burung|berd|A bird is singing.|Seekor burung berkicau.
+#Transportasi & Arah
+car|mobil|kar|My boss has a new car.|Bosku punya mobil baru.
+motorbike|motor|mou-ter-baik|I go by motorbike.|Saya naik motor.
+bus|bus|bas|Take the bus.|Naik bus saja.
+train|kereta|trein|The train is late.|Keretanya terlambat.
+plane|pesawat|plein|The plane leaves at five.|Pesawatnya berangkat jam lima.
+ticket|tiket|ti-ket|I bought two tickets.|Saya beli dua tiket.
+station|stasiun|stei-shen|Where is the station?|Stasiunnya di mana?
+airport|bandara|er-port|Take me to the airport.|Antar saya ke bandara.
+left|kiri|left|Turn left at the corner.|Belok kiri di pojok.
+straight|lurus|streit|Go straight.|Jalan lurus.
+turn|belok|tern|Turn right after the bank.|Belok kanan setelah bank.
+corner|pojok / tikungan|kor-ner|The shop is on the corner.|Tokonya di pojok.
+map|peta|mep|Look at the map.|Lihat petanya.
+traffic|lalu lintas / macet|tre-fik|The traffic is bad today.|Hari ini macet parah.
+parking|parkir|par-king|Is there parking here?|Ada parkiran di sini?
+road|jalan raya|roud|The road is wet.|Jalannya basah.
+#Kata Penghubung Lanjutan
+so|jadi / maka|sou|It rained, so I stayed home.|Hujan, jadi saya di rumah.
+if|jika|if|If you are hungry, eat.|Kalau lapar, makanlah.
+then|lalu / kemudian|den|First pay, then take the bag.|Bayar dulu, lalu ambil tasnya.
+after|setelah|af-ter|I go home after work.|Saya pulang setelah kerja.
+before|sebelum|bi-for|Wash your hands before eating.|Cuci tangan sebelum makan.
+until|sampai|an-til|We are open until ten.|Kami buka sampai jam sepuluh.
+while|sementara / selagi|wail|I listen to music while I work.|Saya dengar musik sambil kerja.
+although|meskipun|ol-dhou|Although it is small, it is good.|Meskipun kecil, ini bagus.
+however|namun|hau-e-ver|It is cheap. However, it breaks easily.|Ini murah. Namun, mudah rusak.
+really|sungguh / benar-benar|ri-li|I really like it.|Saya benar-benar suka.
+too|terlalu / juga|tu|It is too expensive.|Ini terlalu mahal.
+enough|cukup|i-naf|I have enough money.|Uangku cukup.
+almost|hampir|ol-moust|It is almost seven.|Sudah hampir jam tujuh.
+together|bersama|tu-ge-der|Let's eat together.|Ayo makan bersama.
+#Kata Jumlah & Kata Ganti Umum
+everyone|semua orang|ev-ri-wan|Everyone is here.|Semua orang sudah di sini.
+someone|seseorang|sam-wan|Someone is at the door.|Ada orang di pintu.
+something|sesuatu|sam-thing|I want something to drink.|Saya mau minum sesuatu.
+nothing|tidak ada apa-apa|na-thing|There is nothing in the box.|Tidak ada apa-apa di kotak.
+anything|apa saja / apa pun|e-ni-thing|Do you need anything?|Butuh sesuatu?
+everything|semuanya|ev-ri-thing|Everything is ready.|Semuanya siap.
+all|semua|ol|All items are on sale.|Semua barang diskon.
+every|setiap|ev-ri|I study every day.|Saya belajar setiap hari.
+many|banyak (bisa dihitung)|me-ni|Many customers came today.|Banyak pelanggan datang hari ini.
+much|banyak (tak bisa dihitung)|mach|I don't have much time.|Saya tidak punya banyak waktu.
+some|beberapa / sedikit|sam|I need some help.|Saya butuh sedikit bantuan.
+any|ada (dalam tanya/negatif)|e-ni|Do you have any eggs?|Ada telur?
+more|lebih / lagi|mor|I need more bags.|Saya butuh kantong lagi.
+less|kurang / lebih sedikit|les|Use less sugar.|Pakai gula lebih sedikit.
+a lot of|banyak sekali|e lot of|We sold a lot of drinks.|Kami jual banyak sekali minuman.
+other|lain|a-der|Do you have other colors?|Ada warna lain?
+another|satu lagi / yang lain|e-na-der|Can I have another one?|Boleh minta satu lagi?
+both|keduanya|bouth|I like both.|Saya suka keduanya.
+#Kata Benda Umum
+thing|barang / hal|thing|I have many things to do.|Banyak hal yang harus saya kerjakan.
+place|tempat|pleis|This is a nice place.|Ini tempat yang bagus.
+way|cara / jalan|wei|This is the easy way.|Ini cara yang mudah.
+problem|masalah|pro-blem|There is a problem with the machine.|Ada masalah dengan mesinnya.
+question|pertanyaan|kwes-chen|Can I ask a question?|Boleh saya bertanya?
+idea|ide|ai-di-a|Good idea!|Ide bagus!
+story|cerita|sto-ri|Tell me a story.|Ceritakan aku sebuah cerita.
+word|kata|werd|What does this word mean?|Kata ini artinya apa?
+language|bahasa|leng-gwij|English is a useful language.|Bahasa Inggris bahasa yang berguna.
+country|negara|kan-tri|Indonesia is a big country.|Indonesia negara yang besar.
+world|dunia|werld|English is used all over the world.|Bahasa Inggris dipakai di seluruh dunia.
+life|hidup / kehidupan|laif|Life is good.|Hidup itu indah.
+news|berita|nyuz|I have good news.|Saya punya kabar baik.
+mistake|kesalahan|mis-teik|Everyone makes mistakes.|Semua orang pernah salah.
+reason|alasan|ri-zen|What is the reason?|Apa alasannya?
+plan|rencana|plen|What is your plan?|Apa rencanamu?
+holiday|liburan|ho-li-dei|The holiday is next week.|Liburannya minggu depan.
+#Teknologi
+internet|internet|in-ter-net|The internet is down.|Internetnya mati.
+message|pesan|me-sij|I got your message.|Saya sudah terima pesanmu.
+photo|foto|fou-tou|Take a photo of the receipt.|Foto struknya.
+video|video|vi-di-ou|I watch English videos.|Saya nonton video bahasa Inggris.
+password|kata sandi|pas-werd|Don't share your password.|Jangan bagikan kata sandimu.
+account|akun / rekening|e-kaunt|Do you have an account?|Kamu punya akun?
+app|aplikasi|ep|Download the app.|Unduh aplikasinya.
+battery|baterai|be-te-ri|My battery is low.|Baterai saya lemah.
+charger|pengisi daya / casan|char-jer|Can I borrow your charger?|Boleh pinjam casanmu?
+online|daring / online|on-lain|You can order online.|Kamu bisa pesan online.
+`;
+const VOCAB=[]; (function(){let cat='';RAW.trim().split('\n').forEach(l=>{l=l.trim();if(!l)return;if(l[0]==='#'){cat=l.slice(1).trim();return}const p=l.split('|');VOCAB.push({id:VOCAB.length,w:p[0],a:p[1],b:p[2],ex:p[3],exa:p[4],cat})})})();
+
+const CH=[
+{id:1,lvl:'A0',t:'Alfabet & Cara Baca',s:'Kenapa tulisan dan bacaan beda',
+body:`<p>Bahasa Inggris tidak dibaca seperti tulisannya. Huruf vokalnya punya nama yang berbeda dari bahasa Indonesia, dan ini sumber salah baca paling umum.</p>
+<h3>Nama huruf vokal</h3>
+<div class="tblwrap"><table class="mini"><tr><th>Huruf</th><th>Dibaca</th><th>Contoh kata</th></tr>
+<tr><td>A</td><td>ei</td><td>name → neim</td></tr><tr><td>E</td><td>i</td><td>he → hi</td></tr><tr><td>I</td><td>ai</td><td>time → taim</td></tr><tr><td>O</td><td>ou</td><td>go → gou</td></tr><tr><td>U</td><td>yu</td><td>use → yuz</td></tr></table></div>
+<h3>Pola yang sering muncul</h3>
+<div class="formula">huruf vokal + konsonan + <b>e</b> di akhir → vokal dibaca seperti namanya<br>name (neim) · time (taim) · home (houm)<br><b>th</b> → lidah di antara gigi: think, three<br><b>ee / ea</b> → i panjang: see, eat</div>
+<p class="tip">Setiap kartu vocab punya "cara baca" dan tombol dengar. Biasakan mengucapkan keras-keras, bukan cuma dibaca dalam hati.</p>`,
+ex:[['name','neim'],['time','taim'],['three','thri'],['see','si']],
+q:[{p:'Huruf <q>I</q> dalam alfabet Inggris dibaca…',o:['ai','i','ei','ou'],a:0,e:'Huruf I dibaca "ai", seperti di kata time (taim).'},
+{p:'Kata <q>name</q> dibaca…',o:['neim','na-me','nem','nim'],a:0,e:'Vokal + konsonan + e di akhir: a dibaca "ei", jadi neim.'},
+{p:'Huruf <q>E</q> dibaca…',o:['i','e','ei','ai'],a:0,e:'Huruf E dibaca "i", seperti di kata he (hi).'}]},
+{id:2,lvl:'A0',t:'Kata Ganti (Pronoun)',s:'I, you, he, she, me, my',
+body:`<p>Kata ganti dipakai supaya tidak mengulang nama. Bentuknya berubah tergantung posisinya di kalimat.</p>
+<div class="tblwrap"><table class="mini"><tr><th>Pelaku</th><th>Objek</th><th>Milik</th><th>Arti</th></tr>
+<tr><td>I</td><td>me</td><td>my</td><td>saya</td></tr><tr><td>you</td><td>you</td><td>your</td><td>kamu</td></tr><tr><td>he</td><td>him</td><td>his</td><td>dia (laki-laki)</td></tr><tr><td>she</td><td>her</td><td>her</td><td>dia (perempuan)</td></tr><tr><td>it</td><td>it</td><td>its</td><td>itu (benda/hewan)</td></tr><tr><td>we</td><td>us</td><td>our</td><td>kami / kita</td></tr><tr><td>they</td><td>them</td><td>their</td><td>mereka</td></tr></table></div>
+<p class="tip">Bahasa Indonesia cuma punya "dia". Bahasa Inggris membedakan <b>he</b> (laki-laki) dan <b>she</b> (perempuan).</p>`,
+ex:[['She is my sister.','Dia saudara perempuanku.'],['Call him.','Telepon dia (laki-laki).'],['This is our shop.','Ini toko kami.']],
+q:[{p:'<q>___ is my mother.</q>',o:['She','Her','He','Him'],a:0,e:'Ibu itu perempuan dan menjadi pelaku, jadi pakai She.'},
+{p:'<q>Please help ___.</q> (saya)',o:['me','I','my','mine'],a:0,e:'Setelah kata kerja (help), saya menjadi objek: me.'},
+{p:'<q>This is ___ book.</q> (milik mereka)',o:['their','they','them','there'],a:0,e:'Kepemilikan mereka = their.'}]},
+{id:3,lvl:'A1',t:'To Be: am / is / are',s:'Kata "adalah" dan "sedang berada"',
+body:`<p>To be menghubungkan pelaku dengan keadaan, sifat, profesi, atau tempat. Dalam bahasa Indonesia sering tidak diterjemahkan.</p>
+<div class="formula"><b>I</b> am<br><b>he / she / it</b> is<br><b>you / we / they</b> are<br><br>Negatif: I am <b>not</b> tired.<br>Tanya: <b>Are</b> you ready?</div>
+<p class="tip">"Saya lapar" bukan "I hungry" tapi <b>I am hungry</b>. Kalimat Inggris hampir selalu butuh kata kerja.</p>`,
+ex:[['I am tired.','Saya capek.'],['The shop is open.','Tokonya buka.'],['They are at home.','Mereka di rumah.'],['Is it expensive?','Apakah itu mahal?']],
+q:[{p:'<q>She ___ a teacher.</q>',o:['is','am','are','be'],a:0,e:'She memakai is.'},
+{p:'<q>We ___ busy today.</q>',o:['are','is','am','be'],a:0,e:'We memakai are.'},
+{p:'Kalimat yang benar untuk "Saya lapar":',o:['I am hungry.','I hungry.','I is hungry.','Me hungry.'],a:0,e:'Butuh to be: I am hungry.'},
+{p:'<q>___ you ready?</q>',o:['Are','Is','Am','Do'],a:0,e:'Pertanyaan dengan to be: to be pindah ke depan. You → Are.'}]},
+{id:4,lvl:'A1',t:'A, An, The & Jamak',s:'Sebuah, itu, dan bentuk banyak',
+body:`<p><b>a / an</b> berarti "sebuah/seorang" untuk satu benda yang belum spesifik. <b>the</b> untuk benda yang sudah jelas yang mana.</p>
+<div class="formula"><b>a</b> + bunyi konsonan: a bag, a shop<br><b>an</b> + bunyi vokal: an egg, an item<br><b>the</b> + benda tertentu: the door (pintu yang itu)<br><br>Jamak: tambah <b>-s</b> → two bags<br>Akhiran s, sh, ch, x → <b>-es</b>: boxes<br>Tidak beraturan: child → children, man → men</div>`,
+ex:[['I have a phone.','Saya punya (sebuah) HP.'],['I eat an egg.','Saya makan sebutir telur.'],['Close the door.','Tutup pintunya.'],['three bags','tiga tas']],
+q:[{p:'<q>I want ___ egg.</q>',o:['an','a','the two','—'],a:0,e:'Egg diawali bunyi vokal, jadi an.'},
+{p:'Bentuk jamak <q>child</q>:',o:['children','childs','childes','child'],a:0,e:'Child termasuk tidak beraturan: children.'},
+{p:'<q>Please open ___ door.</q> (pintu yang di situ)',o:['the','a','an','—'],a:0,e:'Pintunya sudah jelas yang mana, pakai the.'}]},
+{id:5,lvl:'A1',t:'Present Simple',s:'Kebiasaan dan fakta',
+body:`<p>Dipakai untuk hal yang rutin, kebiasaan, atau fakta umum. Biasanya ada kata seperti every day, always, sometimes.</p>
+<div class="formula">I / you / we / they + <b>kata kerja</b> → I work<br>he / she / it + kata kerja + <b>s/es</b> → she works<br><br>Negatif: I <b>don't</b> work · she <b>doesn't</b> work<br>Tanya: <b>Do</b> you work? · <b>Does</b> she work?</div>
+<p class="tip">Setelah doesn't / does, kata kerja kembali polos: She doesn't <b>work</b> (bukan works).</p>`,
+ex:[['I drink coffee every morning.','Saya minum kopi setiap pagi.'],['He works in a shop.','Dia bekerja di toko.'],['She doesn’t eat fish.','Dia tidak makan ikan.'],['Do you like tea?','Kamu suka teh?']],
+q:[{p:'<q>My father ___ in Jakarta.</q>',o:['works','work','working','is work'],a:0,e:'He/she/it + s: works.'},
+{p:'<q>They ___ like coffee.</q> (tidak)',o:['don’t','doesn’t','not','isn’t'],a:0,e:'They memakai don’t.'},
+{p:'<q>___ she speak English?</q>',o:['Does','Do','Is','Are'],a:0,e:'She memakai does untuk bertanya.'},
+{p:'<q>He doesn’t ___ meat.</q>',o:['eat','eats','eating','ate'],a:0,e:'Setelah doesn’t, kata kerja polos: eat.'}]},
+{id:6,lvl:'A1',t:'Present Continuous',s:'Sedang terjadi sekarang',
+body:`<p>Dipakai untuk kegiatan yang sedang berlangsung saat ini.</p>
+<div class="formula">pelaku + <b>am / is / are</b> + kata kerja<b>-ing</b><br>I am eating · She is sleeping · They are working<br><br>Negatif: I am <b>not</b> working<br>Tanya: <b>Is</b> he sleeping?</div>
+<p class="tip">Kata kerja berakhiran e, buang e-nya: make → making. Satu vokal + satu konsonan, gandakan: run → running.</p>`,
+ex:[['I am cooking now.','Saya sedang masak sekarang.'],['She is talking to a customer.','Dia sedang bicara dengan pelanggan.'],['Are you waiting?','Kamu sedang menunggu?']],
+q:[{p:'<q>Look! The child ___.</q>',o:['is sleeping','sleeps','sleep','are sleeping'],a:0,e:'Sedang terjadi: is + sleeping.'},
+{p:'Bentuk -ing dari <q>make</q>:',o:['making','makeing','makking','maked'],a:0,e:'Buang e: making.'},
+{p:'<q>We ___ for the bus.</q> (sedang menunggu)',o:['are waiting','is waiting','waiting','wait'],a:0,e:'We + are + waiting.'}]},
+{id:7,lvl:'A1',t:'Membuat Pertanyaan',s:'What, where, when, do, does',
+body:`<p>Pertanyaan bahasa Inggris punya urutan tetap. Kata tanya di depan, lalu kata bantu, lalu pelaku.</p>
+<div class="formula"><b>Kata tanya</b> + do/does + pelaku + kata kerja?<br>Where <b>do</b> you live? · What <b>does</b> he want?<br><br><b>Kata tanya</b> + am/is/are + pelaku?<br>Where <b>is</b> the shop? · How <b>are</b> you?</div>
+<div class="tblwrap"><table class="mini"><tr><th>Kata tanya</th><th>Arti</th></tr><tr><td>what</td><td>apa</td></tr><tr><td>who</td><td>siapa</td></tr><tr><td>where</td><td>di mana</td></tr><tr><td>when</td><td>kapan</td></tr><tr><td>why</td><td>kenapa</td></tr><tr><td>how</td><td>bagaimana</td></tr><tr><td>how much</td><td>berapa (harga/banyaknya)</td></tr></table></div>`,
+ex:[['Where do you work?','Kamu kerja di mana?'],['What time is it?','Jam berapa sekarang?'],['How much is this?','Ini berapa harganya?']],
+q:[{p:'<q>Where ___ you live?</q>',o:['do','does','are','is'],a:0,e:'Live adalah kata kerja, pelaku you: do.'},
+{p:'<q>___ is your name?</q>',o:['What','Who','Where','How'],a:0,e:'Menanyakan nama: What is your name?'},
+{p:'<q>Where ___ the toilet?</q>',o:['is','do','does','are'],a:0,e:'Tidak ada kata kerja lain, toilet tunggal: is.'}]},
+{id:8,lvl:'A1',t:'In, On, At',s:'Preposisi tempat dan waktu',
+body:`<p>Tiga kata kecil ini sering tertukar. Pikirkan dari yang paling luas ke paling sempit.</p>
+<div class="formula"><b>Waktu</b><br>in → bulan, tahun, pagi/siang: in May, in 2026, in the morning<br>on → hari & tanggal: on Monday, on 17 August<br>at → jam: at seven, at night<br><br><b>Tempat</b><br>in → di dalam: in the room, in Bandung<br>on → di atas permukaan: on the shelf<br>at → di titik/lokasi: at the shop, at home</div>`,
+ex:[['The shop opens at seven.','Toko buka jam tujuh.'],['I was born in 2001.','Saya lahir tahun 2001.'],['Put it on the shelf.','Taruh di rak.'],['She is at home.','Dia di rumah.']],
+q:[{p:'<q>I wake up ___ six o’clock.</q>',o:['at','in','on','to'],a:0,e:'Jam memakai at.'},
+{p:'<q>We are closed ___ Sunday.</q>',o:['on','in','at','by'],a:0,e:'Nama hari memakai on.'},
+{p:'<q>I live ___ Bandung.</q>',o:['in','on','at','to'],a:0,e:'Kota memakai in.'}]},
+{id:9,lvl:'A2',t:'Past Simple',s:'Cerita kejadian kemarin',
+body:`<p>Untuk kejadian yang sudah selesai di masa lalu: yesterday, last week, two days ago.</p>
+<div class="formula">Beraturan: kata kerja + <b>-ed</b> → work → worked, cook → cooked<br>Tidak beraturan (wajib hafal):<br>go → <b>went</b> · eat → <b>ate</b> · buy → <b>bought</b> · see → <b>saw</b><br>have → <b>had</b> · make → <b>made</b> · come → <b>came</b> · be → <b>was/were</b><br><br>Negatif: I <b>didn’t</b> go · Tanya: <b>Did</b> you eat?</div>
+<p class="tip">Sama seperti does: setelah didn’t / did, kata kerja kembali polos. Did you <b>eat</b>? (bukan ate)</p>`,
+ex:[['I went to the market yesterday.','Kemarin saya pergi ke pasar.'],['She bought two eggs.','Dia membeli dua telur.'],['We didn’t open last Sunday.','Minggu lalu kami tidak buka.'],['Did you eat?','Kamu sudah makan?']],
+q:[{p:'<q>Yesterday I ___ to the shop.</q>',o:['went','go','goed','going'],a:0,e:'Go tidak beraturan: went.'},
+{p:'<q>Did you ___ breakfast?</q>',o:['eat','ate','eaten','eats'],a:0,e:'Setelah did, kata kerja polos: eat.'},
+{p:'Bentuk lampau dari <q>buy</q>:',o:['bought','buyed','buied','brought'],a:0,e:'Buy → bought. Hati-hati, brought itu lampau dari bring.'},
+{p:'<q>They ___ at home last night.</q>',o:['were','was','are','did'],a:0,e:'They + lampau to be: were.'}]},
+{id:10,lvl:'A2',t:'Masa Depan: will & going to',s:'Rencana dan janji',
+body:`<p>Ada dua cara umum membicarakan masa depan.</p>
+<div class="formula"><b>will</b> + kata kerja → keputusan spontan, janji, tebakan<br>I will help you. · It will rain.<br><br><b>am/is/are going to</b> + kata kerja → rencana yang sudah dipikirkan<br>I am going to study tonight.<br><br>Negatif: won’t (= will not) · I’m not going to</div>`,
+ex:[['I will call you later.','Nanti saya telepon.'],['We are going to open a new shop.','Kami akan buka toko baru (sudah direncanakan).'],['I won’t be late.','Saya tidak akan terlambat.']],
+q:[{p:'<q>The phone is ringing. I ___ answer it.</q> (keputusan spontan)',o:['will','am going to','going','am'],a:0,e:'Keputusan saat itu juga: will.'},
+{p:'<q>She ___ visit her mother next week.</q> (sudah direncanakan)',o:['is going to','are going to','going to','will to'],a:0,e:'Rencana: is going to.'},
+{p:'<q>won’t</q> artinya…',o:['will not','want not','was not','would'],a:0,e:'Won’t = will not.'}]},
+{id:11,lvl:'A2',t:'Can, Must, Should',s:'Bisa, harus, sebaiknya',
+body:`<p>Kata bantu ini selalu diikuti kata kerja polos dan tidak pernah ditambah -s.</p>
+<div class="formula"><b>can</b> = bisa / boleh → I can speak English.<br><b>must</b> = harus → You must pay first.<br><b>should</b> = sebaiknya → You should rest.<br><br>Negatif: can’t · mustn’t (dilarang) · shouldn’t<br>Tanya: <b>Can</b> I help you?</div>
+<p class="tip">He can <b>speak</b>, bukan he cans speaks.</p>`,
+ex:[['Can I help you?','Ada yang bisa saya bantu?'],['You must wear a mask.','Kamu harus pakai masker.'],['You should drink more water.','Sebaiknya kamu minum lebih banyak air.']],
+q:[{p:'<q>She ___ speak English.</q>',o:['can','cans','can to','is can'],a:0,e:'Can tidak berubah dan langsung diikuti kata kerja polos.'},
+{p:'Kalimat menawarkan bantuan ke pelanggan:',o:['Can I help you?','Do I help you?','I can help you?','Must I help you?'],a:0,e:'Can I help you? adalah sapaan standar di toko.'},
+{p:'<q>You look tired. You ___ rest.</q>',o:['should','mustn’t','can’t','will not'],a:0,e:'Saran: should.'}]},
+{id:12,lvl:'A2',t:'Membandingkan',s:'Lebih murah, paling mahal',
+body:`<p>Untuk membandingkan dua atau lebih benda.</p>
+<div class="formula">Kata pendek: + <b>-er</b> / + <b>-est</b><br>cheap → cheaper → the cheapest<br>big → bigger → the biggest<br><br>Kata panjang: <b>more</b> / <b>the most</b><br>expensive → more expensive → the most expensive<br><br>Tidak beraturan: good → better → the best · bad → worse → the worst<br>Pembanding: <b>than</b> → This is cheaper <b>than</b> that.</div>`,
+ex:[['This bag is cheaper than that one.','Tas ini lebih murah dari yang itu.'],['It is the best coffee in town.','Ini kopi terbaik di kota.'],['English is easier than I thought.','Bahasa Inggris lebih mudah dari yang saya kira.']],
+q:[{p:'<q>This phone is ___ than that one.</q> (lebih mahal)',o:['more expensive','expensiver','most expensive','expensive'],a:0,e:'Kata panjang memakai more.'},
+{p:'Bentuk "paling baik":',o:['the best','the goodest','the better','the most good'],a:0,e:'Good tidak beraturan: the best.'},
+{p:'<q>Rice is cheaper ___ bread here.</q>',o:['than','then','that','from'],a:0,e:'Pembanding memakai than.'}]},
+{id:13,lvl:'A2',t:'Present Perfect',s:'Sudah pernah, sudah selesai',
+body:`<p>Menghubungkan masa lalu dengan sekarang: pengalaman (pernah), sesuatu yang baru saja selesai, atau keadaan yang berlangsung sampai sekarang.</p>
+<div class="formula">pelaku + <b>have / has</b> + kata kerja bentuk ke-3 (V3)<br>I have eaten · She has finished<br><br>Negatif: I <b>haven’t</b> eaten · She <b>hasn’t</b> finished<br>Tanya: <b>Have</b> you ever been to Bali?<br><br>Kata yang sering menyertai: ever, never, already, yet, just, since, for</div>
+<div class="tblwrap"><table class="mini"><tr><th>V1</th><th>V2 (lampau)</th><th>V3</th></tr>
+<tr><td>go</td><td>went</td><td>gone</td></tr><tr><td>eat</td><td>ate</td><td>eaten</td></tr><tr><td>see</td><td>saw</td><td>seen</td></tr><tr><td>do</td><td>did</td><td>done</td></tr><tr><td>be</td><td>was/were</td><td>been</td></tr><tr><td>buy</td><td>bought</td><td>bought</td></tr><tr><td>work</td><td>worked</td><td>worked</td></tr></table></div>
+<p class="tip">Kalau waktunya disebut jelas (yesterday, last week), pakai past simple. I <b>went</b> yesterday, bukan I have gone yesterday.</p>`,
+ex:[['I have worked here for two years.','Saya sudah bekerja di sini selama dua tahun.'],['Have you ever been to Jakarta?','Kamu pernah ke Jakarta?'],['She has just arrived.','Dia baru saja tiba.'],['I haven’t finished yet.','Saya belum selesai.']],
+q:[{p:'<q>I ___ this movie before.</q>',o:['have seen','have saw','has seen','seen'],a:0,e:'I + have + V3 (seen).'},
+{p:'<q>___ she finished the report?</q>',o:['Has','Have','Did','Is'],a:0,e:'She memakai has.'},
+{p:'Pilih yang benar:',o:['I went to Bali last year.','I have gone to Bali last year.','I have went to Bali last year.','I go to Bali last year.'],a:0,e:'Ada waktu jelas (last year), jadi pakai past simple.'}]},
+{id:14,lvl:'A2',t:'Past Continuous',s:'Sedang terjadi di masa lalu',
+body:`<p>Untuk kegiatan yang sedang berlangsung pada waktu tertentu di masa lalu, sering saat ada kejadian lain menyela.</p>
+<div class="formula">pelaku + <b>was / were</b> + kata kerja<b>-ing</b><br>I / he / she / it → was · you / we / they → were<br><br>I <b>was cooking</b> when the phone <b>rang</b>.<br>(sedang masak) ··· (tiba-tiba telepon bunyi)<br><br>Negatif: wasn’t / weren’t · Tanya: <b>Were</b> you sleeping?</div>`,
+ex:[['I was sleeping at ten last night.','Jam sepuluh semalam saya sedang tidur.'],['They were working when the light went out.','Mereka sedang bekerja saat lampu mati.'],['What were you doing?','Kamu sedang apa tadi?']],
+q:[{p:'<q>She ___ TV when I came.</q>',o:['was watching','were watching','is watching','watched'],a:0,e:'She + was + -ing.'},
+{p:'<q>We ___ dinner at eight.</q> (sedang makan, kemarin)',o:['were having','was having','are having','have'],a:0,e:'We + were + -ing.'},
+{p:'<q>I was walking home when it ___ to rain.</q>',o:['started','was starting','starts','start'],a:0,e:'Kejadian yang menyela memakai past simple.'}]},
+{id:15,lvl:'A2',t:'Much, Many, Some, Any',s:'Benda yang bisa dan tidak bisa dihitung',
+body:`<p>Bahasa Inggris membedakan benda yang bisa dihitung (egg, bottle) dan yang tidak (water, sugar, money, time).</p>
+<div class="formula"><b>many</b> + benda bisa dihitung (jamak): many eggs<br><b>much</b> + benda tak bisa dihitung: much water<br><b>a lot of</b> → untuk keduanya: a lot of eggs, a lot of water<br><br><b>some</b> → kalimat positif: I have some money.<br><b>any</b> → negatif & pertanyaan: Do you have any sugar? I don’t have any.<br><br>Bertanya jumlah: <b>How many</b> bottles? · <b>How much</b> sugar?</div>
+<p class="tip">Menawarkan sesuatu tetap pakai some: Would you like some tea?</p>`,
+ex:[['How many eggs do you need?','Butuh berapa telur?'],['How much milk is left?','Susunya sisa berapa?'],['We don’t have any bread.','Kami tidak punya roti sama sekali.']],
+q:[{p:'<q>How ___ bottles do you want?</q>',o:['many','much','some','any'],a:0,e:'Bottles bisa dihitung: many.'},
+{p:'<q>I don’t have ___ money.</q>',o:['much','many','a','some'],a:0,e:'Money tidak bisa dihitung dan kalimatnya negatif: much.'},
+{p:'<q>Do you have ___ eggs?</q>',o:['any','some','much','a'],a:0,e:'Pertanyaan memakai any.'}]},
+{id:16,lvl:'A2',t:'Kata Sambung untuk Bercerita',s:'First, then, so, although',
+body:`<p>Supaya ceritamu mengalir, sambungkan kalimat dengan kata yang tepat.</p>
+<div class="formula"><b>Urutan:</b> first → then → after that → finally<br><b>Sebab-akibat:</b> because (karena) · so (jadi)<br><b>Pertentangan:</b> but (tapi) · although (meskipun) · however (namun)<br><b>Waktu:</b> when (ketika) · before · after · while</div>
+<p class="tip">because diikuti sebab, so diikuti akibat. I was tired <b>because</b> I worked late. I worked late, <b>so</b> I was tired.</p>`,
+ex:[['First, open the box. Then, check the items.','Pertama, buka kardusnya. Lalu, cek barangnya.'],['It was raining, so we stayed inside.','Hujan, jadi kami di dalam.'],['Although he was tired, he finished the work.','Meskipun capek, dia menyelesaikan pekerjaannya.']],
+q:[{p:'<q>I was hungry, ___ I bought some bread.</q>',o:['so','because','although','but'],a:0,e:'Akibat: so.'},
+{p:'<q>___ it was expensive, she bought it.</q>',o:['Although','Because','So','Then'],a:0,e:'Pertentangan: although.'},
+{p:'<q>I stayed home ___ I was sick.</q>',o:['because','so','but','then'],a:0,e:'Alasan: because.'}]},
+{id:17,lvl:'B1',t:'Kata Kerja + -ing atau + to',s:'Enjoy doing, want to do',
+body:`<p>Kalau dua kata kerja bertemu, kata kerja kedua bentuknya ditentukan oleh kata kerja pertama. Ini harus dihafal per kata.</p>
+<div class="formula">+ <b>-ing</b>: enjoy, finish, stop, mind, keep, avoid<br>I enjoy <b>reading</b>. · Stop <b>talking</b>.<br><br>+ <b>to</b>: want, need, hope, decide, plan, learn, try<br>I want <b>to go</b>. · She decided <b>to stay</b>.<br><br>Setelah preposisi (about, of, in, at) → selalu -ing<br>I am good at <b>cooking</b>. · Thank you for <b>helping</b>.</div>`,
+ex:[['I enjoy learning English.','Saya menikmati belajar bahasa Inggris.'],['I want to open my own shop.','Saya ingin membuka toko sendiri.'],['Thank you for waiting.','Terima kasih sudah menunggu.']],
+q:[{p:'<q>I enjoy ___ to music.</q>',o:['listening','to listen','listen','listened'],a:0,e:'Enjoy + -ing.'},
+{p:'<q>She wants ___ a new phone.</q>',o:['to buy','buying','buy','bought'],a:0,e:'Want + to.'},
+{p:'<q>Thank you for ___ me.</q>',o:['helping','to help','help','helped'],a:0,e:'Setelah preposisi for: -ing.'}]},
+{id:18,lvl:'B1',t:'Kalimat If (Pengandaian)',s:'Kalau begini, maka begitu',
+body:`<p>Ada tiga pola if yang paling sering dipakai.</p>
+<div class="formula"><b>Fakta umum</b>: If + present, present<br>If you heat ice, it melts.<br><br><b>Kemungkinan nyata (masa depan)</b>: If + present, will + V1<br>If it rains, I <b>will</b> stay home.<br><br><b>Khayalan / tidak nyata</b>: If + past, would + V1<br>If I <b>had</b> money, I <b>would</b> buy a car.<br>If I <b>were</b> you, I <b>would</b> rest.</div>
+<p class="tip">Bagian if tidak pakai will. If it <b>rains</b>, bukan If it will rain.</p>`,
+ex:[['If you buy two, you get one free.','Kalau beli dua, gratis satu.'],['If I finish early, I will call you.','Kalau saya selesai cepat, saya telepon kamu.'],['If I were rich, I would travel.','Kalau saya kaya, saya akan jalan-jalan.']],
+q:[{p:'<q>If it ___ tomorrow, we will close early.</q>',o:['rains','will rain','rained','raining'],a:0,e:'Bagian if memakai present: rains.'},
+{p:'<q>If I had time, I ___ learn French.</q>',o:['would','will','can','am'],a:0,e:'Khayalan: if + past, would.'},
+{p:'<q>If I ___ you, I would see a doctor.</q>',o:['were','am','was be','will be'],a:0,e:'Pola khayalan baku: If I were you.'}]},
+{id:19,lvl:'B1',t:'Kalimat Pasif',s:'Dibuat, dijual, dikirim',
+body:`<p>Kalimat pasif fokus pada benda yang dikenai pekerjaan, bukan pelakunya. Mirip awalan "di-".</p>
+<div class="formula">benda + <b>to be</b> + V3<br>Sekarang: The shop <b>is opened</b> at seven. (dibuka)<br>Lampau: The milk <b>was delivered</b> yesterday. (diantar)<br>Masa depan: It <b>will be sent</b> tomorrow. (akan dikirim)<br><br>Pelaku disebut dengan <b>by</b>: This cake was made <b>by</b> my mother.</div>`,
+ex:[['Rice is sold here.','Beras dijual di sini.'],['The items were checked this morning.','Barang-barangnya sudah dicek tadi pagi.'],['English is spoken in many countries.','Bahasa Inggris dipakai di banyak negara.']],
+q:[{p:'<q>This bag ___ in Bandung.</q> (dibuat)',o:['is made','makes','is make','made is'],a:0,e:'Pasif sekarang: is + V3 (made).'},
+{p:'<q>The boxes ___ yesterday.</q> (diantar)',o:['were delivered','was delivered','are delivered','delivered'],a:0,e:'Boxes jamak, lampau: were + V3.'},
+{p:'<q>The book was written ___ a teacher.</q>',o:['by','from','with','of'],a:0,e:'Pelaku dalam pasif memakai by.'}]},
+{id:20,lvl:'B1',t:'Who, Which, That',s:'Yang (menjelaskan orang dan benda)',
+body:`<p>Dipakai untuk menambah keterangan, seperti kata "yang".</p>
+<div class="formula"><b>who</b> → untuk orang: The man <b>who</b> works here is kind.<br><b>which</b> → untuk benda: The bag <b>which</b> I bought is red.<br><b>that</b> → orang atau benda (santai): The milk <b>that</b> you want is sold out.<br><b>where</b> → tempat: This is the shop <b>where</b> I work.</div>`,
+ex:[['She is the customer who came yesterday.','Dia pelanggan yang datang kemarin.'],['This is the phone that I lost.','Ini HP yang saya hilangkan.'],['That is the market where we buy vegetables.','Itu pasar tempat kami beli sayur.']],
+q:[{p:'<q>The woman ___ lives next door is a nurse.</q>',o:['who','which','where','what'],a:0,e:'Orang: who.'},
+{p:'<q>I like the shirt ___ you bought.</q>',o:['which','who','where','when'],a:0,e:'Benda: which (atau that).'},
+{p:'<q>This is the city ___ I was born.</q>',o:['where','which','who','that'],a:0,e:'Tempat: where.'}]},
+{id:21,lvl:'B1',t:'Kalimat Tidak Langsung',s:'He said that…',
+body:`<p>Untuk menyampaikan ucapan orang lain. Biasanya waktunya mundur satu langkah.</p>
+<div class="formula">"I <b>am</b> tired." → He said (that) he <b>was</b> tired.<br>"I <b>will</b> come." → She said she <b>would</b> come.<br>"I <b>like</b> it." → He said he <b>liked</b> it.<br><br>Perintah: "Wait!" → He told me <b>to wait</b>.<br>Pertanyaan: "Where do you live?" → She asked me where I <b>lived</b>.</div>
+<p class="tip">said tidak diikuti orang (He said that…). told diikuti orang (He told <b>me</b> that…).</p>`,
+ex:[['The boss said that we would close early.','Bos bilang kita akan tutup lebih awal.'],['She told me to wait outside.','Dia menyuruhku menunggu di luar.'],['He asked me what my name was.','Dia bertanya siapa namaku.']],
+q:[{p:'"I am busy." → <q>She said she ___ busy.</q>',o:['was','is','be','were'],a:0,e:'Am mundur menjadi was.'},
+{p:'"Close the door." → <q>He told me ___ the door.</q>',o:['to close','close','closing','closed'],a:0,e:'Perintah: told + orang + to.'},
+{p:'<q>He ___ me that the price had changed.</q>',o:['told','said','spoke','talked'],a:0,e:'Diikuti orang (me): told.'}]},
+{id:22,lvl:'B1',t:'Phrasal Verbs Sehari-hari',s:'Turn on, pick up, look for',
+body:`<p>Phrasal verb adalah kata kerja + kata kecil yang artinya berubah. Sangat sering dipakai dalam percakapan.</p>
+<div class="tblwrap"><table class="mini"><tr><th>Phrasal verb</th><th>Arti</th></tr>
+<tr><td>turn on / turn off</td><td>menyalakan / mematikan</td></tr><tr><td>pick up</td><td>mengambil / menjemput / mengangkat telepon</td></tr><tr><td>look for</td><td>mencari</td></tr><tr><td>find out</td><td>mencari tahu</td></tr><tr><td>give up</td><td>menyerah</td></tr><tr><td>run out of</td><td>kehabisan</td></tr><tr><td>come back</td><td>kembali</td></tr><tr><td>get up</td><td>bangun dari tempat tidur</td></tr><tr><td>fill in</td><td>mengisi (formulir)</td></tr><tr><td>check out</td><td>membayar dan pergi / melihat-lihat</td></tr></table></div>
+<p class="tip">Jangan terjemahkan per kata. "Give up" bukan "memberi ke atas", tapi menyerah.</p>`,
+ex:[['We have run out of sugar.','Gula kami habis.'],['I am looking for the soap.','Saya sedang mencari sabun.'],['Please turn off the light.','Tolong matikan lampunya.'],['Don’t give up!','Jangan menyerah!']],
+q:[{p:'<q>Can you ___ the fan? It is hot.</q>',o:['turn on','turn off','give up','look for'],a:0,e:'Panas, jadi kipasnya dinyalakan: turn on.'},
+{p:'<q>We have ___ milk. Order more.</q>',o:['run out of','picked up','found out','come back'],a:0,e:'Kehabisan: run out of.'},
+{p:'<q>Excuse me, I am ___ the toilet.</q>',o:['looking for','looking at','finding out','getting up'],a:0,e:'Mencari: look for.'}]}
+];
+
+
+const DIALOGS=[
+{id:1,lvl:'A1',t:'Kenalan',s:'Bertemu orang baru',a:'Rina',b:'Tom',lines:[
+['a',"Hi! I'm Rina. What's your name?","Hai! Saya Rina. Siapa namamu?"],
+['b',"Hi, Rina. I'm Tom. Nice to meet you.","Hai, Rina. Saya Tom. Senang berkenalan."],
+['a',"Nice to meet you too. Where are you from?","Senang berkenalan juga. Kamu dari mana?"],
+['b',"I'm from Australia. And you?","Saya dari Australia. Kamu?"],
+['a',"I'm from Bandung. I work in a shop near here.","Saya dari Bandung. Saya kerja di toko dekat sini."],
+['b',"Oh, nice! Your English is good.","Oh, keren! Bahasa Inggrismu bagus."],
+['a',"Thank you. I'm still learning.","Terima kasih. Saya masih belajar."]],
+q:[{p:'Tom berasal dari mana?',o:['Australia','Bandung','Inggris','Amerika'],a:0,e:'Tom bilang "I’m from Australia."'},
+{p:'Jawaban yang tepat untuk <q>Nice to meet you.</q>',o:['Nice to meet you too.','I’m fine.','You’re welcome.','See you.'],a:0,e:'Balasan standar: Nice to meet you too.'}]},
+{id:2,lvl:'A1',t:'Di Kasir',s:'Melayani pelanggan saat membayar',a:'Kasir',b:'Pelanggan',lines:[
+['a',"Good morning. Did you find everything?","Selamat pagi. Semua barangnya sudah ketemu?"],
+['b',"Yes, thank you.","Sudah, terima kasih."],
+['a',"The total is forty-five thousand rupiah.","Totalnya empat puluh lima ribu rupiah."],
+['b',"Can I pay by card?","Bisa bayar pakai kartu?"],
+['a',"Sorry, cash only today. The machine is broken.","Maaf, hari ini tunai saja. Mesinnya rusak."],
+['b',"No problem. Here is fifty thousand.","Tidak masalah. Ini lima puluh ribu."],
+['a',"Here is your change, five thousand. Do you need a bag?","Ini kembaliannya, lima ribu. Perlu kantong?"],
+['b',"No, thanks. I have one.","Tidak, terima kasih. Saya bawa."],
+['a',"Thank you. Have a nice day!","Terima kasih. Semoga harinya menyenangkan!"]],
+q:[{p:'Berapa kembaliannya?',o:['five thousand','fifteen thousand','fifty thousand','forty-five thousand'],a:0,e:'50.000 dikurangi 45.000 = 5.000 (five thousand).'},
+{p:'Kenapa tidak bisa bayar pakai kartu?',o:['The machine is broken.','The shop is closed.','The card is expired.','The total is too small.'],a:0,e:'Kasir bilang mesinnya rusak.'},
+{p:'Cara bertanya "Perlu kantong?"',o:['Do you need a bag?','Do you want a bag is?','You need bag?','Are you need a bag?'],a:0,e:'Do you need a bag?'}]},
+{id:3,lvl:'A1',t:'Mencari Barang',s:'Pelanggan bertanya letak barang',a:'Pelanggan',b:'Pegawai',lines:[
+['a',"Excuse me. Where can I find cooking oil?","Permisi. Minyak goreng ada di mana?"],
+['b',"It's in aisle two, on the bottom shelf.","Di lorong dua, rak paling bawah."],
+['a',"Thank you. Do you also sell rice?","Terima kasih. Jual beras juga?"],
+['b',"Yes, we do. Rice is next to the oil.","Iya, ada. Beras di sebelah minyak."],
+['a',"Is there a five-kilo bag?","Ada yang lima kilo?"],
+['b',"Sorry, only two kilos. The five-kilo is out of stock.","Maaf, cuma dua kilo. Yang lima kilo stoknya habis."],
+['a',"Okay, no problem. I'll take two.","Oke, tidak apa-apa. Saya ambil dua."]],
+q:[{p:'Minyak goreng ada di mana?',o:['aisle two, bottom shelf','aisle three, top shelf','next to the cashier','out of stock'],a:0,e:'Pegawai bilang lorong dua, rak bawah.'},
+{p:'Arti <q>out of stock</q>:',o:['stok habis','sedang diskon','di luar toko','barang baru'],a:0,e:'Out of stock = stoknya habis.'}]},
+{id:4,lvl:'A2',t:'Bertanya Arah',s:'Turis mencari stasiun',a:'Turis',b:'Kamu',lines:[
+['a',"Excuse me, how can I get to the train station?","Permisi, bagaimana cara ke stasiun kereta?"],
+['b',"Go straight on this road and turn left at the second corner.","Jalan lurus di jalan ini dan belok kiri di tikungan kedua."],
+['a',"Is it far from here?","Jauh dari sini?"],
+['b',"No, it's about ten minutes on foot.","Tidak, sekitar sepuluh menit jalan kaki."],
+['a',"Can I take a bus?","Bisa naik bus?"],
+['b',"Yes, but the traffic is bad now. Walking is faster.","Bisa, tapi sekarang macet. Jalan kaki lebih cepat."],
+['a',"Great. Thank you so much!","Bagus. Terima kasih banyak!"],
+['b',"You're welcome. Take care!","Sama-sama. Hati-hati!"]],
+q:[{p:'Belok ke mana di tikungan kedua?',o:['left','right','straight','back'],a:0,e:'Turn left at the second corner.'},
+{p:'Berapa lama jalan kaki?',o:['about ten minutes','about two minutes','one hour','twenty minutes'],a:0,e:'About ten minutes on foot.'},
+{p:'Kenapa jalan kaki lebih baik?',o:['The traffic is bad.','The bus is expensive.','The station is near the sea.','It is raining.'],a:0,e:'Lagi macet, jadi jalan kaki lebih cepat.'}]},
+{id:5,lvl:'A2',t:'Barang Habis',s:'Pelanggan mencari barang yang kosong',a:'Pelanggan',b:'Pegawai',lines:[
+['a',"Hi. Do you have any UHT milk? The shelf is empty.","Hai. Ada susu UHT? Raknya kosong."],
+['b',"Sorry, we've run out. The delivery is coming tomorrow morning.","Maaf, sedang habis. Kirimannya datang besok pagi."],
+['a',"Oh no. What time do you open tomorrow?","Yah. Besok buka jam berapa?"],
+['b',"We open at seven. The milk usually arrives at eight.","Kami buka jam tujuh. Susunya biasanya datang jam delapan."],
+['a',"Can you keep two boxes for me?","Bisa simpankan dua kotak untuk saya?"],
+['b',"Sure. Can I have your name and phone number?","Bisa. Boleh minta nama dan nomor HP-nya?"],
+['a',"It's Dewi, zero eight one two, three four five six.","Dewi, nol delapan satu dua, tiga empat lima enam."],
+['b',"Got it. I'll message you when it arrives.","Oke. Saya kabari kalau sudah datang."]],
+q:[{p:'Kapan susunya datang?',o:['tomorrow at eight','tomorrow at seven','today at eight','next week'],a:0,e:'Biasanya datang jam delapan, besok pagi.'},
+{p:'Arti <q>we’ve run out</q>:',o:['kami kehabisan','kami lari keluar','kami sudah tutup','kami terlambat'],a:0,e:'Run out = kehabisan.'},
+{p:'<q>I’ll message you</q> artinya…',o:['Saya akan kirim pesan ke kamu.','Saya sudah kirim pesan.','Kirim pesan ke saya.','Saya tidak punya pesan.'],a:0,e:'I will message you = saya akan mengabari lewat pesan.'}]},
+{id:6,lvl:'A2',t:'Di Telepon',s:'Menerima telepon dari pemasok',a:'Kamu',b:'Pemasok',lines:[
+['a',"Hello, this is Sinar Mart. How can I help you?","Halo, dengan Sinar Mart. Ada yang bisa dibantu?"],
+['b',"Hi, this is Andi from the supplier. Is the manager there?","Hai, saya Andi dari pemasok. Manajernya ada?"],
+['a',"Sorry, he's out right now. Can I take a message?","Maaf, beliau sedang keluar. Mau titip pesan?"],
+['b',"Yes, please. Tell him the delivery will be late. It will arrive on Friday.","Iya. Tolong bilang pengirimannya terlambat. Datangnya hari Jumat."],
+['a',"Friday. Okay. Could you speak more slowly, please?","Jumat. Oke. Bisa bicara lebih pelan?"],
+['b',"Of course. The delivery will arrive on Friday afternoon.","Tentu. Pengirimannya datang Jumat siang."],
+['a',"Got it. I'll tell him. Thank you for calling.","Oke. Nanti saya sampaikan. Terima kasih sudah menelepon."]],
+q:[{p:'Kapan pengirimannya datang?',o:['Friday afternoon','Friday morning','Thursday','today'],a:0,e:'On Friday afternoon.'},
+{p:'Cara sopan minta orang bicara lebih pelan:',o:['Could you speak more slowly, please?','Speak slow!','You speak slow please?','Can slowly you speak?'],a:0,e:'Could you speak more slowly, please?'},
+{p:'<q>Can I take a message?</q> artinya…',o:['Mau titip pesan?','Boleh saya ambil pesan?','Saya kirim pesan ya?','Ada pesan masuk?'],a:0,e:'Ungkapan standar di telepon: mau titip pesan?'}]},
+{id:7,lvl:'A2',t:'Di Apotek',s:'Membeli obat',a:'Apoteker',b:'Kamu',lines:[
+['a',"Good afternoon. What can I get for you?","Selamat siang. Mau beli apa?"],
+['b',"I have a headache and a little fever.","Saya sakit kepala dan agak demam."],
+['a',"How long have you had the fever?","Sudah berapa lama demamnya?"],
+['b',"Since yesterday evening.","Sejak kemarin sore."],
+['a',"Take this medicine three times a day, after meals.","Minum obat ini tiga kali sehari, setelah makan."],
+['b',"Should I see a doctor?","Apakah saya perlu ke dokter?"],
+['a',"If the fever doesn't go down in three days, you should see a doctor.","Kalau demamnya tidak turun dalam tiga hari, sebaiknya ke dokter."],
+['b',"Okay, thank you. How much is it?","Oke, terima kasih. Berapa harganya?"]],
+q:[{p:'Berapa kali obatnya diminum?',o:['three times a day','twice a day','once a day','every hour'],a:0,e:'Three times a day, after meals.'},
+{p:'Kapan harus ke dokter?',o:['If the fever doesn’t go down in three days','Tomorrow morning','Right now','After meals'],a:0,e:'Kalau demam tidak turun dalam tiga hari.'}]},
+{id:8,lvl:'B1',t:'Pelanggan Komplain',s:'Menangani barang kedaluwarsa',a:'Pelanggan',b:'Kamu',lines:[
+['a',"Excuse me. I bought this bread yesterday, but it has already expired.","Permisi. Saya beli roti ini kemarin, tapi sudah kedaluwarsa."],
+['b',"I'm so sorry about that. May I see it and the receipt?","Mohon maaf soal itu. Boleh saya lihat roti dan struknya?"],
+['a',"Here they are. Look, the date was two days ago.","Ini. Lihat, tanggalnya dua hari yang lalu."],
+['b',"You're right. That was our mistake. Would you like a refund or an exchange?","Anda benar. Itu kesalahan kami. Mau uangnya dikembalikan atau ditukar?"],
+['a',"An exchange is fine. I still need bread.","Ditukar saja. Saya masih butuh roti."],
+['b',"Of course. Please take a fresh one from the shelf. I'll check the other items too.","Tentu. Silakan ambil yang baru di rak. Saya juga akan cek barang lainnya."],
+['a',"Thank you. I appreciate it.","Terima kasih. Saya hargai itu."],
+['b',"Thank you for telling us. It won't happen again.","Terima kasih sudah memberi tahu. Ini tidak akan terulang."]],
+q:[{p:'Apa yang pelanggan pilih?',o:['an exchange','a refund','a discount','a new receipt'],a:0,e:'An exchange is fine.'},
+{p:'Ungkapan untuk mengakui kesalahan:',o:['That was our mistake.','That is your problem.','No, you are wrong.','I don’t know.'],a:0,e:'Mengakui dengan sopan: That was our mistake.'},
+{p:'<q>It won’t happen again</q> artinya…',o:['Ini tidak akan terulang.','Ini sudah terjadi.','Ini akan terjadi lagi.','Ini tidak pernah terjadi.'],a:0,e:'Won’t happen again = tidak akan terulang.'}]},
+{id:9,lvl:'B1',t:'Wawancara Kerja',s:'Menjawab pertanyaan wawancara',a:'Pewawancara',b:'Kamu',lines:[
+['a',"Thank you for coming. Can you tell me about yourself?","Terima kasih sudah datang. Bisa ceritakan tentang diri Anda?"],
+['b',"Sure. My name is Fajar. I have worked in retail for three years.","Tentu. Nama saya Fajar. Saya sudah bekerja di ritel selama tiga tahun."],
+['a',"What do you do in your current job?","Apa yang Anda kerjakan di pekerjaan sekarang?"],
+['b',"I serve customers, check stock, and help with the daily sales report.","Saya melayani pelanggan, mengecek stok, dan membantu laporan penjualan harian."],
+['a',"Why do you want to work here?","Kenapa Anda ingin bekerja di sini?"],
+['b',"I want to learn more and grow. I also enjoy working with people.","Saya ingin belajar lebih banyak dan berkembang. Saya juga senang bekerja dengan orang."],
+['a',"Can you work on weekends?","Bisa kerja di akhir pekan?"],
+['b',"Yes, I can. My schedule is flexible.","Bisa. Jadwal saya fleksibel."]],
+q:[{p:'Sudah berapa lama Fajar bekerja di ritel?',o:['three years','three months','two years','one year'],a:0,e:'I have worked in retail for three years.'},
+{p:'Struktur <q>I have worked … for three years</q> memakai…',o:['present perfect','past continuous','passive','future'],a:0,e:'Have + V3 = present perfect (bab 13).'}]},
+{id:10,lvl:'B1',t:'Rencana Akhir Pekan',s:'Mengajak teman pergi',a:'Sari',b:'Kamu',lines:[
+['a',"Hey, are you free this Saturday?","Hei, Sabtu ini kamu kosong?"],
+['b',"I'm working in the morning, but I'm free after three. Why?","Pagi saya kerja, tapi setelah jam tiga kosong. Kenapa?"],
+['a',"I'm going to visit the night market. Do you want to come?","Aku mau ke pasar malam. Mau ikut?"],
+['b',"Sounds fun! How are we going to get there?","Kedengarannya seru! Kita ke sana naik apa?"],
+['a',"I'll pick you up on my motorbike at six.","Aku jemput pakai motor jam enam."],
+['b',"Great. If it rains, what should we do?","Oke. Kalau hujan, kita gimana?"],
+['a',"If it rains, we'll watch a movie instead.","Kalau hujan, kita nonton film saja."],
+['b',"Perfect. See you on Saturday!","Sip. Sampai ketemu hari Sabtu!"]],
+q:[{p:'Jam berapa Sari menjemput?',o:['six','three','seven','in the morning'],a:0,e:'I’ll pick you up at six.'},
+{p:'Arti <q>pick you up</q>:',o:['menjemputmu','mengangkatmu','memilihmu','mengambil barangmu'],a:0,e:'Pick someone up = menjemput.'},
+{p:'Kalau hujan, mereka akan…',o:['watch a movie','stay at work','go to the night market','sleep'],a:0,e:'If it rains, we’ll watch a movie instead.'}]}
+];
+
+/* =========================================================
+   MATERI: CERITA (baca & dengar)
+   ========================================================= */
+const STORIES=[
+{id:1,lvl:'A1',t:'Hari Budi',en:"Budi is twenty-five years old. He lives in Bandung with his family. He works in a small shop near his house. Every day, he wakes up at six. He drinks coffee and eats bread for breakfast. The shop opens at seven. Budi helps customers and puts items on the shelves. He likes his job because the customers are friendly. He finishes work at five. In the evening, he learns English for thirty minutes.",
+id_:"Budi berumur dua puluh lima tahun. Dia tinggal di Bandung bersama keluarganya. Dia bekerja di toko kecil dekat rumahnya. Setiap hari, dia bangun jam enam. Dia minum kopi dan makan roti untuk sarapan. Toko buka jam tujuh. Budi membantu pelanggan dan menata barang di rak. Dia suka pekerjaannya karena pelanggannya ramah. Dia selesai kerja jam lima. Di malam hari, dia belajar bahasa Inggris selama tiga puluh menit.",
+q:[{p:'What time does Budi wake up?',o:['At six','At seven','At five','At eight'],a:0,e:'He wakes up at six.'},
+{p:'Why does Budi like his job?',o:['The customers are friendly.','The salary is big.','The shop is new.','He can sleep.'],a:0,e:'Karena pelanggannya ramah.'},
+{p:'What does Budi do in the evening?',o:['He learns English.','He goes to the market.','He opens the shop.','He watches TV.'],a:0,e:'He learns English for thirty minutes.'}]},
+{id:2,lvl:'A1',t:'Pelanggan Baru',en:"A tall man comes into the shop. He speaks English. He wants to buy water and a snack. Budi is nervous, but he tries. He says, \"Hello! Can I help you?\" The man smiles. He asks, \"How much is this water?\" Budi answers, \"Five thousand rupiah.\" The man pays with a ten thousand note. Budi gives him five thousand in change. The man says, \"Thank you. Your English is good!\" Budi is very happy.",
+id_:"Seorang pria tinggi masuk ke toko. Dia berbicara bahasa Inggris. Dia mau membeli air dan camilan. Budi gugup, tapi dia mencoba. Dia berkata, \"Halo! Ada yang bisa saya bantu?\" Pria itu tersenyum. Dia bertanya, \"Air ini berapa?\" Budi menjawab, \"Lima ribu rupiah.\" Pria itu membayar dengan uang sepuluh ribu. Budi memberinya kembalian lima ribu. Pria itu berkata, \"Terima kasih. Bahasa Inggrismu bagus!\" Budi senang sekali.",
+q:[{p:'How does Budi feel at first?',o:['Nervous','Angry','Bored','Tired'],a:0,e:'Budi is nervous, but he tries.'},
+{p:'How much is the water?',o:['Five thousand rupiah','Ten thousand rupiah','Fifteen thousand rupiah','Fifty thousand rupiah'],a:0,e:'Five thousand rupiah.'},
+{p:'How much change does Budi give?',o:['Five thousand','Ten thousand','Nothing','Two thousand'],a:0,e:'10.000 − 5.000 = 5.000.'}]},
+{id:3,lvl:'A2',t:'Minggu yang Hujan',en:"Last Sunday, I wanted to go to the park with my friends. But in the morning, it started to rain. It rained very hard, so we stayed at home. First, we made some hot tea. Then, we watched a funny movie. After that, my friend cooked noodles for everyone. In the afternoon, the rain stopped. We went outside and walked around the village. The air was fresh and cool. It was not the day we planned, but it was a good day.",
+id_:"Minggu lalu, saya ingin pergi ke taman dengan teman-teman. Tapi pagi harinya, mulai hujan. Hujannya deras sekali, jadi kami di rumah saja. Pertama, kami membuat teh panas. Lalu, kami menonton film lucu. Setelah itu, temanku memasak mi untuk semua orang. Sore harinya, hujan berhenti. Kami keluar dan jalan-jalan keliling kampung. Udaranya segar dan sejuk. Bukan hari yang kami rencanakan, tapi tetap hari yang menyenangkan.",
+q:[{p:'Why did they stay at home?',o:['It rained very hard.','They were sick.','The park was closed.','They were tired.'],a:0,e:'It rained very hard, so we stayed at home.'},
+{p:'What did they do after the movie?',o:['A friend cooked noodles.','They went to the park.','They slept.','They made tea.'],a:0,e:'After that, my friend cooked noodles.'},
+{p:'What happened in the afternoon?',o:['The rain stopped.','It rained harder.','They went to work.','They watched another movie.'],a:0,e:'In the afternoon, the rain stopped.'}]},
+{id:4,lvl:'A2',t:'HP yang Hilang',en:"Yesterday, Maya lost her phone. She was shopping at the market when she noticed her bag was open. She checked everywhere, but she couldn't find it. She felt worried because all her photos were on that phone. She went back to every shop she visited. At the third shop, the cashier smiled and said, \"Are you looking for this?\" He was holding her phone. Someone found it on the floor and gave it to him. Maya thanked him many times.",
+id_:"Kemarin, Maya kehilangan HP-nya. Dia sedang belanja di pasar ketika dia sadar tasnya terbuka. Dia mengecek ke mana-mana, tapi tidak menemukannya. Dia khawatir karena semua fotonya ada di HP itu. Dia kembali ke setiap toko yang dia datangi. Di toko ketiga, kasirnya tersenyum dan berkata, \"Kamu mencari ini?\" Dia sedang memegang HP Maya. Seseorang menemukannya di lantai dan memberikannya kepada kasir. Maya berterima kasih berkali-kali.",
+q:[{p:'Where was Maya when she lost her phone?',o:['At the market','At home','At work','At school'],a:0,e:'She was shopping at the market.'},
+{p:'Why was she worried?',o:['Her photos were on the phone.','The phone was expensive.','She had no money.','She was late.'],a:0,e:'All her photos were on that phone.'},
+{p:'Who found the phone first?',o:['Someone found it on the floor.','The cashier found it.','Maya found it.','Her friend found it.'],a:0,e:'Someone found it on the floor and gave it to him.'}]},
+{id:5,lvl:'A2',t:'Rencana Liburan',en:"Next month, Andi is going to take a holiday. He has saved money for six months. He is going to visit Yogyakarta with his sister. They will take the train because it is cheaper than the plane. They are going to stay for four days. Andi wants to see the temples and try the local food. His sister wants to buy batik for their mother. Andi says, \"If the weather is good, we will climb Merapi too.\"",
+id_:"Bulan depan, Andi akan berlibur. Dia sudah menabung selama enam bulan. Dia akan mengunjungi Yogyakarta bersama saudara perempuannya. Mereka akan naik kereta karena lebih murah daripada pesawat. Mereka akan tinggal empat hari. Andi ingin melihat candi dan mencoba makanan lokal. Saudaranya ingin membeli batik untuk ibu mereka. Andi berkata, \"Kalau cuacanya bagus, kita akan naik ke Merapi juga.\"",
+q:[{p:'Why will they take the train?',o:['It is cheaper than the plane.','It is faster.','They don’t like planes.','The plane is full.'],a:0,e:'Because it is cheaper than the plane.'},
+{p:'How long will they stay?',o:['Four days','Six months','One week','Two days'],a:0,e:'They are going to stay for four days.'},
+{p:'What does his sister want to buy?',o:['Batik for their mother','Food','A train ticket','A phone'],a:0,e:'She wants to buy batik for their mother.'}]},
+{id:6,lvl:'B1',t:'Musim Ramai',en:"December has always been the busiest month at the shop. This year, more customers have come than ever before. Hundreds of boxes are delivered every week, and the shelves are refilled three times a day. The manager has hired two new staff members to help. Although everyone is tired, the team works well together. Sales have increased by thirty percent. At the end of the month, every worker will be given a bonus as a thank-you.",
+id_:"Desember selalu menjadi bulan paling sibuk di toko. Tahun ini, pelanggan yang datang lebih banyak dari sebelumnya. Ratusan kardus diantar setiap minggu, dan rak diisi ulang tiga kali sehari. Manajer sudah merekrut dua pegawai baru untuk membantu. Meskipun semua orang capek, timnya bekerja sama dengan baik. Penjualan sudah naik tiga puluh persen. Di akhir bulan, setiap pekerja akan diberi bonus sebagai ucapan terima kasih.",
+q:[{p:'How often are the shelves refilled?',o:['Three times a day','Once a week','Every hour','Twice a month'],a:0,e:'The shelves are refilled three times a day.'},
+{p:'How much have sales increased?',o:['By thirty percent','By three percent','By fifty percent','They decreased'],a:0,e:'Sales have increased by thirty percent.'},
+{p:'<q>Every worker will be given a bonus</q> adalah kalimat…',o:['pasif','tidak langsung','pengandaian','past continuous'],a:0,e:'Will be + V3 (given) = pasif masa depan.'}]},
+{id:7,lvl:'B1',t:'Kalau Punya Toko Sendiri',en:"Dina has worked as a cashier for five years. She often thinks about the future. \"If I had my own shop,\" she says, \"I would sell fresh fruit and vegetables from local farmers. I would make the shop clean and bright, and I would know every customer by name.\" She is saving a little money every month. She has also started learning about business online. Her friends say it is a big dream, but Dina doesn't want to give up.",
+id_:"Dina sudah bekerja sebagai kasir selama lima tahun. Dia sering memikirkan masa depan. \"Kalau aku punya toko sendiri,\" katanya, \"aku akan menjual buah dan sayur segar dari petani lokal. Aku akan membuat tokonya bersih dan terang, dan aku akan kenal setiap pelanggan dengan namanya.\" Dia menabung sedikit setiap bulan. Dia juga sudah mulai belajar bisnis secara online. Teman-temannya bilang itu mimpi besar, tapi Dina tidak mau menyerah.",
+q:[{p:'What would Dina sell?',o:['Fresh fruit and vegetables','Phones','Clothes','Medicine'],a:0,e:'Fresh fruit and vegetables from local farmers.'},
+{p:'What is Dina doing to prepare?',o:['Saving money and learning online','Quitting her job','Borrowing money','Building a shop'],a:0,e:'She is saving money and learning about business online.'},
+{p:'<q>Doesn’t want to give up</q> artinya…',o:['tidak mau menyerah','tidak mau memberi','tidak mau bangun','tidak mau naik'],a:0,e:'Give up = menyerah.'}]},
+{id:8,lvl:'B1',t:'Belajar dari Video',en:"Rudi started learning English six months ago. At first, he was afraid of speaking. His teacher told him to practice a little every day. So he started watching short English videos while he was waiting for customers. He wrote down new words in a small book and tried to use them the next day. Last week, a tourist asked him for directions, and Rudi answered without stopping. Later, he told his friend that he had felt proud for the first time.",
+id_:"Rudi mulai belajar bahasa Inggris enam bulan lalu. Awalnya, dia takut berbicara. Gurunya menyuruhnya berlatih sedikit setiap hari. Jadi dia mulai menonton video bahasa Inggris pendek saat menunggu pelanggan. Dia mencatat kata baru di buku kecil dan mencoba memakainya keesokan harinya. Minggu lalu, seorang turis bertanya arah kepadanya, dan Rudi menjawab tanpa terhenti. Kemudian, dia bercerita ke temannya bahwa dia merasa bangga untuk pertama kalinya.",
+q:[{p:'What did his teacher tell him?',o:['To practice a little every day','To stop learning','To watch movies all night','To travel abroad'],a:0,e:'His teacher told him to practice a little every day.'},
+{p:'When did Rudi watch videos?',o:['While he was waiting for customers','Before he slept','At school','On the bus'],a:0,e:'While he was waiting for customers.'},
+{p:'<q>He told his friend that he had felt proud</q> adalah contoh…',o:['kalimat tidak langsung','kalimat pasif','pengandaian','phrasal verb'],a:0,e:'Menyampaikan ucapan orang lain: reported speech (bab 21).'}]}
+];
+
+
+/* =========================================================
+   MATERI TAMBAHAN (B1+): kata, grammar, percakapan, cerita
+   ========================================================= */
+const RAW2 = `
+#Bicara & Berpikir
+explain|menjelaskan|iks-plein|Can you explain this to me?|Bisa jelaskan ini padaku?
+describe|menggambarkan|dis-kraib|Describe the man you saw.|Gambarkan pria yang kamu lihat.
+suggest|menyarankan|sa-jest|I suggest we start early.|Saya sarankan kita mulai lebih awal.
+agree|setuju|e-gri|I agree with your idea.|Saya setuju dengan idemu.
+disagree|tidak setuju|dis-e-gri|I disagree, but I respect you.|Saya tidak setuju, tapi saya menghormatimu.
+promise|berjanji|pro-mis|I promise I will come.|Saya janji akan datang.
+complain|mengeluh / komplain|kom-plein|He complained about the price.|Dia komplain soal harganya.
+apologize|meminta maaf|e-po-lo-jaiz|I apologize for the delay.|Saya minta maaf atas keterlambatannya.
+mean|berarti / bermaksud|min|What do you mean?|Maksudmu apa?
+discuss|mendiskusikan|dis-kas|Let's discuss the plan.|Ayo diskusikan rencananya.
+mention|menyebutkan|men-shen|She mentioned your name.|Dia menyebut namamu.
+repeat|mengulang|ri-pit|Could you repeat that?|Bisa ulangi itu?
+translate|menerjemahkan|trens-leit|Translate this into English.|Terjemahkan ini ke bahasa Inggris.
+pronounce|mengucapkan|pro-nauns|How do you pronounce this word?|Bagaimana mengucapkan kata ini?
+practice|berlatih|prek-tis|I practice speaking every day.|Saya latihan bicara setiap hari.
+improve|meningkatkan|im-pruv|I want to improve my English.|Saya ingin meningkatkan bahasa Inggrisku.
+guess|menebak|ges|Guess the price.|Tebak harganya.
+wonder|bertanya-tanya|wan-der|I wonder why he is late.|Saya heran kenapa dia terlambat.
+imagine|membayangkan|i-me-jin|Imagine you have your own shop.|Bayangkan kamu punya toko sendiri.
+realize|menyadari|ri-e-laiz|I realized my mistake.|Saya menyadari kesalahanku.
+notice|memperhatikan / menyadari|nou-tis|Did you notice the new sign?|Kamu lihat papan barunya?
+seem|tampaknya|sim|You seem tired.|Kamu kelihatannya capek.
+#Kata Kerja B1
+become|menjadi|bi-kam|He wants to become a manager.|Dia ingin menjadi manajer.
+grow|tumbuh / berkembang|grou|The business is growing.|Bisnisnya berkembang.
+happen|terjadi|he-pen|What happened here?|Apa yang terjadi di sini?
+allow|mengizinkan|e-lau|Smoking is not allowed here.|Dilarang merokok di sini.
+avoid|menghindari|e-void|Avoid the busy road.|Hindari jalan yang ramai.
+continue|melanjutkan|kon-tin-yu|Please continue your work.|Silakan lanjutkan pekerjaanmu.
+develop|mengembangkan|di-ve-lop|We need to develop new skills.|Kita perlu mengembangkan keahlian baru.
+expect|mengharapkan / memperkirakan|iks-pekt|I expect him at nine.|Saya perkirakan dia datang jam sembilan.
+follow|mengikuti|fo-lou|Follow me, please.|Silakan ikuti saya.
+include|termasuk|in-klud|The price includes tax.|Harganya sudah termasuk pajak.
+increase|naik / menaikkan|in-kris|Prices increase every year.|Harga naik setiap tahun.
+reduce|mengurangi|ri-dyus|We must reduce waste.|Kita harus mengurangi sampah.
+offer|menawarkan|o-fer|They offered me a job.|Mereka menawariku pekerjaan.
+prepare|menyiapkan|pri-per|Prepare the shop before seven.|Siapkan toko sebelum jam tujuh.
+provide|menyediakan|pro-vaid|We provide free delivery.|Kami menyediakan antar gratis.
+receive|menerima|ri-siv|Did you receive my message?|Kamu sudah terima pesanku?
+recommend|merekomendasikan|re-ko-mend|Which one do you recommend?|Kamu rekomendasikan yang mana?
+require|memerlukan / mewajibkan|ri-kwai-er|This job requires patience.|Pekerjaan ini butuh kesabaran.
+share|berbagi|sher|Share the food with your friends.|Bagi makanannya dengan teman-temanmu.
+solve|menyelesaikan (masalah)|solv|We solved the problem together.|Kami menyelesaikan masalah itu bersama.
+support|mendukung|sa-port|My family supports me.|Keluargaku mendukungku.
+compare|membandingkan|kom-per|Compare the two prices.|Bandingkan kedua harga itu.
+complete|menyelesaikan / lengkap|kom-plit|Complete the form, please.|Tolong lengkapi formulirnya.
+create|menciptakan / membuat|kri-eit|She creates her own videos.|Dia membuat videonya sendiri.
+manage|mengelola|me-nij|He manages three shops.|Dia mengelola tiga toko.
+depend|bergantung|di-pend|It depends on the weather.|Itu tergantung cuaca.
+belong|milik / termasuk|bi-long|This bag belongs to her.|Tas ini miliknya.
+achieve|mencapai|e-chiv|You can achieve your goal.|Kamu bisa mencapai tujuanmu.
+afford|mampu membeli|e-ford|I can't afford a new car.|Saya tidak mampu beli mobil baru.
+arrange|mengatur / menata|e-reinj|Arrange the bottles by size.|Tata botolnya sesuai ukuran.
+cancel|membatalkan|ken-sel|I need to cancel my order.|Saya perlu membatalkan pesananku.
+confirm|mengonfirmasi|kon-ferm|Please confirm your address.|Tolong konfirmasi alamat Anda.
+replace|mengganti|ri-pleis|We will replace the broken item.|Kami akan mengganti barang yang rusak.
+deserve|pantas mendapat|di-zerv|You deserve a holiday.|Kamu pantas dapat liburan.
+attend|menghadiri|e-tend|I will attend the meeting.|Saya akan menghadiri rapatnya.
+apply|melamar / menerapkan|e-plai|I applied for the job.|Saya melamar pekerjaan itu.
+hire|merekrut|hai-er|They hired two new staff.|Mereka merekrut dua pegawai baru.
+quit|berhenti (kerja)|kwit|He quit his job last month.|Dia berhenti kerja bulan lalu.
+succeed|berhasil|sek-sid|If you practice, you will succeed.|Kalau berlatih, kamu akan berhasil.
+fail|gagal|feil|Don't be afraid to fail.|Jangan takut gagal.
+#Dunia Kerja & Bisnis
+experience|pengalaman|iks-pi-ri-ens|I have three years of experience.|Saya punya pengalaman tiga tahun.
+skill|keahlian|skil|Speaking English is a useful skill.|Bisa bahasa Inggris itu keahlian yang berguna.
+deadline|batas waktu|ded-lain|The deadline is Friday.|Batas waktunya hari Jumat.
+target|target|tar-get|We reached our sales target.|Kami mencapai target penjualan.
+profit|keuntungan|pro-fit|The profit is small but steady.|Untungnya kecil tapi stabil.
+loss|kerugian|los|The shop made a loss last month.|Toko rugi bulan lalu.
+income|pendapatan|in-kam|My income is enough for now.|Pendapatanku cukup untuk sekarang.
+expense|pengeluaran|iks-pens|Write down every expense.|Catat setiap pengeluaran.
+tax|pajak|teks|The price includes tax.|Harganya termasuk pajak.
+invoice|faktur / tagihan|in-vois|Please send the invoice today.|Tolong kirim fakturnya hari ini.
+contract|kontrak|kon-trekt|Read the contract carefully.|Baca kontraknya dengan teliti.
+interview|wawancara|in-ter-vyu|I have an interview tomorrow.|Besok saya ada wawancara.
+training|pelatihan|trei-ning|New staff get one week of training.|Pegawai baru dapat pelatihan seminggu.
+colleague|rekan kerja|ko-lig|My colleagues are helpful.|Rekan kerjaku suka membantu.
+responsibility|tanggung jawab|ris-pon-si-bi-li-ti|The cash is my responsibility.|Uang kas itu tanggung jawabku.
+opportunity|kesempatan|o-por-tyu-ni-ti|This is a good opportunity.|Ini kesempatan yang bagus.
+competition|persaingan / lomba|kom-pe-ti-shen|There is a lot of competition.|Persaingannya ketat.
+success|keberhasilan|sek-ses|Hard work brings success.|Kerja keras membawa keberhasilan.
+service|layanan|ser-vis|The service here is fast.|Layanan di sini cepat.
+order|pesanan|or-der|Your order is ready.|Pesanan Anda sudah siap.
+complaint|keluhan|kom-pleint|We received a complaint.|Kami menerima keluhan.
+feedback|masukan|fid-bek|Thank you for your feedback.|Terima kasih atas masukannya.
+break|istirahat (jeda)|breik|Let's take a short break.|Ayo istirahat sebentar.
+overtime|lembur|ou-ver-taim|I worked overtime yesterday.|Kemarin saya lembur.
+#Hal Abstrak
+chance|peluang / kesempatan|chens|Give me one more chance.|Beri saya satu kesempatan lagi.
+choice|pilihan|chois|It is your choice.|Itu pilihanmu.
+future|masa depan|fyu-cher|I am saving for the future.|Saya menabung untuk masa depan.
+past|masa lalu|past|Don't think about the past.|Jangan pikirkan masa lalu.
+goal|tujuan|goul|My goal is to speak fluently.|Tujuanku bisa bicara dengan lancar.
+dream|mimpi / impian|drim|My dream is to own a shop.|Impianku punya toko sendiri.
+habit|kebiasaan|he-bit|Reading is a good habit.|Membaca itu kebiasaan baik.
+effort|usaha|e-fort|Thank you for your effort.|Terima kasih atas usahamu.
+result|hasil|ri-zalt|The result was better than expected.|Hasilnya lebih baik dari perkiraan.
+advice|nasihat / saran|ed-vais|Can I give you some advice?|Boleh saya kasih saran?
+opinion|pendapat|o-pin-yen|What is your opinion?|Apa pendapatmu?
+truth|kebenaran|truth|Tell me the truth.|Katakan yang sebenarnya.
+difference|perbedaan|di-fe-rens|What is the difference?|Apa bedanya?
+example|contoh|ig-zam-pel|Can you give me an example?|Bisa kasih contoh?
+information|informasi|in-for-mei-shen|I need more information.|Saya butuh informasi lebih banyak.
+situation|situasi|si-chu-ei-shen|The situation is under control.|Situasinya terkendali.
+decision|keputusan|di-si-zhen|It was a difficult decision.|Itu keputusan yang sulit.
+attention|perhatian|e-ten-shen|Pay attention to the date.|Perhatikan tanggalnya.
+memory|ingatan / kenangan|me-mo-ri|I have a bad memory.|Ingatan saya buruk.
+feeling|perasaan|fi-ling|I have a good feeling about this.|Firasat saya bagus soal ini.
+relationship|hubungan|ri-lei-shen-ship|We have a good relationship with customers.|Hubungan kami dengan pelanggan baik.
+purpose|tujuan / maksud|per-pes|What is the purpose of this form?|Apa tujuan formulir ini?
+progress|kemajuan|prou-gres|You are making good progress.|Kemajuanmu bagus.
+#Masyarakat
+government|pemerintah|ga-vern-ment|The government built a new road.|Pemerintah membangun jalan baru.
+law|hukum|lo|Everyone must follow the law.|Semua orang harus taat hukum.
+rule|peraturan|rul|Please follow the shop rules.|Tolong ikuti peraturan toko.
+police|polisi|po-lis|Call the police.|Telepon polisi.
+education|pendidikan|e-ju-kei-shen|Education is important.|Pendidikan itu penting.
+environment|lingkungan|in-vai-ren-ment|We must protect the environment.|Kita harus menjaga lingkungan.
+culture|budaya|kal-cher|I love Indonesian culture.|Saya cinta budaya Indonesia.
+tradition|tradisi|tre-di-shen|It is a family tradition.|Itu tradisi keluarga.
+neighbor|tetangga|nei-ber|My neighbor is very kind.|Tetanggaku baik sekali.
+village|desa / kampung|vi-lij|I grew up in a small village.|Saya besar di desa kecil.
+community|komunitas / warga|ko-myu-ni-ti|The community helps each other.|Warganya saling membantu.
+tourist|turis|tu-rist|Many tourists visit Bali.|Banyak turis berkunjung ke Bali.
+#Kata Sifat B1
+available|tersedia|e-vei-le-bel|Is this size available?|Ukuran ini tersedia?
+comfortable|nyaman|kamf-te-bel|These shoes are comfortable.|Sepatu ini nyaman.
+convenient|praktis / mudah dijangkau|kon-vi-ni-ent|The shop is in a convenient place.|Tokonya di tempat yang strategis.
+common|umum|ko-men|It is a common mistake.|Itu kesalahan yang umum.
+rare|langka / jarang|rer|This fruit is rare here.|Buah ini langka di sini.
+simple|sederhana|sim-pel|The answer is simple.|Jawabannya sederhana.
+complicated|rumit|kom-pli-kei-ted|The form is complicated.|Formulirnya rumit.
+serious|serius|si-ri-es|Is it a serious problem?|Apakah itu masalah serius?
+careful|hati-hati / teliti|ker-ful|Be careful with the glass.|Hati-hati dengan gelasnya.
+useful|berguna|yus-ful|This app is very useful.|Aplikasi ini sangat berguna.
+possible|mungkin|po-si-bel|Is it possible to pay later?|Apakah bisa bayar nanti?
+impossible|mustahil|im-po-si-bel|Nothing is impossible.|Tidak ada yang mustahil.
+necessary|perlu|ne-se-se-ri|A bag is not necessary.|Kantong tidak perlu.
+similar|mirip|si-mi-ler|The two brands are similar.|Kedua merek itu mirip.
+certain|yakin / pasti|ser-ten|Are you certain?|Kamu yakin?
+confident|percaya diri|kon-fi-dent|I feel confident now.|Sekarang saya merasa percaya diri.
+creative|kreatif|kri-ei-tif|She is very creative.|Dia sangat kreatif.
+flexible|fleksibel|flek-si-bel|My schedule is flexible.|Jadwal saya fleksibel.
+responsible|bertanggung jawab|ris-pon-si-bel|He is responsible for the stock.|Dia bertanggung jawab atas stok.
+successful|sukses|sek-ses-ful|She runs a successful shop.|Dia menjalankan toko yang sukses.
+modern|modern|mo-dern|It is a modern building.|Itu gedung modern.
+traditional|tradisional|tre-di-she-nel|I like traditional food.|Saya suka makanan tradisional.
+public|umum / publik|pab-lik|This is a public place.|Ini tempat umum.
+private|pribadi|prai-vet|This is a private room.|Ini ruangan pribadi.
+local|lokal|lou-kel|We sell local products.|Kami menjual produk lokal.
+international|internasional|in-ter-ne-she-nel|English is an international language.|Bahasa Inggris bahasa internasional.
+crowded|ramai / penuh sesak|krau-ded|The market is crowded.|Pasarnya ramai sekali.
+noisy|berisik|noi-zi|The street is noisy.|Jalannya berisik.
+calm|tenang|kam|Stay calm and listen.|Tetap tenang dan dengarkan.
+fluent|lancar|flu-ent|I want to be fluent in English.|Saya ingin lancar bahasa Inggris.
+#Keterangan & Frasa Penghubung
+actually|sebenarnya|ek-chu-a-li|Actually, I prefer tea.|Sebenarnya, saya lebih suka teh.
+probably|mungkin (kemungkinan besar)|pro-ba-bli|It will probably rain.|Kemungkinan besar akan hujan.
+especially|terutama|is-pe-she-li|I like fruit, especially mango.|Saya suka buah, terutama mangga.
+finally|akhirnya|fai-ne-li|Finally, the bus arrived.|Akhirnya busnya datang.
+suddenly|tiba-tiba|sa-den-li|Suddenly, the light went out.|Tiba-tiba lampunya mati.
+recently|baru-baru ini|ri-sent-li|I recently changed jobs.|Baru-baru ini saya ganti pekerjaan.
+immediately|segera / langsung|i-mi-di-et-li|Call me immediately.|Segera telepon saya.
+exactly|tepat / persis|ig-zekt-li|That is exactly right.|Itu tepat sekali.
+definitely|pasti|de-fi-net-li|I will definitely come.|Saya pasti datang.
+instead|sebagai gantinya|in-sted|Let's walk instead.|Kita jalan kaki saja.
+anyway|bagaimanapun / omong-omong|e-ni-wei|Anyway, thank you for coming.|Bagaimanapun, terima kasih sudah datang.
+at least|setidaknya|et list|Wait at least ten minutes.|Tunggu setidaknya sepuluh menit.
+by the way|omong-omong|bai de wei|By the way, what is your name?|Omong-omong, siapa namamu?
+in fact|faktanya / malah|in fekt|In fact, it is cheaper here.|Malah, di sini lebih murah.
+for example|misalnya|for ig-zam-pel|We sell drinks, for example tea.|Kami jual minuman, misalnya teh.
+on time|tepat waktu|on taim|Please come on time.|Tolong datang tepat waktu.
+in my opinion|menurut saya|in mai o-pin-yen|In my opinion, this one is better.|Menurut saya, yang ini lebih baik.
+to be honest|jujur saja|tu bi o-nest|To be honest, I am nervous.|Jujur saja, saya gugup.
+as soon as possible|secepatnya|ez sun ez po-si-bel|Please reply as soon as possible.|Tolong balas secepatnya.
+on the other hand|di sisi lain|on di a-der hend|It is cheap. On the other hand, it is small.|Ini murah. Di sisi lain, ukurannya kecil.
+it depends|tergantung|it di-pendz|It depends on the price.|Tergantung harganya.
+I'm not sure|saya tidak yakin|aim not shur|I'm not sure about the date.|Saya tidak yakin soal tanggalnya.
+`;
+(function(){const have=new Set(VOCAB.map(v=>v.w+'|'+v.a));let cat='';RAW2.trim().split('\n').forEach(l=>{l=l.trim();if(!l)return;if(l[0]==='#'){cat=l.slice(1).trim();return}const p=l.split('|');if(have.has(p[0]+'|'+p[1]))return;VOCAB.push({id:VOCAB.length,w:p[0],a:p[1],b:p[2],ex:p[3],exa:p[4],cat})})})();
+
+CH.push(
+{id:23,lvl:'B1',t:'Too, Enough, So, Such',s:'Terlalu, cukup, begitu',
+body:`<p>Empat kata ini mengatur tingkat: kelebihan, kecukupan, dan penekanan.</p>
+<div class="formula"><b>too</b> + kata sifat → terlalu (masalah): It is <b>too</b> expensive.<br>kata sifat + <b>enough</b> → cukup: It is big <b>enough</b>.<br><b>enough</b> + kata benda: I have <b>enough</b> money.<br><br><b>so</b> + kata sifat: The food is <b>so</b> good!<br><b>such</b> + (a) + kata sifat + benda: It is <b>such a</b> good shop!<br><br>so … that …: I was <b>so</b> tired <b>that</b> I slept at eight.</div>
+<p class="tip">too bukan very. "Very hot" = sangat panas. "Too hot" = terlalu panas, sampai jadi masalah.</p>`,
+ex:[["This bag is too heavy for me.","Tas ini terlalu berat untukku."],["Is the room big enough?","Apakah ruangannya cukup besar?"],["It was such a busy day.","Hari yang begitu sibuk."],["He spoke so fast that I couldn't follow.","Dia bicara begitu cepat sampai saya tidak bisa mengikuti."]],
+q:[{p:'<q>I can’t buy it. It is ___ expensive.</q>',o:['too','enough','such','so much'],a:0,e:'Terlalu mahal sampai tidak bisa beli: too.'},
+{p:'<q>He is not old ___ to drive.</q>',o:['enough','too','such','so'],a:0,e:'Kata sifat + enough.'},
+{p:'<q>It was ___ a good movie!</q>',o:['such','so','too','enough'],a:0,e:'Such + a + kata sifat + benda.'}]},
+{id:24,lvl:'B1',t:'Used to',s:'Dulu biasa, sekarang tidak',
+body:`<p>Untuk kebiasaan atau keadaan di masa lalu yang sekarang sudah berubah.</p>
+<div class="formula">pelaku + <b>used to</b> + kata kerja polos<br>I <b>used to</b> walk to school. (dulu jalan kaki, sekarang tidak)<br><br>Negatif: I <b>didn’t use to</b> like coffee.<br>Tanya: <b>Did</b> you <b>use to</b> live here?<br><br>Jangan tertukar: <b>be used to</b> + -ing = sudah terbiasa<br>I <b>am used to</b> waking up early.</div>`,
+ex:[["I used to work in a factory.","Dulu saya kerja di pabrik."],["She didn’t use to speak English.","Dulu dia tidak bisa bahasa Inggris."],["I am used to the night shift now.","Sekarang saya sudah terbiasa shift malam."]],
+q:[{p:'<q>I ___ live in Surabaya, but now I live in Bandung.</q>',o:['used to','use to','am used to','was use'],a:0,e:'Kebiasaan lampau: used to.'},
+{p:'<q>Did you ___ play football?</q>',o:['use to','used to','using to','uses to'],a:0,e:'Setelah did, kembali ke use to.'},
+{p:'<q>I am used to ___ early.</q>',o:['waking up','wake up','woke up','wakes up'],a:0,e:'Be used to + -ing.'}]},
+{id:25,lvl:'B1',t:'Might, May, Could',s:'Mungkin, bisa jadi',
+body:`<p>Dipakai saat kamu tidak yakin 100%.</p>
+<div class="formula"><b>will</b> → yakin: It will rain.<br><b>may / might / could</b> + kata kerja polos → mungkin: It <b>might</b> rain.<br><b>must</b> → hampir pasti (kesimpulan): He <b>must</b> be tired.<br><b>can’t</b> → hampir pasti tidak: That <b>can’t</b> be right.<br><br>Negatif: might not / may not</div>
+<p class="tip">May juga dipakai untuk izin yang sopan: <b>May I</b> come in?</p>`,
+ex:[["I might be late tomorrow.","Besok saya mungkin terlambat."],["She may not come today.","Dia mungkin tidak datang hari ini."],["You must be hungry after work.","Kamu pasti lapar sehabis kerja."],["May I see your receipt?","Boleh saya lihat struk Anda?"]],
+q:[{p:'<q>Take an umbrella. It ___ rain.</q>',o:['might','must to','can’t','is'],a:0,e:'Mungkin hujan: might.'},
+{p:'<q>He worked twelve hours. He ___ be tired.</q>',o:['must','might not','can’t','may to'],a:0,e:'Kesimpulan hampir pasti: must.'},
+{p:'Cara sopan meminta izin:',o:['May I come in?','I may come in?','Might come I in?','Must I come?'],a:0,e:'May I + kata kerja.'}]},
+{id:26,lvl:'B1',t:'Present Perfect Continuous',s:'Sudah sekian lama dan masih berlangsung',
+body:`<p>Menekankan lamanya kegiatan yang dimulai di masa lalu dan masih berlangsung sampai sekarang.</p>
+<div class="formula">pelaku + <b>have / has been</b> + kata kerja<b>-ing</b><br>I <b>have been learning</b> English for two months.<br>She <b>has been waiting</b> since nine.<br><br><b>for</b> + lamanya: for two hours, for a year<br><b>since</b> + titik mulai: since Monday, since 2020<br><br>Tanya: <b>How long</b> have you been working here?</div>`,
+ex:[["I have been waiting for an hour.","Saya sudah menunggu selama satu jam."],["How long have you been learning English?","Sudah berapa lama kamu belajar bahasa Inggris?"],["It has been raining since morning.","Sudah hujan sejak pagi."]],
+q:[{p:'<q>I ___ here for three years.</q>',o:['have been working','am working','have been work','was work'],a:0,e:'Have been + -ing.'},
+{p:'<q>She has been waiting ___ nine o’clock.</q>',o:['since','for','from','at'],a:0,e:'Titik mulai: since.'},
+{p:'<q>How long ___ you been living here?</q>',o:['have','are','did','do'],a:0,e:'How long have you been …?'}]},
+{id:27,lvl:'B1',t:'Wish & Penyesalan',s:'Seandainya…',
+body:`<p>Untuk mengungkapkan keinginan yang tidak sesuai kenyataan, atau menyesali masa lalu.</p>
+<div class="formula">Keinginan sekarang: <b>I wish</b> + past simple<br>I wish I <b>had</b> more time. (kenyataannya tidak punya)<br><br>Menyesali masa lalu: <b>I wish</b> + had + V3<br>I wish I <b>had studied</b> harder.<br><br>Pengandaian masa lalu: If + had + V3, would have + V3<br>If I <b>had known</b>, I <b>would have come</b>.<br><br>Seharusnya: <b>should have</b> + V3 → I should have called you.</div>`,
+ex:[["I wish I could speak English fluently.","Seandainya saya bisa bahasa Inggris dengan lancar."],["I should have checked the date.","Seharusnya saya mengecek tanggalnya."],["If we had left earlier, we would have caught the bus.","Kalau kita berangkat lebih awal, kita pasti dapat busnya."]],
+q:[{p:'<q>I wish I ___ a bigger shop.</q>',o:['had','have','will have','am having'],a:0,e:'Wish + past simple.'},
+{p:'<q>I ___ have called you. Sorry.</q>',o:['should','wish','would to','must to'],a:0,e:'Should have + V3 = seharusnya.'},
+{p:'<q>If I had known, I ___ have helped.</q>',o:['would','will','had','am'],a:0,e:'If + had V3, would have V3.'}]},
+{id:28,lvl:'B1',t:'Bicara Sopan & Basa-basi',s:'Could you, would you mind, isn’t it?',
+body:`<p>Bahasa Inggris yang sopan memakai kalimat tidak langsung. Ini penting saat melayani orang.</p>
+<div class="formula">Meminta: <b>Could you</b> help me? · <b>Would you mind</b> waiting?<br>Menawarkan: <b>Would you like</b> a bag? · <b>Shall I</b> carry it?<br>Izin: <b>Do you mind if</b> I sit here?<br>Melunakkan: <b>I’m afraid</b> we are closed. (sayangnya)<br><br>Question tag (basa-basi): It’s hot today, <b>isn’t it?</b><br>You work here, <b>don’t you?</b></div>
+<p class="tip">Would you mind diikuti -ing. Jawaban "No, not at all" artinya tidak keberatan (boleh).</p>`,
+ex:[["Would you mind waiting a moment?","Keberatan menunggu sebentar?"],["I’m afraid that item is sold out.","Sayangnya barang itu sudah habis."],["It’s a nice day, isn’t it?","Hari yang cerah, ya?"],["Would you like some help?","Mau dibantu?"]],
+q:[{p:'<q>Would you mind ___ the door?</q>',o:['closing','close','to close','closed'],a:0,e:'Would you mind + -ing.'},
+{p:'Cara halus bilang barang habis:',o:['I’m afraid it is sold out.','No. Finished.','It is not.','You can’t.'],a:0,e:'I’m afraid… melunakkan kabar kurang enak.'},
+{p:'<q>It’s cold today, ___?</q>',o:['isn’t it','is it','doesn’t it','aren’t you'],a:0,e:'Kalimat positif dengan is → tag negatif: isn’t it.'}]},
+{id:29,lvl:'A2',t:'Kata Kerja Tak Beraturan',s:'Tabel hafalan V1, V2, V3',
+body:`<p>Sebagian besar kata kerja lampau cukup ditambah -ed. Yang di bawah ini berubah bentuk dan harus dihafal. V2 untuk past simple, V3 untuk perfect dan pasif.</p>
+<div class="tblwrap"><table class="mini"><tr><th>V1</th><th>V2</th><th>V3</th><th>Arti</th></tr>
+<tr><td>be</td><td>was / were</td><td>been</td><td>adalah / berada</td></tr><tr><td>go</td><td>went</td><td>gone</td><td>pergi</td></tr><tr><td>do</td><td>did</td><td>done</td><td>melakukan</td></tr><tr><td>have</td><td>had</td><td>had</td><td>punya</td></tr><tr><td>eat</td><td>ate</td><td>eaten</td><td>makan</td></tr><tr><td>drink</td><td>drank</td><td>drunk</td><td>minum</td></tr><tr><td>see</td><td>saw</td><td>seen</td><td>melihat</td></tr><tr><td>give</td><td>gave</td><td>given</td><td>memberi</td></tr><tr><td>take</td><td>took</td><td>taken</td><td>mengambil</td></tr><tr><td>come</td><td>came</td><td>come</td><td>datang</td></tr><tr><td>make</td><td>made</td><td>made</td><td>membuat</td></tr><tr><td>buy</td><td>bought</td><td>bought</td><td>membeli</td></tr><tr><td>sell</td><td>sold</td><td>sold</td><td>menjual</td></tr><tr><td>pay</td><td>paid</td><td>paid</td><td>membayar</td></tr><tr><td>say</td><td>said</td><td>said</td><td>berkata</td></tr><tr><td>tell</td><td>told</td><td>told</td><td>memberi tahu</td></tr><tr><td>know</td><td>knew</td><td>known</td><td>tahu</td></tr><tr><td>think</td><td>thought</td><td>thought</td><td>berpikir</td></tr><tr><td>write</td><td>wrote</td><td>written</td><td>menulis</td></tr><tr><td>speak</td><td>spoke</td><td>spoken</td><td>berbicara</td></tr><tr><td>find</td><td>found</td><td>found</td><td>menemukan</td></tr><tr><td>forget</td><td>forgot</td><td>forgotten</td><td>lupa</td></tr><tr><td>break</td><td>broke</td><td>broken</td><td>memecahkan</td></tr><tr><td>bring</td><td>brought</td><td>brought</td><td>membawa</td></tr></table></div>`,
+ex:[["I have written the report.","Saya sudah menulis laporannya."],["The glass was broken.","Gelasnya pecah."],["She has spoken to the manager.","Dia sudah bicara dengan manajer."]],
+q:[{p:'V3 dari <q>write</q>:',o:['written','wrote','writed','writing'],a:0,e:'write, wrote, written.'},
+{p:'<q>I have never ___ this fruit.</q>',o:['eaten','ate','eat','eating'],a:0,e:'Have + V3: eaten.'},
+{p:'V2 dari <q>speak</q>:',o:['spoke','spoken','speaked','spoked'],a:0,e:'speak, spoke, spoken.'},
+{p:'<q>The window was ___ yesterday.</q>',o:['broken','broke','break','breaking'],a:0,e:'Pasif: was + V3 (broken).'}]}
+);
+
+DIALOGS.push(
+{id:11,lvl:'A2',t:'Di Restoran',s:'Memesan makanan',a:'Pelayan',b:'Kamu',lines:[
+['a',"Good evening. Are you ready to order?","Selamat malam. Sudah siap memesan?"],
+['b',"Yes. I'd like the fried rice, please.","Sudah. Saya pesan nasi goreng."],
+['a',"Would you like it spicy?","Mau pedas?"],
+['b',"Just a little spicy, please.","Pedas sedikit saja."],
+['a',"And what would you like to drink?","Minumnya apa?"],
+['b',"Iced tea with less sugar.","Es teh, gulanya sedikit."],
+['a',"Anything else?","Ada lagi?"],
+['b',"No, that's all. Could I have the bill later, please?","Tidak, itu saja. Nanti tolong minta tagihannya, ya."]],
+q:[{p:'Apa yang dipesan untuk minum?',o:['iced tea with less sugar','hot tea','iced coffee','water'],a:0,e:'Iced tea with less sugar.'},
+{p:'Cara sopan memesan:',o:['I’d like the fried rice, please.','Give me fried rice.','I want eat fried rice.','Fried rice now.'],a:0,e:'I’d like … , please.'},
+{p:'<q>the bill</q> artinya…',o:['tagihan','menu','uang kembalian','meja'],a:0,e:'The bill = tagihan.'}]},
+{id:12,lvl:'B1',t:'Minta Tolong Rekan Kerja',s:'Tukar jadwal kerja',a:'Kamu',b:'Rekan',lines:[
+['a',"Hey, do you have a minute? I need a favor.","Hei, ada waktu sebentar? Saya mau minta tolong."],
+['b',"Sure. What's up?","Tentu. Ada apa?"],
+['a',"Would you mind swapping shifts with me on Thursday?","Keberatan tukar shift denganku hari Kamis?"],
+['b',"Thursday morning or evening?","Kamis pagi atau sore?"],
+['a',"Morning. I have to take my mother to the hospital.","Pagi. Saya harus mengantar ibu ke rumah sakit."],
+['b',"No problem. I can do the morning if you take my Friday evening.","Tidak masalah. Saya bisa pagi kalau kamu ambil Jumat soreku."],
+['a',"Deal. I'll tell the manager. Thank you so much.","Setuju. Nanti saya bilang ke manajer. Terima kasih banyak."],
+['b',"Don't mention it. I hope your mother gets well soon.","Sama-sama. Semoga ibumu cepat sembuh."]],
+q:[{p:'Kenapa dia minta tukar shift?',o:['To take his mother to the hospital','To go on holiday','To attend a meeting','Because he is sick'],a:0,e:'I have to take my mother to the hospital.'},
+{p:'<q>Don’t mention it</q> artinya…',o:['Sama-sama','Jangan bilang siapa-siapa','Jangan lupa','Tidak mau'],a:0,e:'Balasan untuk terima kasih: sama-sama.'},
+{p:'<q>Would you mind swapping…</q> diikuti bentuk…',o:['-ing','to + kata kerja','V2','V3'],a:0,e:'Would you mind + -ing (bab 28).'}]},
+{id:13,lvl:'B1',t:'Ngobrol dengan Turis',s:'Basa-basi dan memberi rekomendasi',a:'Turis',b:'Kamu',lines:[
+['a',"It's really hot today, isn't it?","Hari ini panas sekali, ya?"],
+['b',"Yes, it is. Is this your first time in Indonesia?","Iya. Ini pertama kalinya Anda ke Indonesia?"],
+['a',"It is. I've been here for three days. I love the food.","Iya. Saya sudah tiga hari di sini. Saya suka makanannya."],
+['b',"Have you tried rendang yet?","Sudah coba rendang?"],
+['a',"Not yet. Is it spicy?","Belum. Pedas?"],
+['b',"A little, but it's delicious. You should try it at the place across the street.","Sedikit, tapi enak. Coba saja di tempat seberang jalan."],
+['a',"Thanks for the tip! Your English is great, by the way.","Makasih sarannya! Omong-omong, bahasa Inggrismu bagus."],
+['b',"Thank you. I've been learning for a few months.","Terima kasih. Saya sudah belajar beberapa bulan."]],
+q:[{p:'Sudah berapa lama turis itu di Indonesia?',o:['three days','three weeks','one day','a few months'],a:0,e:'I’ve been here for three days.'},
+{p:'Apa yang direkomendasikan?',o:['rendang','fried rice','noodles','iced tea'],a:0,e:'You should try it (rendang).'},
+{p:'<q>isn’t it?</q> di akhir kalimat berfungsi untuk…',o:['mengajak setuju (basa-basi)','bertanya arah','menolak','meminta izin'],a:0,e:'Question tag, mirip "ya?" dalam bahasa Indonesia.'}]},
+{id:14,lvl:'B1',t:'Negosiasi dengan Pemasok',s:'Membahas harga dan jumlah pesanan',a:'Kamu',b:'Pemasok',lines:[
+['a',"Thanks for coming. I'd like to talk about the price of the drinks.","Terima kasih sudah datang. Saya mau bicara soal harga minumannya."],
+['b',"Of course. What do you have in mind?","Tentu. Apa yang Anda pikirkan?"],
+['a',"The price has increased twice this year. It's getting difficult for us.","Harganya sudah naik dua kali tahun ini. Ini mulai berat buat kami."],
+['b',"I understand. Our costs have gone up too.","Saya paham. Biaya kami juga naik."],
+['a',"If we order fifty boxes instead of thirty, could you give us a discount?","Kalau kami pesan lima puluh kardus, bukan tiga puluh, bisa kasih diskon?"],
+['b',"For fifty boxes, I can offer five percent off.","Untuk lima puluh kardus, saya bisa kasih potongan lima persen."],
+['a',"Could you make it seven percent if we pay in cash?","Bisa jadi tujuh persen kalau kami bayar tunai?"],
+['b',"Let me check with my boss, but I think that's possible.","Saya tanya bos dulu, tapi saya rasa itu bisa."]],
+q:[{p:'Diskon awal yang ditawarkan pemasok?',o:['five percent','seven percent','fifty percent','thirty percent'],a:0,e:'I can offer five percent off.'},
+{p:'Syarat untuk minta tujuh persen?',o:['pay in cash','order thirty boxes','pay next month','pick up the boxes'],a:0,e:'…if we pay in cash.'},
+{p:'<q>Our costs have gone up</q> artinya…',o:['Biaya kami naik','Biaya kami turun','Biaya kami hilang','Biaya kami sama'],a:0,e:'Go up = naik.'}]}
+);
+
+STORIES.push(
+{id:9,lvl:'B1',t:'Pesan untuk Sahabat',en:"Hi Lina, how have you been? I haven't written for a long time because I have been so busy at the shop. A lot has changed since you moved. I used to be afraid of speaking English, but now I talk to tourists almost every week. Last month, my boss asked me to train the new staff. I was nervous, but it went well. I wish you could see the shop now. If you come home in December, I will show you everything. Take care, and write back soon.",
+id_:"Hai Lina, apa kabarmu? Sudah lama aku tidak menulis karena aku sibuk sekali di toko. Banyak yang berubah sejak kamu pindah. Dulu aku takut bicara bahasa Inggris, tapi sekarang aku ngobrol dengan turis hampir setiap minggu. Bulan lalu, bosku memintaku melatih pegawai baru. Aku gugup, tapi berjalan lancar. Seandainya kamu bisa melihat tokonya sekarang. Kalau kamu pulang bulan Desember, akan kutunjukkan semuanya. Jaga diri, dan cepat balas ya.",
+q:[{p:'Why hasn’t the writer written for a long time?',o:['She has been busy at the shop.','She was sick.','She lost her phone.','She moved to another city.'],a:0,e:'Because I have been so busy at the shop.'},
+{p:'What did the boss ask her to do?',o:['Train the new staff','Open a new shop','Write a report','Talk to tourists'],a:0,e:'My boss asked me to train the new staff.'},
+{p:'<q>I used to be afraid</q> berarti…',o:['Dulu takut, sekarang tidak','Sekarang takut','Selalu takut','Tidak pernah takut'],a:0,e:'Used to = kebiasaan lampau yang sudah berubah.'}]},
+{id:10,lvl:'B1',t:'Toko di Era Online',en:"Ten years ago, people in my village bought everything at the local shop. Today, many of them order online because it is convenient. Some shop owners complain that business is getting harder. However, Pak Hasan decided to change instead of complaining. He started taking orders by message and delivering them by motorbike. He also posts his new products online every morning. His sales have increased, and his old customers have stayed with him. In his opinion, a small shop can survive if it knows its customers better than anyone else.",
+id_:"Sepuluh tahun lalu, orang di kampungku membeli semuanya di toko setempat. Sekarang, banyak dari mereka memesan online karena praktis. Sebagian pemilik toko mengeluh bahwa usaha makin sulit. Namun, Pak Hasan memutuskan untuk berubah, bukan mengeluh. Dia mulai menerima pesanan lewat pesan dan mengantarnya dengan motor. Dia juga mengunggah produk barunya setiap pagi. Penjualannya naik, dan pelanggan lamanya tetap setia. Menurutnya, toko kecil bisa bertahan kalau ia mengenal pelanggannya lebih baik dari siapa pun.",
+q:[{p:'Why do many people order online?',o:['It is convenient.','It is always cheaper.','The local shop closed.','They don’t like Pak Hasan.'],a:0,e:'Because it is convenient.'},
+{p:'What did Pak Hasan start doing?',o:['Taking orders by message and delivering them','Selling his shop','Complaining online','Opening a second shop'],a:0,e:'He started taking orders by message and delivering them by motorbike.'},
+{p:'What is his opinion?',o:['A small shop can survive if it knows its customers well.','Small shops will all close.','Online shops are bad.','Customers are never loyal.'],a:0,e:'A small shop can survive if it knows its customers better than anyone else.'}]},
+{id:11,lvl:'B1',t:'Kebiasaan Kecil',en:"Many people think you need a lot of free time to learn a language. In fact, small habits are more important than long lessons. Tari is a good example. She works ten hours a day, so she can't attend a class. Instead, she learns ten new words every morning while she is having breakfast. On the bus, she listens to a short story in English. Before she sleeps, she says five sentences out loud. She has been doing this for a year. Although each step is small, the result is big: she can now follow a conversation without translating in her head.",
+id_:"Banyak orang mengira butuh banyak waktu luang untuk belajar bahasa. Faktanya, kebiasaan kecil lebih penting daripada pelajaran panjang. Tari contoh yang bagus. Dia bekerja sepuluh jam sehari, jadi dia tidak bisa ikut kelas. Sebagai gantinya, dia belajar sepuluh kata baru setiap pagi sambil sarapan. Di bus, dia mendengarkan cerita pendek berbahasa Inggris. Sebelum tidur, dia mengucapkan lima kalimat dengan suara keras. Dia sudah melakukan ini selama setahun. Meskipun tiap langkahnya kecil, hasilnya besar: sekarang dia bisa mengikuti percakapan tanpa menerjemahkan di kepala.",
+q:[{p:'Why can’t Tari attend a class?',o:['She works ten hours a day.','She has no money.','There is no class nearby.','She doesn’t like teachers.'],a:0,e:'She works ten hours a day.'},
+{p:'What does she do before she sleeps?',o:['She says five sentences out loud.','She reads a long book.','She watches a movie.','She writes a letter.'],a:0,e:'Before she sleeps, she says five sentences out loud.'},
+{p:'How long has she been doing this?',o:['For a year','For ten days','For a month','For five years'],a:0,e:'She has been doing this for a year.'}]},
+{id:12,lvl:'B1',t:'Seandainya Tahu dari Dulu',en:"When I was at school, I thought English was impossible. I was too shy to speak, and I was afraid of making mistakes. I wish someone had told me that mistakes are part of learning. If I had practiced speaking earlier, I would have become confident much sooner. Two years ago, I finally decided to try again. I didn't wait until my grammar was perfect. I just started talking, even when my sentences were wrong. People understood me anyway. Now I tell every beginner the same thing: don't wait until you are ready. You get ready by doing it.",
+id_:"Waktu sekolah, aku pikir bahasa Inggris itu mustahil. Aku terlalu malu untuk bicara, dan aku takut membuat kesalahan. Seandainya dulu ada yang bilang bahwa kesalahan itu bagian dari belajar. Kalau aku berlatih bicara lebih awal, aku pasti sudah percaya diri jauh lebih cepat. Dua tahun lalu, akhirnya aku memutuskan mencoba lagi. Aku tidak menunggu sampai grammarku sempurna. Aku langsung mulai bicara, bahkan saat kalimatku salah. Orang tetap mengerti. Sekarang aku bilang hal yang sama ke setiap pemula: jangan tunggu sampai siap. Kamu jadi siap dengan melakukannya.",
+q:[{p:'Why didn’t the writer speak at school?',o:['Too shy and afraid of mistakes','No teacher','No time','Didn’t like English songs'],a:0,e:'I was too shy to speak, and I was afraid of making mistakes.'},
+{p:'What did the writer do two years ago?',o:['Started talking without waiting for perfect grammar','Moved abroad','Took an expensive class','Stopped learning'],a:0,e:'I didn’t wait until my grammar was perfect. I just started talking.'},
+{p:'<q>If I had practiced earlier, I would have become confident</q> adalah…',o:['pengandaian masa lalu','kalimat pasif','kebiasaan sekarang','rencana masa depan'],a:0,e:'If + had V3, would have V3 (bab 27).'}]}
+);
+
+const STAGES=[
+{n:1,t:'Pondasi',lvl:'A0',d:'Kenal bunyi huruf dan kata ganti. Mulai kumpulkan kata pertama.',ch:[1,2],dl:[],st:[],words:30},
+{n:2,t:'Kalimat Dasar',lvl:'A1',d:'Bisa bilang siapa kamu, apa kegiatanmu, dan apa yang sedang terjadi.',ch:[3,4,5,6],dl:[1,2,3],st:[1,2],words:90},
+{n:3,t:'Bertanya & Bercerita',lvl:'A1–A2',d:'Bertanya arah, harga, waktu. Menceritakan kejadian kemarin.',ch:[7,8,9,29],dl:[4,5],st:[3,4],words:180},
+{n:4,t:'Ngobrol Sehari-hari',lvl:'A2',d:'Membuat rencana, menawarkan bantuan, memesan makanan.',ch:[10,11,12,13],dl:[6,7,11],st:[5],words:280},
+{n:5,t:'Mandiri',lvl:'A2–B1',d:'Bercerita panjang, menjelaskan jumlah, menyambung kalimat dengan lancar.',ch:[14,15,16,17,18],dl:[8,12],st:[6,9],words:400},
+{n:6,t:'Percaya Diri',lvl:'B1',d:'Menangani komplain, wawancara kerja, menyampaikan ucapan orang lain.',ch:[19,20,21,22],dl:[9,10],st:[7,8],words:520},
+{n:7,t:'Lancar',lvl:'B1+',d:'Basa-basi, negosiasi, mengungkapkan pendapat, kemungkinan, dan penyesalan.',ch:[23,24,25,26,27,28],dl:[13,14],st:[10,11,12],words:VOCAB.length}
+];
+
+/* =========================================================
+   APLIKASI
+   ========================================================= */
+const PER_DAY=10;
+const KEY='inggris-dari-nol-v1';
+function blank(){return{next:0,batches:[],cards:{},days:[],active:[],chapters:{},dialogs:{},stories:{},practice:{},rate:0.9}}
+function load(){try{const r=localStorage.getItem(KEY);if(r){const o=JSON.parse(r);if(o&&typeof o==='object')return Object.assign(blank(),o)}}catch(e){}return blank()}
+let S=load();
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}chipStreak()}
+
+const pad=n=>String(n).padStart(2,'0');
+function keyOf(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())}
+function today(){return keyOf(new Date())}
+function addDays(k,n){const [y,m,d]=k.split('-').map(Number);return keyOf(new Date(y,m-1,d+n,12))}
+const BULAN=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+const HARI=['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+function fmt(k){const [y,m,d]=k.split('-').map(Number);const x=new Date(y,m-1,d,12);return HARI[x.getDay()]+', '+d+' '+BULAN[m-1]}
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const $=s=>document.querySelector(s);
+const V=()=>$('#view');
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const norm=s=>String(s).toLowerCase().replace(/[‘’]/g,"'").replace(/[^a-z0-9' ]+/g,' ').replace(/\s+/g,' ').trim();
+
+const SVG=d=>`<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+const I={
+speak:SVG('<path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/>'),
+check:SVG('<path d="m5 12.5 4.5 4.5L19 7.5"/>'),
+lock:SVG('<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'),
+play:SVG('<path d="M7 5v14l12-7z"/>'),
+stop:SVG('<rect x="6" y="6" width="12" height="12" rx="1.5"/>'),
+mic:SVG('<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>'),
+arrow:SVG('<path d="M5 12h14M13 6l6 6-6 6"/>'),
+back:SVG('<path d="M19 12H5M11 6l-6 6 6 6"/>'),
+flame:SVG('<path d="M12 3c1 3 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-6 1-9z"/>'),
+home:SVG('<path d="M4 11 12 4l8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/>'),
+cards:SVG('<rect x="3" y="7" width="13" height="13" rx="2"/><path d="M8 7V5a1 1 0 0 1 1-1h10a2 2 0 0 1 2 2v10a1 1 0 0 1-1 1h-4"/>'),
+book:SVG('<path d="M4 5a2 2 0 0 1 2-2h13v15H6a2 2 0 0 0-2 2z"/><path d="M4 20a2 2 0 0 0 2 2h13v-4"/>'),
+bolt:SVG('<path d="M13 3 5 14h6l-1 7 8-11h-6z"/>'),
+map:SVG('<path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/>'),
+pen:SVG('<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13.5 6.5 4 4"/>'),
+ear:SVG('<path d="M7 9a5 5 0 0 1 10 0c0 3-3 4-3 7a3 3 0 0 1-5 2"/><path d="M10 9a2 2 0 0 1 4 0"/>'),
+puzzle:SVG('<rect x="3" y="9" width="7" height="7" rx="1.5"/><rect x="14" y="5" width="7" height="7" rx="1.5"/><path d="M10 12.5h4M12 16v4h8v-4"/>')
+};
+document.querySelectorAll('[data-ic]').forEach(e=>e.insertAdjacentHTML('afterbegin',I[e.dataset.ic]));
+
+/* ---------- aturan harian ---------- */
+function lastBatch(){return S.batches[S.batches.length-1]}
+/* learn: batch belum lulus tes · done: lulus HARI INI (besok wajib ujian ulang)
+   review: lulus hari sebelumnya, belum lulus ujian ulang → kata baru terkunci · new: boleh ambil kata baru */
+function dayState(){
+  const t=today(),b=lastBatch();
+  if(b&&!b.passed)return{k:'learn',b};
+  if(b&&!b.reviewed)return b.passedDate===t?{k:'done',b}:{k:'review',b};
+  if(S.next>=VOCAB.length)return{k:'finished',b};
+  return{k:'new',b};
+}
+function activeSet(){return new Set([].concat(S.days,S.active))}
+function touch(){const t=today();if(!S.active.includes(t))S.active.push(t);save()}
+function streak(){const set=activeSet();let k=today();if(!set.has(k))k=addDays(k,-1);let n=0;while(set.has(k)){n++;k=addDays(k,-1)}return n}
+function dueCards(){const t=today();return Object.keys(S.cards).filter(id=>S.cards[id].due<=t).map(Number)}
+const learned=()=>Object.keys(S.cards).length;
+const cnt=o=>Object.keys(o).length;
+function stageDone(s){return s.ch.every(id=>S.chapters[id])&&s.dl.every(id=>S.dialogs[id])&&s.st.every(id=>S.stories[id])&&learned()>=s.words}
+function level(){const s=STAGES.find(x=>!stageDone(x));return s?s.lvl:'B1+'}
+function chipStreak(){const el=$('#streak');if(!el)return;const n=streak();el.innerHTML=I.flame+n+' hari';el.classList.toggle('on',activeSet().has(today()))}
+
+/* ---------- suara ---------- */
+const canSpeak=('speechSynthesis' in window)&&typeof SpeechSynthesisUtterance!=='undefined';
+function utter(t,pitch,rate){const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=rate||S.rate||.9;u.pitch=pitch||1;return u}
+function speak(t,rate){if(!canSpeak)return;try{speechSynthesis.cancel();speechSynthesis.speak(utter(t,1,rate))}catch(e){}}
+function clearPlaying(){document.querySelectorAll('.playing').forEach(x=>x.classList.remove('playing'))}
+function speakSeq(items){if(!canSpeak)return;try{speechSynthesis.cancel();
+  items.forEach((it,i)=>{const u=utter(it.t,it.pitch);u.onstart=()=>{clearPlaying();if(it.el)it.el.classList.add('playing')};if(i===items.length-1)u.onend=clearPlaying;speechSynthesis.speak(u)})}catch(e){}}
+function stopSpeak(){if(canSpeak){try{speechSynthesis.cancel()}catch(e){}}clearPlaying()}
+const spk=(t,label,bare)=>canSpeak?`<button class="spk ${bare?'bare':''}" data-say="${esc(t)}" aria-label="Dengar: ${esc(t)}">${I.speak}${label?`<span>${esc(label)}</span>`:''}</button>`:'';
+document.addEventListener('click',e=>{const b=e.target.closest('[data-say]');if(b){e.preventDefault();speak(b.dataset.say)}
+  const r=e.target.closest('[data-rate]');if(r){S.rate=+r.dataset.rate;save();document.querySelectorAll('[data-rate]').forEach(x=>x.classList.toggle('on',x.dataset.rate===r.dataset.rate))}});
+const rateCtl=()=>canSpeak?`<span class="rate" role="group" aria-label="Kecepatan suara"><span class="eyebrow">Suara</span><button class="${S.rate<.8?'on':''}" data-rate="0.65">Pelan</button><button class="${S.rate>=.8?'on':''}" data-rate="0.9">Normal</button></span>`:'<span class="note">Browser ini tidak mendukung suara. Coba buka di Chrome.</span>';
+function sentences(t){return t.match(/[^.!?]+[.!?]+["”]?\s*/g)||[t]}
+
+/* ---------- kartu ---------- */
+function cardHTML(v){return`<div class="flip" tabindex="0" role="button" aria-label="Balik kartu">
+  <div class="flip-in">
+    <div class="face front"><span class="eyebrow tag">${esc(v.cat)}</span><div class="en word">${esc(v.w)}</div><div class="say">/ ${esc(v.b)} /</div>${spk(v.w,'Dengar')}<span class="hint">Ketuk kartu untuk lihat arti</span></div>
+    <div class="face backf"><span class="eyebrow tag">${esc(v.cat)}</span><div class="en word sm"><span class="hl">${esc(v.w)}</span></div><div class="mean">${esc(v.a)}</div><p class="en ex">${esc(v.ex)}</p><p class="exa">${esc(v.exa)}</p><div class="row c">${spk(v.w,'Kata')}${spk(v.ex,'Kalimat')}</div></div>
+  </div></div>`}
+function wireFlip(host,onFlip){const c=host.querySelector('.flip');if(!c)return;const go=e=>{if(e.target.closest('[data-say]'))return;c.classList.toggle('on');if(onFlip)onFlip(c.classList.contains('on'))};
+  c.addEventListener('click',go);c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go(e)}})}
+function wrow(v,extra){return`<div>${spk(v.w,'',true)}<span class="w">${esc(v.w)}<small>/${esc(v.b)}/</small></span><span class="m">${esc(v.a)}${extra||''}</span></div>`}
+function study(host,ids,o){
+  let i=0;
+  (function r(){
+    const v=VOCAB[ids[i]],last=i===ids.length-1;
+    host.innerHTML=`<div class="panel">
+      <div class="qhead"><span class="eyebrow">${esc(o.title||'Hafalkan')}</span><span class="count">${i+1} / ${ids.length}</span></div>
+      <div class="bar-p"><span style="width:${(i+1)/ids.length*100}%"></span></div>
+      ${cardHTML(v)}
+      <div class="cardnav"><button class="btn" id="prev" ${i===0?'disabled':''}>${I.back} Sebelumnya</button>
+      ${last?`<button class="btn pri" id="end">${esc(o.endLabel||'Selesai')}</button>`:`<button class="btn pri" id="next">Berikutnya ${I.arrow}</button>`}</div>
+      ${o.cancel?`<button class="btn ghost sm" id="cancel">Kembali</button>`:''}
+    </div>`;
+    wireFlip(host);
+    host.querySelector('#prev').onclick=()=>{i--;r()};
+    const n=host.querySelector('#next');if(n)n.onclick=()=>{i++;r()};
+    const e=host.querySelector('#end');if(e)e.onclick=o.onEnd;
+    const c=host.querySelector('#cancel');if(c)c.onclick=o.cancel;
+  })();
+}
+
+/* ---------- kuis ---------- */
+function vocabQs(ids){
+  return shuffle(ids).map((id,n)=>{
+    const v=VOCAB[id],toId=n%2===0;
+    const pool=shuffle(VOCAB.filter(x=>x.id!==id&&x.a!==v.a&&x.w!==v.w));
+    const same=pool.filter(x=>x.cat===v.cat),other=pool.filter(x=>x.cat!==v.cat);
+    const picks=[],seen=new Set([toId?v.a:v.w]);
+    for(const x of same.concat(other)){const val=toId?x.a:x.w;if(!seen.has(val)){seen.add(val);picks.push(val)}if(picks.length===3)break}
+    const opts=shuffle([toId?v.a:v.w].concat(picks));
+    return{p:toId?`Apa arti <q>${esc(v.w)}</q>?`:`Bahasa Inggrisnya "${esc(v.a)}"?`,o:opts,a:opts.indexOf(toId?v.a:v.w),e:`<span class="en"><b>${esc(v.w)}</b></span> = ${esc(v.a)}. <span class="en">${esc(v.ex)}</span>`,id,en:!toId};
+  });
+}
+const mixQ=qs=>shuffle(qs).map(q=>{const order=shuffle(q.o.map((_,k)=>k));return{p:q.p,o:order.map(k=>q.o[k]),a:order.indexOf(q.a),e:esc(q.e)}});
+function quiz(host,qs,o){
+  let i=0;const wrong=[];
+  function r(){
+    if(i>=qs.length)return o.onDone(wrong,qs.length);
+    const q=qs[i];
+    host.innerHTML=`<div class="panel ${o.cls||''}">
+      <div class="qhead"><span class="eyebrow">${esc(o.title)}</span><span class="count">${i+1} / ${qs.length}</span></div>
+      <div class="bar-p"><span style="width:${i/qs.length*100}%"></span></div>
+      <p class="q-prompt">${q.p}</p>
+      <div class="opts">${q.o.map((x,k)=>`<button class="opt ${q.en?'en':''}" data-k="${k}">${esc(x)}</button>`).join('')}</div>
+      <div id="fbslot"></div>
+    </div>`;
+    host.querySelectorAll('.opt').forEach(b=>b.onclick=()=>pick(+b.dataset.k));
+  }
+  function pick(k){
+    const q=qs[i],ok=k===q.a;
+    host.querySelectorAll('.opt').forEach((b,n)=>{b.disabled=true;if(n===q.a)b.classList.add('right');else if(n===k)b.classList.add('wrong')});
+    if(!ok)wrong.push(q);
+    host.querySelector('#fbslot').innerHTML=`<div class="fb ${ok?'ok':'no'}"><b>${ok?'Benar.':'Belum tepat.'}</b> ${q.e}</div>
+      <div class="row" style="margin-top:12px"><button class="btn pri" id="nx">${i===qs.length-1?'Lihat hasil':'Lanjut'} ${I.arrow}</button></div>`;
+    const nx=host.querySelector('#nx');nx.focus({preventScroll:true});nx.onclick=()=>{i++;r()};
+  }
+  r();
+}
+function resultHTML(ok,score,total,msg,buttons,extra){return`<div class="panel ${ok?'':'warn'}"><div class="result"><span class="eyebrow">${ok?'Lulus':'Belum lulus'}</span><div class="big ${ok?'good':'bad'}">${score}/${total}</div><p class="lede">${msg}</p></div>${extra||''}<div class="row c">${buttons}</div></div>`}
+const goTop=el=>{if(el)el.scrollIntoView({behavior:'smooth',block:'start'})};
+
+/* =========================================================
+   HARI INI
+   ========================================================= */
+function renderToday(){
+  const st=dayState(),t=today(),due=dueCards().length,now=new Date(),h=now.getHours();
+  const greet=h<11?'Selamat pagi':h<15?'Selamat siang':h<18?'Selamat sore':'Selamat malam';
+  const nextCh=CH.find(c=>!S.chapters[c.id]),nextDl=DIALOGS.find(d=>!S.dialogs[d.id]),nextSt=STORIES.find(s=>!S.stories[s.id]);
+  const did=o=>Object.values(o).includes(t);
+  const reviewDone=S.batches.some(b=>b.reviewDate===t),wordsDone=S.batches.some(b=>b.passedDate===t);
+  const n=st.b?st.b.ids.length:PER_DAY;
+  const H={
+    review:{e:'Wajib dulu',h:`Ujian ulang <mark>${n} kata</mark> kemarin.`,p:'Harus benar semua. Setelah lulus, kata baru terbuka.',c:'Mulai ujian ulang'},
+    learn:{e:'Sedang berjalan',h:`Hafalkan <mark>${n} kata</mark> hari ini.`,p:'Baca, dengar, ucapkan. Lalu tes sampai benar semua.',c:'Lanjut hafalan'},
+    new:{e:S.batches.length?'Ujian ulang beres':'Mulai dari sini',h:`<mark>${Math.min(PER_DAY,VOCAB.length-S.next)} kata baru</mark> siap dibuka.`,p:'Sepuluh kata sehari. Besok diuji ulang sebelum lanjut.',c:'Buka kata hari ini'},
+    done:{e:'Kata hari ini selesai',h:`<mark>${n} kata</mark> lulus. Besok diuji lagi.`,p:'Masih ada tenaga? Lanjut satu bab grammar atau satu percakapan.',c:nextCh?'Lanjut grammar':'Latihan'},
+    finished:{e:'Semua kata selesai',h:`Semua <mark>${VOCAB.length} kata</mark> sudah lulus.`,p:'Jaga dengan ulang kartu dan latihan setiap hari.',c:'Latihan'}
+  }[st.k];
+  const mon=addDays(t,-((now.getDay()+6)%7)),act=activeSet();
+  const week=['S','S','R','K','J','S','M'].map((l,i)=>{const k=addDays(mon,i);return`<div class="${act.has(k)?'on':''} ${k===t?'today':''}"><i></i>${l}</div>`}).join('');
+  const lockNew=st.k==='review';
+  const plan=[
+    {s:st.k==='review'?'now':reviewDone?'ok':'idle',b:'Ujian ulang kata kemarin',d:st.k==='review'?`${n} kata, wajib 100%`:reviewDone?'Lulus':'Tidak ada yang perlu diuji hari ini',go:'task'},
+    {s:wordsDone?'ok':lockNew?'lock':(st.k==='learn'||st.k==='new')?'now':'idle',b:`${PER_DAY} kata baru`,d:lockNew?'Terkunci sampai ujian ulang lulus':wordsDone?'Lulus, besok diuji ulang':'Hafalkan, lalu tes 100%',go:'task'},
+    {s:did(S.chapters)?'ok':'idle',b:'Satu bab grammar',d:nextCh?nextCh.t:'Semua bab selesai',href:nextCh?'#bab-'+nextCh.id:'#grammar'},
+    {s:did(S.dialogs)||did(S.stories)?'ok':'idle',b:'Dengar dan bicara',d:nextDl?'Percakapan: '+nextDl.t:nextSt?'Cerita: '+nextSt.t:'Ulangi percakapan favoritmu',href:nextDl?'#dialog-'+nextDl.id:nextSt?'#cerita-'+nextSt.id:'#percakapan'},
+    {s:learned()&&due===0?'ok':'idle',b:'Ulang kartu',d:learned()?`${due} kartu jatuh tempo`:'Muncul setelah kata pertama lulus',href:'#kartu'}
+  ];
+  const w=VOCAB[(Number(t.replace(/-/g,''))*7)%VOCAB.length];
+  const stats=[['Kata',learned(),VOCAB.length],['Grammar',cnt(S.chapters),CH.length],['Percakapan',cnt(S.dialogs),DIALOGS.length],['Cerita',cnt(S.stories),STORIES.length]];
+  V().innerHTML=`
+  <section class="hero">
+    <div class="hero-top"><span class="eyebrow">${greet} · ${fmt(t)}</span><span class="lvl-chip">Level ${level()}</span></div>
+    <span class="eyebrow">${H.e}</span>
+    <h1>${H.h}</h1>
+    <p>${H.p}</p>
+    <div class="row"><button class="btn mark" id="cta">${H.c} ${I.arrow}</button></div>
+    <div class="week" aria-label="Minggu ini">${week}</div>
+  </section>
+  <section><h2 class="h-sec">Rencana hari ini</h2>
+    <ol class="plan">${plan.map((p,i)=>{const inner=`<span class="num">${p.s==='ok'?I.check:p.s==='lock'?I.lock:i+1}</span><span class="tx"><b>${esc(p.b)}</b><em>${esc(p.d)}</em></span><span class="go">${I.arrow}</span>`;
+      return`<li class="s-${p.s}">${p.href?`<a href="${p.href}">${inner}</a>`:`<button data-go="task">${inner}</button>`}</li>`}).join('')}</ol>
+  </section>
+  <div id="task"></div>
+  <section class="wod"><span class="eyebrow">Kata pilihan hari ini · ${esc(w.cat)}</span>
+    <div class="en word"><span class="hl">${esc(w.w)}</span></div>
+    <div class="row"><span class="count">/ ${esc(w.b)} /</span>${spk(w.w,'Dengar')}</div>
+    <p class="mean">${esc(w.a)}</p>
+    <p class="en ex">${esc(w.ex)} ${spk(w.ex,'',true)}</p><p class="exa">${esc(w.exa)}</p>
+  </section>
+  <section><h2 class="h-sec">Progres kamu</h2>
+    <div class="stats">${stats.map(s=>`<div class="stat"><span>${s[0]}</span><b>${s[1]}<small> / ${s[2]}</small></b><div class="meter"><span style="width:${s[1]/s[2]*100}%"></span></div></div>`).join('')}</div>
+  </section>`;
+  renderTask(st);
+  V().querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>goTop($('#task')));
+  $('#cta').onclick=()=>{
+    if(st.k==='done'||st.k==='finished'){location.hash=st.k==='done'&&nextCh?'bab-'+nextCh.id:'latihan';return}
+    const p=$('#task .btn.pri');if(p)p.click();goTop($('#task'));
+  };
+}
+function renderTask(st){
+  const host=$('#task'),t=today();
+  if(st.k==='review'){
+    const b=st.b;
+    host.innerHTML=`<div class="panel warn">
+      <span class="eyebrow">Wajib sebelum kata baru</span>
+      <h2>Ujian ulang: ${b.ids.length} kata dari ${fmt(b.passedDate)}</h2>
+      <p class="lede">Satu saja salah, pelajari lagi lalu ulangi. Kata baru terbuka setelah lulus.</p>
+      <div class="chips">${b.ids.map(id=>`<span class="chip">${esc(VOCAB[id].w)}</span>`).join('')}</div>
+      <div class="row"><button class="btn pri" id="go">Mulai ujian ulang</button><button class="btn" id="peek">Lihat kartunya dulu</button></div>
+    </div>`;
+    host.querySelector('#go').onclick=()=>runTest(b,'review');
+    host.querySelector('#peek').onclick=()=>{study(host,b.ids,{title:'Pengingat sebelum ujian',endLabel:'Mulai ujian ulang',onEnd:()=>runTest(b,'review'),cancel:renderToday});goTop(host)};
+    return;
+  }
+  if(st.k==='learn'){
+    const b=st.b;
+    host.innerHTML=`<div class="panel em">
+      <span class="eyebrow">Kata baru · ${esc(VOCAB[b.ids[0]].cat)}</span>
+      <h2>${b.ids.length} kata untuk dihafal</h2>
+      <div class="wlist">${b.ids.map(id=>wrow(VOCAB[id])).join('')}</div>
+      <div class="row"><button class="btn pri" id="st">Hafalkan pakai kartu</button><button class="btn" id="go">Saya siap tes</button></div>
+    </div>`;
+    host.querySelector('#st').onclick=()=>{study(host,b.ids,{title:'Hafalkan',endLabel:'Mulai tes',onEnd:()=>runTest(b,'learn'),cancel:renderToday});goTop(host)};
+    host.querySelector('#go').onclick=()=>runTest(b,'learn');
+    return;
+  }
+  if(st.k==='done'){
+    const b=st.b;
+    host.innerHTML=`<div class="panel">
+      <span class="eyebrow">Diuji ulang besok</span>
+      <div class="chips">${b.ids.map(id=>`<span class="chip">${esc(VOCAB[id].w)}</span>`).join('')}</div>
+      <div class="row"><button class="btn sm" id="again">Latihan lagi kata hari ini</button></div>
+    </div>`;
+    host.querySelector('#again').onclick=()=>{study(host,shuffle(b.ids),{title:'Latihan bebas',endLabel:'Selesai',onEnd:renderToday,cancel:renderToday});goTop(host)};
+    return;
+  }
+  if(st.k==='finished'){host.innerHTML='';return}
+  const from=S.next+1,to=Math.min(S.next+PER_DAY,VOCAB.length);
+  const cats=[...new Set(VOCAB.slice(S.next,to).map(v=>v.cat))];
+  host.innerHTML=`<div class="panel em">
+    <span class="eyebrow">Kata ke-${from} sampai ${to} dari ${VOCAB.length}</span>
+    <h2>Topik: ${esc(cats.join(', '))}</h2>
+    <div class="row"><button class="btn pri" id="take">Buka kata hari ini ${I.arrow}</button></div>
+  </div>`;
+  host.querySelector('#take').onclick=()=>{
+    const ids=[];for(let i=S.next;i<to;i++)ids.push(i);
+    S.batches.push({date:t,ids,passed:false,passedDate:null,reviewed:false,reviewDate:null});
+    S.next=to;save();renderToday();goTop($('#task'));
+  };
+}
+function runTest(b,mode){
+  const host=$('#task');
+  quiz(host,vocabQs(b.ids),{title:mode==='review'?'Ujian ulang':'Tes kata hari ini',cls:mode==='review'?'warn':'em',onDone:(wrong,total)=>{
+    const t=today();
+    if(!wrong.length){
+      if(mode==='learn'){b.passed=true;b.passedDate=t;if(!S.days.includes(t))S.days.push(t);b.ids.forEach(id=>{S.cards[id]={box:1,due:addDays(t,1)}})}
+      else{b.reviewed=true;b.reviewDate=t;b.ids.forEach(id=>{const c=S.cards[id]||{box:1};c.box=Math.max(c.box,2);c.due=addDays(t,3);S.cards[id]=c})}
+      touch();
+      host.innerHTML=resultHTML(true,total,total,mode==='review'?'Kata kemarin masih nempel. Kata baru sekarang terbuka.':'Semua benar. Besok kata-kata ini diuji ulang.',`<button class="btn pri" id="ok">${mode==='review'?'Lanjut ke kata baru':'Selesai'}</button>`);
+      host.querySelector('#ok').onclick=()=>{renderToday();goTop(mode==='review'?$('#task'):V())};
+    }else{
+      host.innerHTML=resultHTML(false,total-wrong.length,total,`Harus ${total}/${total} untuk lanjut. Ini yang masih salah:`,
+        `<button class="btn pri" id="re">Pelajari lagi, lalu ulangi</button><button class="btn" id="retry">Langsung ulangi tes</button>`,
+        `<div class="wlist">${wrong.map(q=>wrow(VOCAB[q.id])).join('')}</div>`);
+      const wid=wrong.map(q=>q.id);
+      host.querySelector('#re').onclick=()=>{study(host,wid.concat(b.ids.filter(id=>!wid.includes(id))),{title:'Pelajari lagi',endLabel:'Ulangi tes',onEnd:()=>runTest(b,mode),cancel:renderToday});goTop(host)};
+      host.querySelector('#retry').onclick=()=>runTest(b,mode);
+    }
+    goTop(host);
+  }});
+  goTop(host);
+}
+
+/* =========================================================
+   KATA (kartu berjarak + kamus)
+   ========================================================= */
+const GAP=[0,1,2,4,7,14];
+function renderKartu(){
+  const due=dueCards(),n=learned();
+  V().innerHTML=`
+  <div class="pagehead"><span class="eyebrow">Pengulangan berjarak</span><h1 class="h-page">Kartu kata</h1>
+  <p class="lede">Kata yang sudah lulus muncul lagi tepat sebelum kamu lupa. Jawab <b>Lupa</b>, kartu kembali besok. Jawab <b>Hafal</b>, jaraknya memanjang: 1, 2, 4, 7, lalu 14 hari.</p></div>
+  <div id="rev"></div>
+  <section><h2 class="h-sec">Kamus kamu <span class="count">${n} kata</span></h2>
+  ${n?`<input class="search" id="q" type="search" placeholder="Cari kata Inggris atau artinya" aria-label="Cari kata"><div class="wlist" id="dict" style="margin-top:10px"></div>`:`<p class="lede">Belum ada kata. Buka ${PER_DAY} kata pertama di halaman <a href="#hari-ini">Hari Ini</a>.</p>`}
+  </section>`;
+  const rev=$('#rev');
+  if(n&&!due.length){
+    rev.innerHTML=`<div class="panel"><span class="eyebrow">Beres</span><h2>Tidak ada kartu jatuh tempo.</h2><p class="lede">Kartu berikutnya muncul ${fmt(Object.values(S.cards).map(c=>c.due).sort()[0])}.</p><div class="row"><button class="btn" id="free">Latihan semua kata</button></div></div>`;
+    $('#free').onclick=()=>study(rev,shuffle(Object.keys(S.cards).map(Number)),{title:'Latihan bebas',endLabel:'Selesai',onEnd:renderKartu,cancel:renderKartu});
+  }else if(n){
+    rev.innerHTML=`<div class="panel em"><span class="eyebrow">Jatuh tempo hari ini</span><h2>${due.length} kartu perlu diulang</h2><div class="row"><button class="btn pri" id="startrev">Mulai ulang kartu ${I.arrow}</button></div></div>`;
+    $('#startrev').onclick=()=>review(rev,shuffle(due));
+  }
+  if(n){const q=$('#q'),draw=()=>{const s=q.value.trim().toLowerCase();
+    $('#dict').innerHTML=Object.keys(S.cards).map(Number).map(id=>VOCAB[id]).filter(v=>!s||v.w.toLowerCase().includes(s)||v.a.toLowerCase().includes(s)).map(v=>{const bx=S.cards[v.id].box;
+      return wrow(v,`<br><span class="boxes" title="Tingkat hafal ${bx} dari 5">${[1,2,3,4,5].map(k=>`<i class="${k<=bx?'on':''}"></i>`).join('')}</span>`)}).join('')||'<p class="lede" style="padding:10px 0">Tidak ketemu.</p>'};
+    q.oninput=draw;draw()}
+}
+function review(host,ids){
+  let i=0;const t=today();
+  (function r(){
+    if(i>=ids.length){touch();host.innerHTML=`<div class="panel"><div class="result"><span class="eyebrow">Selesai</span><div class="big good">${ids.length}</div><p class="lede">kartu sudah diulang hari ini.</p><button class="btn pri" id="ok">Kembali</button></div></div>`;$('#ok').onclick=renderKartu;return}
+    const v=VOCAB[ids[i]];
+    host.innerHTML=`<div class="panel">
+      <div class="qhead"><span class="eyebrow">Ulang kartu</span><span class="count">${i+1} / ${ids.length}</span></div>
+      <div class="bar-p"><span style="width:${i/ids.length*100}%"></span></div>
+      ${cardHTML(v)}
+      <p class="lede" id="ask" style="text-align:center">Ingat artinya? Balik kartu untuk cek.</p>
+      <div class="grade" id="grade" hidden><button class="btn g-bad" data-g="0">Lupa</button><button class="btn g-mid" data-g="1">Ragu</button><button class="btn g-ok" data-g="2">Hafal</button></div>
+    </div>`;
+    wireFlip(host,()=>{$('#grade').hidden=false;$('#ask').hidden=true});
+    host.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{
+      const g=+b.dataset.g,c=S.cards[v.id];
+      if(g===0)c.box=1;else if(g===2)c.box=Math.min(5,c.box+1);
+      c.due=addDays(t,g===0?1:GAP[c.box]);save();i++;r();
+    });
+  })();
+}
+
+/* =========================================================
+   MATERI: grammar, percakapan, cerita
+   ========================================================= */
+function materiHead(sub){
+  const tabs=[['grammar','Grammar',cnt(S.chapters),CH.length],['percakapan','Percakapan',cnt(S.dialogs),DIALOGS.length],['cerita','Baca & Dengar',cnt(S.stories),STORIES.length]];
+  return`<div class="pagehead"><span class="eyebrow">Materi</span><h1 class="h-page">${sub==='grammar'?'Grammar':sub==='percakapan'?'Percakapan':'Baca & dengar'}</h1></div>
+  <div><div class="seg">${tabs.map(t=>`<a href="#${t[0]}" class="${t[0]===sub?'on':''}">${t[1]} <span class="count">${t[2]}/${t[3]}</span></a>`).join('')}</div></div>`}
+const itemCard=(href,n,done,title,sub,lvl)=>`<a class="item ${done?'done':''}" href="${href}"><span class="n">${done?I.check:pad(n)}</span><span class="t"><b>${esc(title)}</b><span class="d">${esc(sub)}</span><span class="lvl">${lvl}</span></span></a>`;
+function contentQuiz(host,item,store,label,nextHref,nextLabel){
+  const start=()=>{quiz(host,mixQ(item.q),{title:label,onDone:(wrong,total)=>{
+    const ok=!wrong.length;
+    if(ok){if(!S[store][item.id])S[store][item.id]=today();touch()}
+    host.innerHTML=resultHTML(ok,total-wrong.length,total,ok?'Tercentang di Peta Belajar.':'Baca atau dengarkan lagi bagian yang terlewat, lalu coba lagi.',
+      (ok?(nextHref?`<a class="btn pri" href="${nextHref}">${esc(nextLabel)} ${I.arrow}</a>`:''):'<button class="btn pri" id="cq-again">Ulangi kuis</button>')+'<a class="btn" href="#hari-ini">Ke Hari Ini</a>');
+    const a=host.querySelector('#cq-again');if(a)a.onclick=start;goTop(host);
+  }});goTop(host)};
+  host.innerHTML=`<div class="panel"><span class="eyebrow">Cek pemahaman</span><h2>${item.q.length} soal, harus benar semua</h2><div class="row"><button class="btn pri" id="cq-start">Mulai kuis</button></div></div>`;
+  host.querySelector('#cq-start').onclick=start;
+}
+function renderGrammar(id){
+  if(!id){V().innerHTML=materiHead('grammar')+`<p class="lede">Satu bab sehari sudah cukup. Bab dihitung selesai kalau kuis di akhir benar semua.</p>
+    <div class="grid2">${CH.map(c=>itemCard('#bab-'+c.id,c.id,S.chapters[c.id],c.t,c.s,c.lvl)).join('')}</div>`;return}
+  const c=CH.find(x=>x.id===id);if(!c){location.hash='grammar';return}
+  const nx=CH.find(x=>x.id===id+1);
+  V().innerHTML=`<div class="pagehead"><a href="#grammar" class="back">${I.back} Semua bab</a>
+    <span class="eyebrow">Bab ${c.id} · ${c.lvl}${S.chapters[c.id]?' · selesai':''}</span><h1 class="h-page">${esc(c.t)}</h1><p class="lede">${esc(c.s)}</p></div>
+    <article class="prose">${c.body}<h3>Contoh kalimat</h3>
+      <div class="exlist">${c.ex.map(e=>`<div>${spk(e[0],'',true)}<div><p class="en">${esc(e[0])}</p><p class="id">${esc(e[1])}</p></div></div>`).join('')}</div>
+    </article><div id="cq"></div>`;
+  contentQuiz($('#cq'),c,'chapters','Kuis: '+c.t,nx?'#bab-'+nx.id:'',nx?'Bab berikutnya':'');
+}
+function renderDialogs(id){
+  if(!id){V().innerHTML=materiHead('percakapan')+`<p class="lede">Dengarkan, tirukan tiap kalimat, lalu nyalakan Mode latihan: giliranmu disembunyikan dan kamu yang mengucapkannya dulu.</p>
+    <div class="grid2">${DIALOGS.map(d=>itemCard('#dialog-'+d.id,d.id,S.dialogs[d.id],d.t,d.s,d.lvl)).join('')}</div>`;return}
+  const d=DIALOGS.find(x=>x.id===id);if(!d){location.hash='percakapan';return}
+  const nx=DIALOGS.find(x=>x.id===id+1),names={a:d.a,b:d.b};let showTr=false,practice=false;const shown={};
+  V().innerHTML=`<div class="pagehead"><a href="#percakapan" class="back">${I.back} Semua percakapan</a>
+    <span class="eyebrow">Percakapan ${d.id} · ${d.lvl}${S.dialogs[d.id]?' · selesai':''}</span><h1 class="h-page">${esc(d.t)}</h1><p class="lede">${esc(d.s)}</p></div>
+    <div class="toolbar">${canSpeak?`<button class="btn pri sm" id="playall">${I.play} Putar semua</button><button class="btn sm" id="stop">${I.stop} Stop</button>`:''}${rateCtl()}
+      <label class="tog"><input type="checkbox" id="tr"> Terjemahan</label><label class="tog"><input type="checkbox" id="pr"> Mode latihan (kamu jadi ${esc(d.b)})</label></div>
+    <div class="dialog" id="lines"></div><div id="cq"></div>`;
+  const pitch=s=>s==='a'?1.12:.86,lineEl=i=>$('#lines').querySelector(`[data-i="${i}"]`);
+  const draw=()=>{
+    $('#lines').innerHTML=d.lines.map((l,i)=>{const hide=practice&&l[0]==='b'&&!shown[i];
+      return`<div class="line ${l[0]}" data-i="${i}"><span class="who">${esc(names[l[0]])}</span><div class="bubble">${hide?
+        `<button class="reveal" data-rev="${i}">Giliranmu. Ucapkan dulu, lalu ketuk untuk cek.<span>${showTr?esc(l[2]):'Nyalakan terjemahan kalau butuh petunjuk.'}</span></button>`:
+        `<div><p class="en">${esc(l[1])}</p>${showTr?`<p class="tr">${esc(l[2])}</p>`:''}</div>${canSpeak?`<button class="spk bare" data-play="${i}" aria-label="Putar kalimat">${I.speak}</button>`:''}`}</div></div>`}).join('');
+    $('#lines').querySelectorAll('[data-play]').forEach(b=>b.onclick=()=>{const i=+b.dataset.play;speakSeq([{t:d.lines[i][1],pitch:pitch(d.lines[i][0]),el:lineEl(i)}])});
+    $('#lines').querySelectorAll('[data-rev]').forEach(b=>b.onclick=()=>{const i=+b.dataset.rev;shown[i]=true;draw();speakSeq([{t:d.lines[i][1],pitch:pitch('b'),el:lineEl(i)}])});
+  };
+  draw();
+  $('#tr').onchange=e=>{showTr=e.target.checked;draw()};
+  $('#pr').onchange=e=>{practice=e.target.checked;Object.keys(shown).forEach(k=>delete shown[k]);draw()};
+  if($('#playall')){$('#playall').onclick=()=>speakSeq(d.lines.map((l,i)=>({t:l[1],pitch:pitch(l[0]),el:lineEl(i)})));$('#stop').onclick=stopSpeak}
+  contentQuiz($('#cq'),d,'dialogs','Kuis: '+d.t,nx?'#dialog-'+nx.id:'',nx?'Percakapan berikutnya':'');
+}
+function renderStories(id){
+  if(!id){V().innerHTML=materiHead('cerita')+`<p class="lede">Latihan mendengar: putar dulu tanpa melihat teks, tebak isinya, baru buka teks dan terjemahan.</p>
+    <div class="grid2">${STORIES.map(s=>itemCard('#cerita-'+s.id,s.id,S.stories[s.id],s.t,sentences(s.en)[0].trim(),s.lvl)).join('')}</div>`;return}
+  const s=STORIES.find(x=>x.id===id);if(!s){location.hash='cerita';return}
+  const nx=STORIES.find(x=>x.id===id+1),sent=sentences(s.en);let showText=!canSpeak,showTr=false;
+  V().innerHTML=`<div class="pagehead"><a href="#cerita" class="back">${I.back} Semua cerita</a>
+    <span class="eyebrow">Cerita ${s.id} · ${s.lvl}${S.stories[s.id]?' · selesai':''}</span><h1 class="h-page">${esc(s.t)}</h1></div>
+    <div class="toolbar">${canSpeak?`<button class="btn pri sm" id="playall">${I.play} Putar cerita</button><button class="btn sm" id="stop">${I.stop} Stop</button>`:''}${rateCtl()}
+      <label class="tog"><input type="checkbox" id="tx" ${showText?'checked':''}> Tampilkan teks</label><label class="tog"><input type="checkbox" id="tr"> Terjemahan</label></div>
+    <div class="story" id="story"></div><div id="cq"></div>`;
+  const draw=()=>{
+    $('#story').innerHTML=(showText?`<p class="en">${sent.map((t,i)=>`<span class="sent" data-s="${i}" tabindex="0">${esc(t)}</span>`).join('')}</p>`:
+      `<div class="hidden-text"><b>Teks disembunyikan.</b> Putar ceritanya dan coba pahami hanya dengan mendengar. Masih sulit? Pilih suara Pelan, atau tampilkan teks.</div>`)+(showTr?`<p class="tr">${esc(s.id_)}</p>`:'');
+    $('#story').querySelectorAll('[data-s]').forEach(x=>{const go=()=>speakSeq([{t:sent[+x.dataset.s],el:x}]);x.onclick=go;x.onkeydown=e=>{if(e.key==='Enter')go()}});
+  };
+  draw();
+  $('#tx').onchange=e=>{showText=e.target.checked;draw()};
+  $('#tr').onchange=e=>{showTr=e.target.checked;draw()};
+  if($('#playall')){$('#playall').onclick=()=>speakSeq(sent.map((t,i)=>({t,el:$('#story').querySelector(`[data-s="${i}"]`)})));$('#stop').onclick=stopSpeak}
+  contentQuiz($('#cq'),s,'stories','Kuis: '+s.t,nx?'#cerita-'+nx.id:'',nx?'Cerita berikutnya':'');
+}
+
+/* =========================================================
+   LATIHAN: tulis, dikte, susun, ucap
+   ========================================================= */
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+let micBlocked=false;
+function lcsRatio(target,heard){const a=norm(target).split(' '),b=norm(heard).split(' ');const dp=a.map(()=>b.map(()=>0));
+  for(let i=0;i<a.length;i++)for(let j=0;j<b.length;j++)dp[i][j]=a[i]===b[j]?((i&&j)?dp[i-1][j-1]:0)+1:Math.max(i?dp[i-1][j]:0,j?dp[i][j-1]:0);
+  return dp[a.length-1][b.length-1]/a.length}
+function practicePool(n,sentenceMode){
+  let ids=Object.keys(S.cards).map(Number);if(ids.length<8)ids=VOCAB.slice(0,30).map(v=>v.id);
+  let vs=shuffle(ids).map(id=>VOCAB[id]);
+  if(sentenceMode){const ok=v=>{const k=v.ex.split(' ').length;return !/["“”]/.test(v.ex)&&k>=3&&k<=9};const f=vs.filter(ok);vs=f.length>=4?f:shuffle(VOCAB.slice(0,60)).filter(ok)}
+  return vs.slice(0,n);
+}
+const fbBox=(ok,html)=>`<div class="fb ${ok?'ok':'no'}"><b>${ok?'Benar.':'Belum tepat.'}</b> ${html}</div>`;
+const nextBtn=`<div class="row"><button class="btn pri" id="pnext">Lanjut ${I.arrow}</button></div>`;
+const MODES={
+  tulis:{t:'Tulis kata',d:'Lihat arti, ketik kata Inggrisnya. Melatih ejaan dan ingatan aktif.',ic:'pen',
+    render(el,v,done){
+      el.innerHTML=`<span class="eyebrow">Bahasa Inggrisnya?</span><p class="big-id">${esc(v.a)}</p>
+        <input class="field" id="pin" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Ketik di sini" aria-label="Jawaban">
+        <div class="row" id="pact"><button class="btn pri" id="pcheck">Cek</button></div><div id="pfb"></div>`;
+      const inp=el.querySelector('#pin');
+      const check=()=>{if(inp.disabled)return;const ok=norm(inp.value)===norm(v.w);inp.disabled=true;el.querySelector('#pact').hidden=true;speak(v.w);
+        el.querySelector('#pfb').innerHTML=fbBox(ok,`<span class="en"><b>${esc(v.w)}</b></span> /${esc(v.b)}/ · <span class="en">${esc(v.ex)}</span>`)+nextBtn;
+        el.querySelector('#pnext').onclick=()=>done(ok);el.querySelector('#pnext').focus({preventScroll:true})};
+      el.querySelector('#pcheck').onclick=check;inp.onkeydown=e=>{if(e.key==='Enter')check()};
+    }},
+  dikte:{t:'Dikte',d:'Dengar satu kalimat, lalu ketik persis yang kamu dengar. Latihan telinga terbaik.',ic:'ear',
+    render(el,v,done){
+      el.innerHTML=`<span class="eyebrow">Ketik kalimat yang kamu dengar</span>
+        <div class="row"><button class="btn" id="pplay">${I.play} Putar</button><button class="btn" id="pslow">Putar pelan</button></div>
+        <input class="field" id="pin" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Ketik kalimatnya" aria-label="Jawaban">
+        <div class="row" id="pact"><button class="btn pri" id="pcheck">Cek</button></div><div id="pfb"></div>`;
+      const inp=el.querySelector('#pin');speak(v.ex);
+      el.querySelector('#pplay').onclick=()=>speak(v.ex);el.querySelector('#pslow').onclick=()=>speak(v.ex,.6);
+      const check=()=>{if(inp.disabled)return;const ok=norm(inp.value)===norm(v.ex);inp.disabled=true;el.querySelector('#pact').hidden=true;
+        el.querySelector('#pfb').innerHTML=fbBox(ok,`<span class="en">${esc(v.ex)}</span><br>${esc(v.exa)}`)+nextBtn;
+        el.querySelector('#pnext').onclick=()=>done(ok);el.querySelector('#pnext').focus({preventScroll:true})};
+      el.querySelector('#pcheck').onclick=check;inp.onkeydown=e=>{if(e.key==='Enter')check()};
+    }},
+  susun:{t:'Susun kalimat',d:'Urutkan kata menjadi kalimat yang benar. Melatih pola grammar tanpa menghafal rumus.',ic:'puzzle',
+    render(el,v,done){
+      const words=v.ex.split(' ');let bank=shuffle(words.map((w,i)=>({w,i})));if(bank.map(x=>x.i).join()===words.map((_,i)=>i).join())bank.reverse();
+      let ans=[],locked=false;
+      el.innerHTML=`<span class="eyebrow">Susun dalam bahasa Inggris</span><p class="big-id">${esc(v.exa)}</p>
+        <div class="slots" id="slots" aria-label="Jawabanmu"></div><div class="bank" id="bank"></div>
+        <div class="row" id="pact"><button class="btn pri" id="pcheck" disabled>Cek</button></div><div id="pfb"></div>`;
+      const draw=()=>{
+        el.querySelector('#slots').innerHTML=ans.map((x,k)=>`<button class="tok" data-a="${k}">${esc(x.w)}</button>`).join('');
+        el.querySelector('#bank').innerHTML=bank.map((x,k)=>`<button class="tok" data-b="${k}">${esc(x.w)}</button>`).join('');
+        el.querySelector('#pcheck').disabled=bank.length>0;
+        if(locked)return;
+        el.querySelectorAll('[data-b]').forEach(b=>b.onclick=()=>{ans.push(bank.splice(+b.dataset.b,1)[0]);draw()});
+        el.querySelectorAll('[data-a]').forEach(b=>b.onclick=()=>{bank.push(ans.splice(+b.dataset.a,1)[0]);draw()});
+      };
+      draw();
+      el.querySelector('#pcheck').onclick=()=>{locked=true;draw();const ok=ans.map(x=>x.w).join(' ')===v.ex;el.querySelector('#pact').hidden=true;speak(v.ex);
+        el.querySelector('#pfb').innerHTML=fbBox(ok,`<span class="en">${esc(v.ex)}</span>`)+nextBtn;el.querySelector('#pnext').onclick=()=>done(ok)};
+    }},
+  ucap:{t:'Tes ucapan',d:'Baca kalimat dengan suara keras. Mikrofon mengecek apakah ucapanmu bisa dikenali.',ic:'mic',
+    render(el,v,done){
+      const self=()=>{el.querySelector('#pzone').innerHTML=`<p class="note info">Mikrofon tidak tersedia di sini, jadi kamu yang menilai sendiri. Dengar contohnya, ucapkan keras-keras tiga kali, lalu nilai dengan jujur.</p>
+        <div class="row"><button class="btn g-ok" id="sok">Sudah mirip</button><button class="btn g-bad" id="sno">Masih susah</button></div>`;
+        el.querySelector('#sok').onclick=()=>done(true);el.querySelector('#sno').onclick=()=>done(false)};
+      el.innerHTML=`<span class="eyebrow">Ucapkan dengan suara keras</span><p class="big-en">${esc(v.ex)}</p><p class="lede">${esc(v.exa)}</p>
+        <div class="row">${spk(v.ex,'Dengar contoh')}</div><div id="pzone" style="display:flex;flex-direction:column;gap:14px"></div>`;
+      if(!SR||micBlocked){self();return}
+      const zone=el.querySelector('#pzone');
+      zone.innerHTML=`<button class="micbtn" id="mic" aria-label="Mulai bicara">${I.mic}</button><p class="lede" id="mstat" style="text-align:center">Ketuk mikrofon, lalu bicara.</p><div id="pfb"></div>`;
+      const mic=zone.querySelector('#mic'),stat=zone.querySelector('#mstat');let rec=null;
+      mic.onclick=()=>{
+        if(rec){try{rec.stop()}catch(e){}return}
+        stopSpeak();
+        try{rec=new SR();rec.lang='en-US';rec.interimResults=false;rec.maxAlternatives=3}catch(e){micBlocked=true;self();return}
+        mic.classList.add('live');stat.textContent='Mendengarkan...';
+        rec.onresult=e=>{const alts=[...e.results[0]].map(a=>a.transcript);let best=alts[0],score=0;alts.forEach(a=>{const r=lcsRatio(v.ex,a);if(r>=score){score=r;best=a}});
+          const ok=score>=.8;
+          zone.querySelector('#pfb').innerHTML=fbBox(ok,`Terdengar: <span class="en">"${esc(best)}"</span> · cocok ${Math.round(score*100)}%${ok?'':'. Dengar contohnya lagi, lalu coba ulang.'}`)+
+            `<div class="row">${ok?'':'<button class="btn" id="pskip">Lewati</button>'}<button class="btn pri" id="pnext">${ok?'Lanjut':'Lanjut (dihitung salah)'} ${I.arrow}</button></div>`;
+          zone.querySelector('#pnext').onclick=()=>done(ok);const sk=zone.querySelector('#pskip');if(sk)sk.onclick=()=>{zone.querySelector('#pfb').innerHTML='';stat.textContent='Ketuk mikrofon, lalu coba lagi.'}};
+        rec.onerror=e=>{if(e.error==='not-allowed'||e.error==='service-not-allowed'){micBlocked=true;self()}else stat.textContent=e.error==='no-speech'?'Tidak terdengar suara. Coba lagi.':'Gagal mendengar. Coba lagi.'};
+        rec.onend=()=>{rec=null;mic.classList.remove('live');if(stat.textContent==='Mendengarkan...')stat.textContent='Ketuk mikrofon, lalu bicara.'};
+        try{rec.start()}catch(e){micBlocked=true;self()}
+      };
+    }}
+};
+function renderLatihan(){
+  const n=learned();
+  V().innerHTML=`<div class="pagehead"><span class="eyebrow">Latihan aktif</span><h1 class="h-page">Pakai, jangan cuma hafal</h1>
+    <p class="lede">Empat latihan ini memaksa kamu <b>mengeluarkan</b> bahasa Inggris: menulis, mendengar, menyusun, dan berbicara. Bahannya diambil dari ${n>=8?'kata yang sudah kamu pelajari':'kata-kata dasar (akan mengikuti kata yang kamu pelajari)'}.</p></div>
+    <div id="prac"><div class="modes">${Object.keys(MODES).map(k=>{const m=MODES[k];return`<button class="mode" data-mode="${k}"><span class="ico">${I[m.ic]}</span><b>${m.t}</b><span>${m.d}</span><small>${S.practice[k]||0} sesi selesai</small></button>`}).join('')}</div></div>
+    <p class="note info">Tips: lakukan satu sesi (8 soal) setiap hari setelah kata baru. Tes ucapan memakai mikrofon browser, paling stabil di Chrome.</p>`;
+  V().querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>runPractice(b.dataset.mode));
+}
+function runPractice(mode){
+  const host=$('#prac'),M=MODES[mode],items=practicePool(8,mode!=='tulis');let i=0,score=0;
+  (function step(){
+    if(i>=items.length){S.practice[mode]=(S.practice[mode]||0)+1;touch();const ok=score>=items.length*.75;
+      host.innerHTML=`<div class="panel"><div class="result"><span class="eyebrow">${M.t} selesai</span><div class="big ${ok?'good':'bad'}">${score}/${items.length}</div><p class="lede">${ok?'Bagus. Besok ulangi dengan mode lain.':'Tidak apa-apa. Ulangi sekali lagi, biasanya langsung naik.'}</p></div><div class="row c"><button class="btn pri" id="again">Sesi baru</button><button class="btn" id="modes">Pilih latihan lain</button></div></div>`;
+      $('#again').onclick=()=>runPractice(mode);$('#modes').onclick=renderLatihan;goTop(host);return}
+    host.innerHTML=`<div class="panel"><div class="qhead"><span class="eyebrow">${M.t}</span><span class="count">${i+1} / ${items.length}</span></div>
+      <div class="bar-p"><span style="width:${i/items.length*100}%"></span></div><div id="pbody" style="display:flex;flex-direction:column;gap:14px"></div>
+      <button class="btn ghost sm" id="pquit" style="align-self:flex-start">Keluar</button></div>`;
+    $('#pquit').onclick=()=>{stopSpeak();renderLatihan()};
+    M.render($('#pbody'),items[i],ok=>{if(ok)score++;i++;step()});
+    const inp=host.querySelector('#pin');if(inp)inp.focus({preventScroll:true});
+  })();
+  goTop(host);
+}
+
+/* =========================================================
+   PETA + pengaturan
+   ========================================================= */
+function renderPeta(){
+  const n=learned();let curSet=false;
+  const items=STAGES.map(s=>{
+    const done=stageDone(s),wOk=n>=s.words;let cls=done?'done':'';if(!done&&!curSet){cls='cur';curSet=true}
+    const row=(ok,html)=>`<div class="${ok?'ok':''}"><span class="box">${ok?'✓':''}</span>${html}</div>`;
+    return`<li class="stage ${cls}"><span class="dot">${done?'✓':s.n}</span>
+      <h3>${esc(s.t)} <span class="lvl">${s.lvl}</span></h3><p>${esc(s.d)}</p>
+      <div class="todo">
+        ${s.ch.map(id=>row(S.chapters[id],`<a href="#bab-${id}">Grammar: ${esc(CH.find(x=>x.id===id).t)}</a>`)).join('')}
+        ${s.dl.map(id=>row(S.dialogs[id],`<a href="#dialog-${id}">Percakapan: ${esc(DIALOGS.find(x=>x.id===id).t)}</a>`)).join('')}
+        ${s.st.map(id=>row(S.stories[id],`<a href="#cerita-${id}">Cerita: ${esc(STORIES.find(x=>x.id===id).t)}</a>`)).join('')}
+        ${row(wOk,`<span>Lulus ${s.words} kata</span><span class="meter"><span style="width:${Math.min(100,n/s.words*100)}%"></span></span><span class="count">${Math.min(n,s.words)}/${s.words}</span>`)}
+      </div></li>`}).join('');
+  V().innerHTML=`<div class="pagehead"><span class="eyebrow">Dari nol sampai lancar · level kamu ${level()}</span><h1 class="h-page">Peta belajar</h1>
+    <p class="lede">Tujuh tahap, dari yang paling dasar. A0 sampai B1+ adalah level standar internasional (CEFR). Tahap tercentang otomatis saat semua isinya lulus.</p></div>
+    <ol class="path">${items}</ol>
+    <details class="box"><summary>Pindah perangkat atau hapus progres</summary>
+      <div class="settings">
+        <p class="lede">Progres tersimpan di browser perangkat ini. Untuk pindah ke HP atau laptop lain, salin kodenya lalu muat di sana.</p>
+        <div class="row"><button class="btn sm" id="exp">Salin kode progres</button><span id="exp-msg" class="count"></span></div>
+        <textarea class="code" id="exp-box" readonly hidden aria-label="Kode progres"></textarea>
+        <textarea class="code" id="imp-box" placeholder="Tempel kode progres dari perangkat lain" aria-label="Tempel kode progres"></textarea>
+        <div class="row"><button class="btn sm" id="imp">Muat progres</button><span id="imp-msg" class="count"></span></div>
+        <div class="row"><button class="btn sm" id="reset">Hapus semua progres</button><span id="reset-confirm" hidden>Yakin? Semua kembali dari awal. <button class="btn sm" id="reset-yes">Ya, hapus</button> <button class="btn sm ghost" id="reset-no">Batal</button></span></div>
+      </div></details>`;
+  $('#exp').onclick=()=>{const code=btoa(unescape(encodeURIComponent(JSON.stringify(S)))),box=$('#exp-box');box.value=code;box.hidden=false;
+    const fb=()=>{box.select();$('#exp-msg').textContent='Salin kode di kotak ini.'};
+    try{navigator.clipboard.writeText(code).then(()=>{$('#exp-msg').textContent='Tersalin.'},fb)}catch(e){fb()}};
+  $('#imp').onclick=()=>{try{const o=JSON.parse(decodeURIComponent(escape(atob($('#imp-box').value.trim()))));if(!o||!Array.isArray(o.batches))throw 0;S=Object.assign(blank(),o);save();renderPeta();$('#imp-msg').textContent='Progres dimuat.'}
+    catch(e){$('#imp-msg').textContent='Kode tidak bisa dibaca. Pastikan tersalin utuh.'}};
+  $('#reset').onclick=()=>{$('#reset-confirm').hidden=false};
+  $('#reset-no').onclick=()=>{$('#reset-confirm').hidden=true};
+  $('#reset-yes').onclick=()=>{S=blank();save();location.hash='hari-ini';route()};
+}
+
+/* =========================================================
+   ROUTER
+   ========================================================= */
+function route(){
+  const h=(location.hash||'').slice(1)||'hari-ini';let v=h,num=null;const m=h.match(/^(bab|dialog|cerita)-(\d+)$/);
+  if(m){num=+m[2];v=m[1]==='bab'?'grammar':m[1]==='dialog'?'percakapan':'cerita'}
+  if(!['hari-ini','kartu','grammar','percakapan','cerita','latihan','peta'].includes(v))v='hari-ini';
+  const tab=['grammar','percakapan','cerita'].includes(v)?'materi':v;
+  stopSpeak();
+  document.querySelectorAll('nav.tabs a').forEach(a=>{if(a.dataset.v===tab)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+  ({'hari-ini':renderToday,kartu:renderKartu,grammar:()=>renderGrammar(num),percakapan:()=>renderDialogs(num),cerita:()=>renderStories(num),latihan:renderLatihan,peta:renderPeta})[v]();
+  const el=V();el.classList.remove('enter');void el.offsetWidth;el.classList.add('enter');
+  chipStreak();window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',route);
+route();
+</script>
+</body>
+</html>
